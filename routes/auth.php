@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\FacebookAuthController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -33,6 +35,18 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+});
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('facebook', [FacebookAuthController::class, 'redirectToFacebook'])
+                ->name('auth.facebook');
+
+    Route::get('facebook/callback', [FacebookAuthController::class, 'handleFacebookCallback']);
+
+    Route::get('google', [GoogleAuthController::class, 'redirectToGoogle'])
+                ->name('auth.google');
+                
+    Route::get('google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 });
 
 Route::middleware('auth')->group(function () {

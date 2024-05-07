@@ -18,7 +18,7 @@
                                 <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
-                                            <h3 class="mb-30" style="margin-top: 30px; font-style:bold; font-weight:bold;">Đăng nhập</h3>
+                                            <h3 class="mb-30" style="margin-top: 30px; font-style:bold; font-weight:bold; margin-bottom: 30px;">Đăng nhập</h3>
                                         </div>
                                         @if(session('error')) 
                                             <div class="alert alert-danger mt-3 mb-3">
@@ -74,18 +74,15 @@
                                                 </x-button>
                                             </div>
                                             <div class="row flex items-center justify-end mt-4">
-    <div class="logo-container" style="display: flex; justify-content: space-between;">
-        <a class="btn btn-primary logo-btn" href="{{ url('auth/facebook') }}" id="btn-fblogin" style="margin-left: 20px;background: white; color: #ffffff; padding: 5px; border-radius: 7px; border: none; margin-top: 0 !important;">
-            <img src="{{ asset('img/logo/facebook_icon.png') }}" alt="Facebook Icon" class="logo-img" style="width: 50px; height: 50px;" />
-        </a>
-        <a class="btn btn-primary logo-btn" href="{{ url('auth/google') }}" id="btn-googlelogin" style="margin-left: 50px; background: white; color: #ffffff; padding: 5px; border-radius: 7px; border: none; margin-top: 0 !important;">
-            <img src="{{ asset('img/logo/google_login.png') }}" alt="Google Icon" class="logo-img" style="width: 50px; height: 50px;" /> 
-        </a>
-    </div>
-</div>
-
-
-
+                                                <div class="logo-container" style="display: flex; justify-content: space-between;">
+                                                    <a class="btn btn-primary logo-btn" href="{{ url('auth/facebook') }}" id="btn-fblogin" style="margin-left: 20px;background: white; color: #ffffff; padding: 5px; border-radius: 7px; border: none; margin-top: 0 !important;">
+                                                        <img src="{{ asset('img/logo/facebook_icon.png') }}" alt="Facebook Icon" class="logo-img" style="width: 50px; height: 50px;" />
+                                                    </a>
+                                                    <a class="btn btn-primary logo-btn" href="{{ url('auth/google') }}" id="btn-googlelogin" style="margin-left: 50px; background: white; color: #ffffff; padding: 5px; border-radius: 7px; border: none; margin-top: 0 !important;">
+                                                        <img src="{{ asset('img/logo/google_login.png') }}" alt="Google Icon" class="logo-img" style="width: 50px; height: 50px;" /> 
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
