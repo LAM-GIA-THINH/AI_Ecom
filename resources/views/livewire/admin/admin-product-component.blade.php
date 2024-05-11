@@ -1,8 +1,8 @@
-<div>
+
     <main class="main">
     <div class="container" style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
     <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Quản lý sản phẩm</h2>
-</div>
+    </div>
             <section class="mt-50 mb-50">
                 <div class="container">
                     <div class="row">
@@ -46,36 +46,34 @@
                                             <tbody>
                                                 @foreach($products as $product)
                                                     <tr class="text-center">
-                                                    <td>{{$product->id}}</td>
-                                                    <td><img src="{{ asset('assets/imgs/products/products')}}/{{$product->image}}" alt="{{$product->name}}" width="60" /></td>
-                                                    <td>{{$product->name}}</td>
-                                                    <td> @if( $product->quantity >0)
-                                                            Còn hàng
-                                                        @else
-                                                            Hết hàng
-                                                    </td>
-                                                    <td>{{ number_format($product->regular_price, 0, ',', ',') }} VND</td>
-                                                    <td>{{$product->category->name}}</td>
-                                                    <td>{{$product->created_at->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s')}}</td>
-                                                    <td>
-                                                        <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="text-info">Chỉnh sửa</a>
-                                                        <a href="{{route('admin.product.delete', ['product_id'=>$product->id])}}" class="text-danger" style="margin-left:20px;">Xoá</a>   
-                                                    </td>
+                                                        <td>{{$product->id}}</td>
+                                                        <td><img src="{{ asset('img/products/products')}}/{{$product->image}}" alt="{{$product->name}}" width="60" /></td>
+                                                        <td>{{$product->name}}</td>
+                                                        <td> @if( $product->quantity >0)
+                                                                Còn hàng
+                                                            @else
+                                                                Hết hàng
+                                                                @endif
+                                                        </td>
+                                                        <td>{{ number_format($product->regular_price, 0, ',', ',') }} VND</td>
+                                                        <td>{{$product->category->name}}</td>
+                                                        <td>{{$product->created_at->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s')}}</td>
+                                                        <td>
+                                                            <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="text-info">Chỉnh sửa</a>
+                                                            <a href="#" onclick="confirmDeleteP('{{ $product->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
+                                                        </td>
                                                     </tr>
                                                 @endforeach
-                                                
                                             </tbody>
                                         </table>
                                         {{$products->links('pagination::bootstrap-4')}}
                                 </div>
-                                @livewireScripts
+                              
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
     </main>
-</div>
-
 
 

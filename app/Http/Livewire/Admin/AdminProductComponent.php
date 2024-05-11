@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class AdminProductComponent extends Component
 {
     use WithPagination;
+    public $product_id;
     public $search = '';
     public $filterStockStatus = '';
+    protected $listeners = ['deleteProduct'];
 
     public function render()
     {
@@ -39,5 +41,12 @@ class AdminProductComponent extends Component
     public function clearSearch()
     {
         $this->search = '';
+    }
+    public function deleteProduct($productId)
+    {
+        $product = Product::find($productId);
+        if ($product) {
+            $product->delete();
+        }
     }
 }

@@ -39,7 +39,7 @@
                                                         <td>{{$brand->slug}}</td>
                                                         <td>
                                                         <a href="{{route('admin.brand.edit', ['brand_id'=>$brand->id])}}" class="text-info">Chỉnh sửa</a>
-                                                        <a href="#" onclick="confirmDelete('{{ $brand->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
+                                                        <a href="#" onclick="confirmDeleteB('{{ $brand->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -48,21 +48,13 @@
                                         </table>
                                         {{$brands->links('pagination::bootstrap-4')}}
                                 </div>
-                                @livewireScripts
+
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
     </main>
-</div>
-<script>
-    function confirmDelete(brandId) {
-        if (confirm('Bạn có chắc muốn xoá thương hiệu này?')) {
-            Livewire.emit('deleteBrand', brandId);
-        }
-    }
-</script>
 
 
 

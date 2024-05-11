@@ -46,7 +46,7 @@ Route::group(['middleware' => ['userLogin']], function () {
         Route::get('brand/edit/{brand_id}', \App\Http\Livewire\Admin\AdminBrandEditComponent::class)->name('admin.brand.edit');
         Route::get('products', \App\Http\Livewire\Admin\AdminProductComponent::class)->name('admin.products');
         Route::get('product/add', \App\Http\Livewire\Admin\AdminProductAddComponent::class)->name('admin.product.add');
-
+        Route::get('product/edit/{product_id}', \App\Http\Livewire\Admin\AdminProductEditComponent::class)->name('admin.product.edit');
 
     });
 

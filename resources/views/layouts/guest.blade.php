@@ -80,7 +80,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
+						<a class="sidebar-link" href="{{route('admin.products')}}">
               <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Sản phẩm</span>
             </a>
 					</li>
@@ -332,12 +332,12 @@
 <script>
     document.addEventListener('livewire:load', function () {
         initializeSelect2();
-        initializeCKEditor();
+
     });
 
     Livewire.hook('message.processed', (message, component) => {
         initializeSelect2();
-        initializeCKEditor();
+
     });
 
     function initializeSelect2() {
@@ -360,7 +360,24 @@
                 window.livewire.emit('inputContentChanged', editor.getData());
             });
         });
-	
+	    function confirmDeleteC(category_id) {
+        if (confirm('Bạn có chắc muốn xoá ?')) {
+            Livewire.emit('deleteCategory', category_id);
+        }
+		
+    }
+	function confirmDeleteB(brand_id) {
+        if (confirm('Bạn có chắc muốn xoá ?')) {
+            Livewire.emit('deleteBrand', brand_id);
+        }
+		
+    }
+	function confirmDeleteP(product_id) {
+        if (confirm('Bạn có chắc muốn xoá ?')) {
+            Livewire.emit('deleteProduct', product_id);
+        }
+		
+    }
 </script>
 </body>
 

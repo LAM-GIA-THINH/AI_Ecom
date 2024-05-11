@@ -1,3 +1,4 @@
+
 <main class="main">
 
     <div>
@@ -40,14 +41,14 @@
                                 </thead>
                                 <tbody>
                                     @foreach($categories as $category)
-                                        <tr>
+                                        <tr wire:key="category-{{ $category->id }}">
                                             <td>{{$category->id}}</td>
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->slug}}</td>
                                             <td>
                                                 <a href="{{route('admin.category.edit', ['category_id' => $category->id])}}"
                                                     class="text-info">Chỉnh sửa</a>
-                                                <a href="#" class="text-danger" onclick="confirmDelete('{{ $category->id }}')"
+                                                <a href="#" class="text-danger" onclick="confirmDeleteC('{{ $category->id }}')"
                                                     style="margin-left:20px;">Xoá</a>
                                             </td>
                                         </tr>
@@ -63,13 +64,3 @@
     </section>
 </main>
 
-@livewireScripts
-
-
-<script>
-    function confirmDelete(categoryId) {
-        if (confirm('Bạn có chắc muốn xoá danh mục này?')) {
-            Livewire.emit('deleteCategory', categoryId);
-        }
-    }
-</script>
