@@ -6,7 +6,7 @@ use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\ShopComponent;
-
+use App\Http\Livewire\DetailsComponent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,8 +23,11 @@ use App\Http\Livewire\ShopComponent;
 // });
 Route::get('/', HomeComponent::class)->name('home.index');
 Route::get('/shop', ShopComponent::class)->name('shop');
-Route::get('/cart', CartComponent::class)->name('cart');
+Route::get('/cart', CartComponent::class)->name('shop.cart');
 Route::get('/checkout', CheckoutComponent::class)->name('checkout');
+Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
+Route::get('/products{category_id}', DetailsComponent::class)->name('product.detailss');
+Route::get('/product-category/{slug}', App\Http\Livewire\CategoryComponent::class)->name('product.category');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -57,7 +60,9 @@ Route::group(['middleware' => ['userLogin']], function () {
         Route::group(['middleware' => 'authUser'], function () {
             Route::get('dashboard', \App\Http\Livewire\User\UserDashboardComponent::class)->name('user.dashboard');
         });
-
+        
+        Route::get('wishlist', App\Http\Livewire\WishlistComponent::class)->name('user.wishlist');
+        Route::get('checkout', \App\Http\Livewire\User\UserCheckoutComponent::class)->name('user.checkout');
     });
 });
 require __DIR__.'/auth.php';

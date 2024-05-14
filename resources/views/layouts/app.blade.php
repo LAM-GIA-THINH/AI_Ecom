@@ -85,14 +85,12 @@
             
             </div>
 
-        <div class="row align-items-center "style="margin-top:0px; margin-left:15px;">
-            <a href="" class="btn border">
-                <i class="fas fa-heart text-primary"></i>
-                <span class="badge">0</span>
+        <div class="row header-action-2 align-items-center "style="margin-top:0px; margin-left:15px;">
+            <a href="" >
+            @livewire('wishlist-icon-component')
             </a>
-            <a href="" class="btn border">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
+            <a href="" >
+            @livewire('cart-icon-component')
             </a>
             
 
@@ -221,15 +219,12 @@
 
     <!-- JavaScript Libraries -->
        <!-- Contact Javascript File -->
-       
+       @livewireScripts
     <script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('mail/jqBootstrapValidation.min.js') }}"></script>
-    <script src="{{ asset('mail/contact.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    @livewireScripts
+
+   @stack('scripts')
 </body>
 
 </html>

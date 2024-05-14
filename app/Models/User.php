@@ -19,7 +19,27 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
-    
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+     public function wishes()
+     {
+         return $this->hasMany(Wish::class);
+     }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(product::class);
+    }
     protected $fillable = [
         'name',
         'email',

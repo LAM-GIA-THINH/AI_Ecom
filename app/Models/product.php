@@ -36,24 +36,24 @@ class product extends Model
         return $this->hasMany(Wish::class, 'product_id', 'id');
     }
 
-    // public function getQuantitySoldAttribute()
-    // {
-    //     $orders = Order::where(['order_status' => '3'])->get();
-    //     if ($orders) {
-    //         $quantitySold = $orders->sum(function($order) {
-    //             return $order->orderItems->sum(function($orderItem) {
-    //                 if($orderItem->product->user_id === $this->user_id && $orderItem->product_id === $this->id) {
-    //                     return $orderItem->quantity;
-    //                 }
-    //                 return 0;
-    //             });
-    //         });
+    public function getQuantitySoldAttribute()
+    {
+        $orders = Order::where(['order_status' => '3'])->get();
+        if ($orders) {
+            $quantitySold = $orders->sum(function($order) {
+                return $order->orderItems->sum(function($orderItem) {
+                    if($orderItem->product->user_id === $this->user_id && $orderItem->product_id === $this->id) {
+                        return $orderItem->quantity;
+                    }
+                    return 0;
+                });
+            });
 
-    //         if ($quantitySold) {
-    //             return  $quantitySold;
-    //         }
-    //     }
+            if ($quantitySold) {
+                return  $quantitySold;
+            }
+        }
 
-    //     return 0;
-    // }
+        return 0;
+    }
 }
