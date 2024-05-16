@@ -23,12 +23,13 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    @livewireStyles
+    
     <style>
         body, h2, h3, h4, h5, h6, p, a, span {
             font-family: Arial, sans-serif !important;
         }
     </style>
+    @livewireStyles
 </head>
 
 <body>
@@ -92,32 +93,41 @@
             <a href="" >
             @livewire('cart-icon-component')
             </a>
-            
+        
 
         @auth
-        <div class="btn-group dropdown d-flex align-items-center" style="position: relative; top: 2px;">
-            <a href="#" class="nav-link" data-toggle="dropdown" style="display: flex;">                        
-                <div class="rounded-circle img-thumbnail mr-2" 
-                    style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png')}}')">
-                </div>
-                <div style="">
-                    {{ Auth::user()->name }}
-                    @if(Auth::user()->utype === "SELLER")
-                        <span class="badge bg-warning text-dark">Seller</span>
-                    @elseif(Auth::user()->utype === "ADM")
+        
+        <div class="btn-group dropdown d-flex align-items-center">
+            <div class="rounded border px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
+                <a class="nav-link" data-toggle="collapse" href="#navbar-vertical1" style="display: flex;">
+                    <div class="rounded-circle img-thumbnail mr-2" style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png')}}')"></div>
+                    <div style="margin-top:3px;">
+                        {{ Auth::user()->name }}
+                        @if(Auth::user()->utype === "SHIP")
+                        <span class="badge bg-warning text-dark">Shipper</span>
+                        @elseif(Auth::user()->utype === "ADM")
                         <span class="badge bg-danger text-light">Admin</span>
-                    @endif
-                </div>
-                <i class="fi-rs-angle-down ml-1"></i>
-            </a>
-            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                <a href="" class="dropdown-item">                    
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button class="dropdown-item text-danger" onClick="event.preventDefault(); this.closest('form').submit();">Đăng xuất</button>
-                    </form>
+                        @endif
+                    </div>
+                    <i class="fi-rs-angle-down ml-1"></i>
                 </a>
-            </div> 
+                <nav class="collapse navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 position-absolute" style="top: 100%; left: 0; z-index: 100;" id="navbar-vertical1">
+                    <div class="navbar-nav w-100 overflow-hidden" style="max-height: 410px;;background-color:white">
+                        <a class="dropdown-item" href="{{route('profile.edit')}}">Trang cá nhân</a>
+                        @if(Auth::user()->utype === "USR")
+                        <a class="dropdown-item" href="{{route('user.orders')}}">Đơn hàng</a>
+                        @elseif(Auth::user()->utype === "ADM")
+                        <a class="dropdown-item" href="{{route('admin.dashboard')}}">Trang quản lý</a>
+                        @endif
+                        <div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="dropdown-item text-danger text-align-center" onClick="event.preventDefault(); this.closest('form').submit();">Đăng xuất</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </div>
         @else
         <div class="col" >
@@ -160,7 +170,7 @@
                         <h5 class="font-weight-bold text-dark mb-4">Đường dẫn</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Mua sắm</a>
+                            <a class="text-dark mb-2" href="shop/all"><i class="fa fa-angle-right mr-2"></i>Mua sắm</a>
                             <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Chi tiết</a>
                             <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Giỏ hàng</a>
                             <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Thanh toán</a>

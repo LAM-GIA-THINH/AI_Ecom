@@ -17,11 +17,14 @@
                 <div class="col-lg-5 pb-5">
                     <div id="product-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner border">
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" src="{{asset('img/products/products')}}/{{$product->image}}"
-                                    alt="Image">
-                            </div>
-
+                            @php
+                                $images = explode(',', $product->image);
+                            @endphp
+                            @foreach($images as $index => $image)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                    <img  src="{{ asset('img/products/products/' . $image) }}" alt="Image" style=" height: 500px;">
+                                </div>
+                            @endforeach
                         </div>
                         <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                             <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -72,36 +75,42 @@
                         <small class="pt-1">({{$totalRatings}} Đánh giá)</small>
                     </div>
                     @if($product->brand_id)
-                        <p style="font-size:17px">Thương hiệu: <span class="text-brand" style="color:#0721e6; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span></p>
+                        <p style="font-size:17px">Thương hiệu: <span class="text-brand"
+                                style="color:#0721e6; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span>
+                        </p>
                     @endif
                     <p style="font-size:17px">Danh mục: <span class="text-brand">{{ $product->category->name }}</span></p>
                     <p style="font-size:17px">Đã bán: <span class="text-brand">{{ $product->quantity_sold }}</span></p>
-                    <h3 class="font-weight-semi-bold mb-4" style="color:red;">{{number_format($product->regular_price)}} VND</h3>
+                    <h3 class="font-weight-semi-bold mb-4" style="color:red;">{{number_format($product->regular_price)}} VND
+                    </h3>
                     <p class="mb-4"></p>
-                    
+
                     <div class="d-flex align-items-center mb-4 pt-2">
-                    
+
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             @if($quantity != 1)
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus" wire:click.prevent="decrementQuantity()">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-minus" wire:click.prevent="decrementQuantity()">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
                             @endif
                             <input type="text" class="form-control bg-secondary text-center" value="{{$quantity}}">
                             @if($quantity != $product->quantity)
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus" wire:click.prevent="incrementQuantity()">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-plus" wire:click.prevent="incrementQuantity()">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             @endif
                         </div>
                         @if($product->quantity > 0)
-                        <button class="btn btn-primary px-3" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}}, {{$quantity}})"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
+                            <button class="btn btn-primary px-3"
+                                wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}}, {{$quantity}})"><i
+                                    class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ</button>
                         @else 
-                        <button class="btn btn-primary px-3" style="color:white; font-weight: bold;" onclick="addToCart('{{$product->name}}')">HẾT HÀNG</button>
+                            <button class="btn btn-primary px-3" style="color:white; font-weight: bold;"
+                                onclick="addToCart('{{$product->name}}')">HẾT HÀNG</button>
                         @endif
                     </div>
                     <div class="d-flex pt-2">
@@ -358,23 +367,23 @@
         CKEDITOR.replace("description");
     </script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Example inputNumber. You can replace this with your actual input.
-  let inputNumber = number_format($averageRating, 2);
+        document.addEventListener("DOMContentLoaded", function () {
+            // Example inputNumber. You can replace this with your actual input.
+            let inputNumber = number_format($averageRating, 2);
 
-  // Select all star elements
-  const stars = document.querySelectorAll('.star');
+            // Select all star elements
+            const stars = document.querySelectorAll('.star');
 
-  // Loop through each star element
-  stars.forEach((star, index) => {
-    // If index is less than inputNumber, fill the star
-    if (index < inputNumber) {
-      star.classList.remove('far'); // Remove far class to make it filled
-      star.classList.add('fas');
-    } else {
-      star.classList.add('far'); // Add far class to make it hollow
-    }
-  });
-});
-</script>
+            // Loop through each star element
+            stars.forEach((star, index) => {
+                // If index is less than inputNumber, fill the star
+                if (index < inputNumber) {
+                    star.classList.remove('far'); // Remove far class to make it filled
+                    star.classList.add('fas');
+                } else {
+                    star.classList.add('far'); // Add far class to make it hollow
+                }
+            });
+        });
+    </script>
 @endpush

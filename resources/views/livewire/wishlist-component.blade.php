@@ -26,7 +26,11 @@
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 350px; ">
                                 <a href="{{route('product.details',['slug'=>$item->product->slug])}}">
-                                <img class="img-fluid w-100" src="{{ asset('img/products/products')}}/{{$item->product->image}}" alt="" >
+                                @php
+                                    $images = explode(',', $item->product->image);
+                                    $firstImage = $images[0];
+                                @endphp 
+                                <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}" alt="" >
                                 </a>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">

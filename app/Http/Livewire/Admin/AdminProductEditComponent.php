@@ -20,7 +20,7 @@ class AdminProductEditComponent extends Component
     public $slug;
     public $description;
     public $regular_price;
-
+    public $weight;
     public $quantity;
 
     public $image;
@@ -28,6 +28,7 @@ class AdminProductEditComponent extends Component
     public $category_id;
     public $brand_id;
     public $newimage;
+    public $newimages = []; 
     protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged'];
 
     public function mount($product_id){
@@ -40,6 +41,7 @@ class AdminProductEditComponent extends Component
         $this->regular_price = $product->regular_price;
         $this->image = $product->image;
         $this->quantity = $product->quantity;
+        $this->weight = $product->weight;
         $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
 
@@ -101,6 +103,7 @@ class AdminProductEditComponent extends Component
             'description' => 'required',
             'regular_price' => 'required',
             'quantity' => 'required',
+            'weight' => 'required',
             'category_id' => 'required',
             'brand_id' => 'required',
             ]);
@@ -110,12 +113,19 @@ class AdminProductEditComponent extends Component
             $product->description = $this->description;
             $product->regular_price = $this->regular_price;
             $product->quantity = $this->quantity;
+            $product->weight = $this->weight;
             $product->brand_id =$this->brand_id;
-            if($this->newimage){
-                unlink('img/products/products/'.$product->image);
-                $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();
-                $this->newimage->storeAs('products', $imageName);
-                $product->image = $imageName;
+            if ($this->newimages) {
+                $imagePaths = [];
+                foreach ($this->newimages as $newimage) {
+                    $imageName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $newimage->extension();
+                    $newimage->storeAs('products', $imageName);
+                    $imagePaths[] = $imageName;
+                }
+    
+                // If you want to replace existing images, uncomment the line below
+                unlink('img/products/products/' . $product->image);
+                $product->image = implode(',', $imagePaths); // Store multiple images as a comma-separated string
             }
             $product->category_id = $this->category_id;
             $product->save();

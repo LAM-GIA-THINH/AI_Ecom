@@ -42,7 +42,12 @@
                     <tbody class="align-middle">
                     @foreach($carts as $item)
                         <tr>
-                            <td class="align-middle"><img src="{{ asset('img/products/products')}}/{{$item->product->image}}" alt="" style="width: 50px;">
+                            <td class="align-middle">
+                            @php
+                                    $images = explode(',', $item->product->image);
+                                    $firstImage = $images[0];
+                                @endphp                           
+                            <img src="{{ asset('img/products/products/' . $firstImage) }}" alt="" style="width: 50px;">
                             <a href="{{route('product.details',['slug'=>$item->product->slug])}}">{{$item->product->name}}</a>
                             </td>
                             <td class="align-middle">{{number_format(intval(str_replace(',', '',$item->product->regular_price)))}} VND</td>

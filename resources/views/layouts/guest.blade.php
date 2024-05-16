@@ -19,6 +19,8 @@
     <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+	<link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
 
@@ -42,7 +44,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="{{route('admin.accounts')}}">
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">Nhân viên</span>
             </a>
 					</li>
@@ -86,7 +88,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-cards.html">
+						<a class="sidebar-link" href="{{route('admin.orders')}}">
               <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Đơn hàng</span>
             </a>
 					</li>
@@ -111,7 +113,10 @@
 
 					<li class="sidebar-item">
 						<a  class="sidebar-link text-danger" onClick="event.preventDefault(); this.closest('form').submit();">
-              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Đăng xuất</span>
+                                         <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="dropdown-item text-danger text-align-center" onClick="event.preventDefault(); this.closest('form').submit();">Đăng xuất</button>
+                            </form>
             </a>
 					</li>
 				</ul>
@@ -328,7 +333,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 
-
+<script src="{{ asset('js/app2.js') }}"></script>
 <script>
     document.addEventListener('livewire:load', function () {
         initializeSelect2();
@@ -351,6 +356,11 @@
         $('#brandSelect').on('change', function (e) {
             var selectedValue = $(this).val();
             Livewire.emit('selectedBrandChanged', selectedValue);
+        });
+		$('#userSelect').select2();
+        $('#userSelect').on('change', function (e) {
+            var selectedValue = $(this).val();
+            Livewire.emit('selectedUserChanged', selectedValue);
         });
     }
 
@@ -375,6 +385,12 @@
 	function confirmDeleteP(product_id) {
         if (confirm('Bạn có chắc muốn xoá ?')) {
             Livewire.emit('deleteProduct', product_id);
+        }
+		
+    }
+	function confirmDeleteU(account_id) {
+        if (confirm('Bạn có chắc muốn khoá ?')) {
+            Livewire.emit('deleteAccount', account_id);
         }
 		
     }

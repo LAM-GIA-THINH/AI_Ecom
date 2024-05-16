@@ -16,8 +16,8 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->utype === 'ADM')
-        {
+        if (Auth::check() && (Auth::user()->utype === 'ADM' || Auth::user()->utype === 'SHIP' || Auth::user()->utype === 'GAR')) {
+
             return $next($request);
         }
         else

@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             'district' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'payment_option' => ['required', 'in:vnp,cod'], // chỉ chấp nhận 'vnp' hoặc 'cod'
-
+            'seller_id' => ['required'],
         ], [
             'required' => 'Trường :attribute là bắt buộc.',
             'string' => 'Trường :attribute phải là một chuỗi.',
@@ -103,7 +103,7 @@ class CheckoutController extends Controller
             'district' => 'Quận/Huyện',
             'city' => 'Thành phố',
             'payment_option' => 'Phương thức thanh toán',
-
+            'seller_id' => 'Đơn hàng',
         ]);
 
         $data = $request->all();

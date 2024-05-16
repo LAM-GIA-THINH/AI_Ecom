@@ -66,7 +66,7 @@
                                         @enderror
                                     </div>   
 
-                                    <div class="mb-3 mt-3  col-md-3">
+                                    <div class="mb-3 mt-3  col-md-2">
                                         <label for="regular_price" class="form-label">Giá bán</label>
                                         <div class="input-group">
                                             <span class="input-group-btn">
@@ -82,7 +82,7 @@
                                         @enderror
                                     </div>  
                                     
-                                    <div class="mb-3 mt-3  col-md-3">
+                                    <div class="mb-3 mt-3  col-md-2">
                                         <label for="quantity" class="form-label">Số lượng sản phẩm</label>
                                         <div class="input-group">
                                             <span class="input-group-btn">
@@ -97,7 +97,21 @@
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>
-
+                                    <div class="mb-3 mt-3  col-md-2">
+                                        <label for="weight" class="form-label">Trọng lượng (gram)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-secondary" type="button" wire:click="decreaseWeight">-</button>
+                                            </span>
+                                            <input type="text" name="weight" class="form-control"  style="background-color:white" placeholder="Nhập khối lượng (g)" wire:model="weight"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-secondary" type="button" wire:click="increaseWeight">+</button>
+                                            </span>
+                                        </div>
+                                        @error('weight')
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>  
                                                                                                                                           
 
                                     </div>
@@ -110,15 +124,21 @@
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="newimage" class="form-label">Image</label>
-                                        <input type="file" name="image" class="form-control"  style="background-color:white" wire:model.lazy="newimage"/>
-                                        @if($newimage) 
-                                            <img src="{{$newimage->temporaryUrl()}}" width="120" />
+                                        <input type="file" name="newimages[]" class="form-control" style="background-color:white" wire:model="newimages" multiple />
+                                        @if($newimages)
+                                            @foreach($newimages as $newimage)
+                                                <img src="{{ $newimage->temporaryUrl() }}" width="120" />
+                                            @endforeach
                                         @else
-                                            <img src="{{asset('img/products/products')}}/{{$image}}" width="120" />
+                                            @php
+                                                $existingImages = explode(',', $image);
+                                            @endphp
+                                            @foreach($existingImages as $existingImage)
+                                                <img src="{{ asset('img/products/products/' . $existingImage) }}" width="120" />
+                                            @endforeach
                                         @endif
-
-                                        @error('newimage')
-                                        <p class="text-danger">{{$message}}</p>
+                                        @error('newimages')
+                                            <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                                                                                                                                                      

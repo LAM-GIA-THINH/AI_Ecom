@@ -41,6 +41,7 @@ class UserCheckoutComponent extends Component
         $value = 0,
         $transport = "road",
         $deliverOption = "none"
+
     ) {
         try {
             // Dữ liệu yêu cầu gửi đến API
@@ -57,12 +58,11 @@ class UserCheckoutComponent extends Component
 
         // Chuyển đổi dữ liệu thành định dạng JSON
         $requestDataJson = json_encode($requestData);
-
+        
         $headers = [
             'Content-Type: application/json',
             'token: ' . env('TOKEN_API_GHTK'),
         ];
-
         // Tạo yêu cầu HTTP
         $ch = curl_init('https://services.giaohangtietkiem.vn/services/shipment/fee');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -72,7 +72,7 @@ class UserCheckoutComponent extends Component
 
         // Thực hiện yêu cầu và nhận kết quả
         $response = curl_exec($ch);
-
+        
         // Kiểm tra lỗi
         if (curl_errno($ch)) {
             echo 'Curl error: ' . curl_error($ch);
@@ -105,6 +105,7 @@ class UserCheckoutComponent extends Component
                     return $cart->quantity * $cart->product->weight;
                 });
                 $this->shipFees[$sellerId] = $this->calculatorShipFee($sellerCity, $sellerDistrict, $this->city, $this->district, $weight);
+                
                 if($this->shipFees[$sellerId] === -1) {
                     $errorMessage = 'Địa chỉ này không được hỗ trợ giao hàng';
                 } elseif ($this->shipFees[$sellerId] === -2) {

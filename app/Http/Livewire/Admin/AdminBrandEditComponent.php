@@ -48,6 +48,6 @@ class AdminBrandEditComponent extends Component
     }
     public function render()
     {
-        return view('livewire.admin.admin-brand-edit-component')->layout('layouts.guest') ;;
+        return view('livewire.admin.admin-brand-edit-component')->layout('layouts.guest') ;
     }
 }

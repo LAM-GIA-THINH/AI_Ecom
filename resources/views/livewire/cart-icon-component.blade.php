@@ -20,7 +20,12 @@
             @foreach(Auth::user()->carts as $item)
             <li class="mw-80vh" style="max-height: 50vh;">
                 <div class="shopping-cart-img">
-                    <a href="{{route('product.details',['slug'=>$item->product->slug])}}"><img alt="{{$item->product->name}}" src="{{ asset('img/products/products')}}/{{$item->product->image}}"></a>
+                    <a href="{{route('product.details',['slug'=>$item->product->slug])}}">
+                    @php
+                        $images = explode(',', $item->product->image);
+                        $firstImage = $images[0];
+                    @endphp                    
+                    <img alt="{{$item->product->name}}" src="{{ asset('img/products/products/' . $firstImage) }}"></a>
                 </div>
                 <div class="shopping-cart-title">
                     <h4><a href="{{route('product.details',['slug'=>$item->product->slug])}}">{{substr($item->product->name,0,18)}}</a></h4>

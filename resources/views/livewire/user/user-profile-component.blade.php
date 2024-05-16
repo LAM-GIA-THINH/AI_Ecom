@@ -9,7 +9,7 @@
                             <div class="dashboard-menu">
                                 <ul class="nav nav-tabs justify-content-start border-secondary mb-4" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link" id="orders-tab" href=""><i
+                                        <a class="nav-link" id="orders-tab" href="{{route('user.orders')}}"><i
                                                 class="fi-rs-shopping-bag mr-10"></i>Đơn hàng</a>
                                     </li>
                                     <li class="nav-item">

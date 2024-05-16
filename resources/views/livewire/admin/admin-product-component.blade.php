@@ -47,7 +47,13 @@
                                                 @foreach($products as $product)
                                                     <tr class="text-center">
                                                         <td>{{$product->id}}</td>
-                                                        <td><img src="{{ asset('img/products/products')}}/{{$product->image}}" alt="{{$product->name}}" width="60" /></td>
+                                                        <td>
+                                                        @php
+                                                            $images = explode(',', $product->image);
+                                                            $firstImage = $images[0];
+                                                        @endphp
+                                                            <img src="{{ asset('img/products/products/' . $firstImage) }}" alt="{{ $product->name }}" width="60" />
+                                                        </td>
                                                         <td>{{$product->name}}</td>
                                                         <td> @if( $product->quantity >0)
                                                                 Còn hàng
