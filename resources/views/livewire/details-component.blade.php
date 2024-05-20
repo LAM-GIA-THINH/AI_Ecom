@@ -1,4 +1,5 @@
 <div>
+<div>
     @livewireStyles
     @if($product == null)
         <div class="container-fluid bg-secondary mb-5">
@@ -21,7 +22,7 @@
                                 $images = explode(',', $product->image);
                             @endphp
                             @foreach($images as $index => $image)
-                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore>
                                     <img  src="{{ asset('img/products/products/' . $image) }}" alt="Image" style=" height: 500px;">
                                 </div>
                             @endforeach
@@ -65,7 +66,7 @@
 
                             $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
                         @endphp
-                        <div class="text-primary mr-2">
+                        <div class="text-primary mr-2" wire:ignore>
                             <small class="star far fa-star"></small>
                             <small class="star far fa-star"></small>
                             <small class="star far fa-star"></small>
@@ -74,11 +75,11 @@
                         </div>
                         <small class="pt-1">({{$totalRatings}} Đánh giá)</small>
                     </div>
-                    @if($product->brand_id)
+
                         <p style="font-size:17px">Thương hiệu: <span class="text-brand"
                                 style="color:#0721e6; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span>
                         </p>
-                    @endif
+
                     <p style="font-size:17px">Danh mục: <span class="text-brand">{{ $product->category->name }}</span></p>
                     <p style="font-size:17px">Đã bán: <span class="text-brand">{{ $product->quantity_sold }}</span></p>
                     <h3 class="font-weight-semi-bold mb-4" style="color:red;">{{number_format($product->regular_price)}} VND
@@ -87,9 +88,9 @@
 
                     <div class="d-flex align-items-center mb-4 pt-2">
 
-                        <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group quantity mr-3" style="width: 130px;" >
                             @if($quantity != 1)
-                                <div class="input-group-btn">
+                                <div class="input-group-btn" >
                                     <button class="btn btn-primary btn-minus" wire:click.prevent="decrementQuantity()">
                                         <i class="fa fa-minus"></i>
                                     </button>
@@ -134,17 +135,17 @@
             </div>
             <div class="row px-xl-5">
                 <div class="col">
-                    <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                        <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Chi tiết</a>
+                    <div class="nav nav-tabs justify-content-center border-secondary mb-4" wire:ignore>
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1" wire:ignore>Chi tiết</a>
                         <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Vận chuyển</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh giá (0)</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh giá ({{$totalRatings}})</a>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab-pane-1">
-                            <textarea class="form-control" style="height: 400px;" name="description" id="description"
+                        <div class="tab-pane fade show active " id="tab-pane-1" wire:ignore>
+                            <textarea class="form-control" style="height: 400px;" name="description" id="description" 
                                 disabled>{{$product->description}}</textarea>
                         </div>
-                        <div class="tab-pane fade" id="tab-pane-2">
+                        <div class="tab-pane fade" id="tab-pane-2" wire:ignore>
                             <h4 class="mb-3">Additional Information</h4>
                             <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
                                 invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
@@ -188,57 +189,120 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="tab-pane fade" id="tab-pane-3" wire:ignore>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                    <div class="media mb-4">
-                                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
+                                    <h4 class="mb-4">{{$totalRatings}} review Sản phẩm "{{$product->name}}"</h4>
+                                    @foreach($reviews as $review)
+                                    <div class="media rounded border px-1 py-2 mb-4" style="background-color: #fff; border-width: 3px;">
+                                        <img src="{{$review->user->profile_photo_path ? asset($review->user->profile_photo_path) : asset('img/user.png')}}" alt="Image" class="img-fluid mr-3 mt-1"
                                             style="width: 45px;">
                                         <div class="media-body">
-                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                            <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
+                                            <h6>{{$review->user->name}}<small> - <i>{{ $review->updated_at->timezone('Asia/Ho_Chi_Minh')->format('H:i d-m-Y')}}</i></small></h6>
+                                            <div class="text-primary mr-2" wire:ignore>
+                                                <small class="star1 far fa-star"></small>
+                                                <small class="star1 far fa-star"></small>
+                                                <small class="star1 far fa-star"></small>
+                                                <small class="star1 far fa-star"></small>
+                                                <small class="star1 far fa-star"></small>
                                             </div>
-                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum
-                                                et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+                                            <p>{{$review->comment}}</p>
                                         </div>
+                                        <a aria-label="" class="action-btn hover-up d-flex gap-1 align-items-center" href="#" style=" color: {{Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999'}};" wire:click.prevent="likeReview({{$review->id}})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="18" height="18" fill="{{Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999'}}"><path d="M6,8H3a3,3,0,0,0-3,3v8a3,3,0,0,0,3,3H6Z"/><path d="M14,8l.555-3.328a2.269,2.269,0,0,0-1.264-2.486,2.247,2.247,0,0,0-2.9,1.037L8,8V22H22l2-11V8Z"/></svg>
+                                            {{$review->review_likes && $review->review_likes->count() > 0 ? (Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? 'Đã thích' : '') .  ' (' . $review->review_likes->count() . ')' : 'Hữu ích?'}}
+                                        </a>
                                     </div>
+                                    @endforeach
                                 </div>
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">Leave a review</h4>
-                                    <small>Your email address will not be published. Required fields are marked *</small>
-                                    <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Your Rating * :</p>
-                                        <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="message">Your Review *</label>
-                                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Your Name *</label>
-                                            <input type="text" class="form-control" id="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Your Email *</label>
-                                            <input type="email" class="form-control" id="email">
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                        </div>
-                                    </form>
+                                @if(Auth::check())
+                                            @if(Auth::user()->utype === 'USR')
+                                                @if($errors->any())
+                                                    <div class="alert alert-danger" role="alert">Vui lòng đánh giá sản phẩm trước
+                                                        khi gửi.</div>
+                                                @endif
+
+                                                @if(Session::has('error_message'))
+                                                    <div class="alert alert-danger" role="alert">{{Session::get('error_message')}}
+                                                    </div>
+                                                @endif
+
+
+                                                @if(Session::has('success_message'))
+                                                    <div class="alert alert-success" role="alert">
+                                                        {{Session::get('success_message')}}</div>
+                                                @endif
+
+
+                                                <div class="comment-form pt-0 border-0">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <form class="form-contact comment_form"
+                                                                wire:submit.prevent="submitReview" wire:ignore id="commentForm">
+                                                                <h4 class="">Thêm đánh giá của bạn</h4>
+                                                                <div id="stars" style="margin-top: 20px;" wire:ignore>
+
+                                                                    <label id="label1" for="star1"
+                                                                        style="cursor: pointer; font-size: 35px; color: gold; margin: 0 5px;"
+                                                                        onclick="setRating(1)">
+                                                                        <input required type="radio" name="rating" id="star1"
+                                                                            value="1" style="display: none"
+                                                                            wire:model.lazy="rating">★
+                                                                    </label>
+
+                                                                    <label id="label2" for="star2"
+                                                                        style="cursor: pointer; font-size: 35px; color: gold; margin: 0 5px;"
+                                                                        onclick="setRating(2)">
+                                                                        <input type="radio" name="rating" id="star2" value="2"
+                                                                            style="display: none" wire:model.lazy="rating">★
+                                                                    </label>
+
+                                                                    <label id="label3" for="star3"
+                                                                        style="cursor: pointer; font-size: 35px; color: gold; margin: 0 5px;"
+                                                                        onclick="setRating(3)">
+                                                                        <input type="radio" name="rating" id="star3" value="3"
+                                                                            style="display: none" wire:model.lazy="rating">★
+                                                                    </label>
+
+                                                                    <label id="label4" for="star4"
+                                                                        style="cursor: pointer; font-size: 35px; color: gold; margin: 0 5px;"
+                                                                        onclick="setRating(4)">
+                                                                        <input type="radio" name="rating" id="star4" value="4"
+                                                                            style="display: none" wire:model.lazy="rating">★
+                                                                    </label>
+
+                                                                    <label id="label5" for="star5"
+                                                                        style="cursor: pointer; font-size: 35px; color: gold; margin: 0 5px;"
+                                                                        onclick="setRating(5)">
+                                                                        <input type="radio" name="rating" id="star5" value="5"
+                                                                            style="display: none" wire:model.lazy="rating">★
+                                                                    </label>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group">
+                                                                            <textarea class="form-control w-100" name="comment"
+                                                                                wire:model.lazy="comment" id="comment" cols="30"
+                                                                                rows="5"
+                                                                                placeholder="Viết đánh giá của bạn về sản phẩm này."></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-primary button-contactForm">Gửi
+                                                                        đánh giá</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                        @else
+
+                                            <h4 class="">Đăng nhập để được đánh giá.</h4>
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -260,7 +324,7 @@
                         <div class="card product-item border-0">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+                                <img class="img-fluid w-100" src="" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -279,7 +343,7 @@
                         <div class="card product-item border-0">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
+                                <img class="img-fluid w-100" src="" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -298,7 +362,7 @@
                         <div class="card product-item border-0">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
+                                <img class="img-fluid w-100" src="" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -317,7 +381,7 @@
                         <div class="card product-item border-0">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
+                                <img class="img-fluid w-100" src="" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -336,7 +400,7 @@
                         <div class="card product-item border-0">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
+                                <img class="img-fluid w-100" src="" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
@@ -364,26 +428,87 @@
 @push('scripts')
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace("description");
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Example inputNumber. You can replace this with your actual input.
-            let inputNumber = number_format($averageRating, 2);
+        
+       document.addEventListener("DOMContentLoaded", function () {
+            // Initialize CKEditor
+            if (document.getElementById('description')) {
+                CKEDITOR.replace("description",{
+                    toolbarCanCollapse: true,
+                    toolbarStartupExpanded: false,
+                    height: '600px',
+                    width: '1200px'
+                });
+                
+            }
 
-            // Select all star elements
-            const stars = document.querySelectorAll('.star');
+            // Function to set star ratings
+            function setStarRating(starClass, rating) {
+                const stars = document.querySelectorAll(starClass);
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.remove('far'); // Remove hollow star class
+                        star.classList.add('fas'); // Add filled star class
+                    } else {
+                        star.classList.remove('fas'); // Remove filled star class
+                        star.classList.add('far'); // Add hollow star class
+                    }
+                });
+            }
 
-            // Loop through each star element
-            stars.forEach((star, index) => {
-                // If index is less than inputNumber, fill the star
-                if (index < inputNumber) {
-                    star.classList.remove('far'); // Remove far class to make it filled
-                    star.classList.add('fas');
-                } else {
-                    star.classList.add('far'); // Add far class to make it hollow
-                }
+            // Set the average rating stars on page load
+            const averageRating = <?php echo $averageRating; ?>;
+            setStarRating('.star', averageRating);
+
+            // Set the review rating stars on page load
+            const reviewRating = <?php echo $review->rating; ?>;
+            setStarRating('.star1', reviewRating);
+
+            // Star click event to set user rating
+
+            // Bind star click events
+            const starLabels = document.querySelectorAll('#stars label');
+            starLabels.forEach((label, index) => {
+                label.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent default form submission
+                    event.stopPropagation(); // Stop event propagation
+                    setRating(index + 1);
+                    return false; // Ensure no further event handling
+                });
             });
+
+            // Reinitialize CKEditor when Livewire updates the DOM
+            document.addEventListener("livewire:load", function () {
+                Livewire.hook('message.processed', (message, component) => {
+                    if (document.getElementById('description')) {
+                        if (CKEDITOR.instances['description']) {
+                            CKEDITOR.instances['description'].destroy();
+                        }
+                        CKEDITOR.replace("description");
+                    }
+                });
+            });
+
+            // Keep the active tab after form submission or interaction
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+
+            var activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+            }
         });
     </script>
+    <script>
+                   function setRating(rating) {
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById('label' + i).style.color = '#ccc';
+                }
+
+                for (let i = 1; i <= rating; i++) {
+                    document.getElementById('label' + i).style.color = 'gold';
+                }
+            }
+    </script>
 @endpush
+</div>

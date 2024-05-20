@@ -98,9 +98,9 @@
         @auth
         
         <div class="btn-group dropdown d-flex align-items-center">
-            <div class="rounded border px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
+            <div class="rounded border px-1 py-0 d-flex align-items-center " style="background-color: #fff;">
                 <a class="nav-link" data-toggle="collapse" href="#navbar-vertical1" style="display: flex;">
-                    <div class="rounded-circle img-thumbnail mr-2" style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png')}}')"></div>
+                    <div class="rounded-circle img-thumbnail mr-2" style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset(Auth::user()->profile_photo_path) : asset('img/user.png')}}')"></div>
                     <div style="margin-top:3px;">
                         {{ Auth::user()->name }}
                         @if(Auth::user()->utype === "SHIP")
@@ -116,7 +116,7 @@
                         <a class="dropdown-item" href="{{route('profile.edit')}}">Trang cá nhân</a>
                         @if(Auth::user()->utype === "USR")
                         <a class="dropdown-item" href="{{route('user.orders')}}">Đơn hàng</a>
-                        @elseif(Auth::user()->utype === "ADM")
+                        @elseif(Auth::user()->utype === "ADM" || Auth::user()->utype === "SHIP" ||Auth::user()->utype === "GAR")
                         <a class="dropdown-item" href="{{route('admin.dashboard')}}">Trang quản lý</a>
                         @endif
                         <div>
@@ -180,7 +180,7 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
                             <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
                             <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                             <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
