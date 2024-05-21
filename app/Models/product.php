@@ -35,7 +35,10 @@ class product extends Model
     {
         return $this->hasMany(Wish::class, 'product_id', 'id');
     }
-
+    public function orderItems()
+    {
+        return $this->hasMany(Order_item::class, 'product_id');
+    }
     public function getQuantitySoldAttribute()
     {
         $orders = Order::where(['order_status' => '3'])->get();
