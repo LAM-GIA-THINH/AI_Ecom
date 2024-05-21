@@ -16,8 +16,8 @@ class CategoryComponent extends Component
     public $pageSize = 12;
     public $orderBy ="Mặc định";
     public $slug ;
-    public $min_value =10000;
-    public $max_value = 900000;
+    public $min_value =100000;
+    public $max_value = 90000000;
 
     public function store($product_id, $product_name, $product_price, $product_quantity = 1)
     {

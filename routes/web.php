@@ -28,6 +28,7 @@ Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 Route::get('/products{category_id}', DetailsComponent::class)->name('product.detailss');
 Route::get('/product-category/{slug}', App\Http\Livewire\CategoryComponent::class)->name('product.category');
 Route::get('/handle-vnpay-return', [App\Http\Controllers\CheckoutController::class, 'handleVNPayReturn'])->name('vnpay.return');
+Route::get('/search', App\Http\Livewire\SearchComponent::class)->name('product.search');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
