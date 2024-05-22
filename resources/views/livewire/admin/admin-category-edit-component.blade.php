@@ -38,6 +38,18 @@
                                             <p class="text-danger">{{$message}}</p>
                                         @enderror                                        
                                     </div>
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label">Ảnh</label>
+                                        <input type="file" class="form-control" wire:model="newimage" />
+                                        @if($newimage)
+                                            <img src="{{$newimage->temporaryUrl()}}" width="100" />
+                                        @else
+                                            <img src="{{asset('img/products/category')}}/{{$image}}" width="100" />
+                                        @endif
+                                        @error('newimage')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
                                         <button type="submit" class="btn btn-primary float-end">Cập nhật</button>
                                 </form>
                                 </div>

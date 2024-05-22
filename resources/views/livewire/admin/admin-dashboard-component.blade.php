@@ -1,7 +1,8 @@
 <div>
     <main class="main">
         <div class="container" style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
-            <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Thống kê                         <select id="yearFilter" wire:model="selectedYear"  style="padding: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Thống kê                         
+            <select id="yearFilter" wire:model="selectedYear"  style="padding: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
                                 @foreach ($years as $year)
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endforeach

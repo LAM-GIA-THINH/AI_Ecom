@@ -36,7 +36,17 @@
                                         @error('slug')
                                             <p class="text-danger">{{$message}}</p>
                                         @enderror                                        
-                                    </div>                                    
+                                    </div>  
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label">Ảnh</label>
+                                        <input type="file" class="form-control" wire:model="image" />
+                                        @if($image)
+                                        <img src="{{$image->temporaryUrl()}}" width="100" />
+                                        @endif 
+                                        @error('image') 
+                                        <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>                                  
                                         <button type="submit" class="btn btn-primary float-end">Thêm</button>
                                 </form>
                                 </div>

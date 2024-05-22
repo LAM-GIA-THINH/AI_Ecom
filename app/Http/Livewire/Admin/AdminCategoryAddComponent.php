@@ -5,10 +5,14 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use Livewire\WithFileUploads;
+use Carbon\Carbon;
 class AdminCategoryAddComponent extends Component
 {
+    use WithFileUploads;
     public $name;
     public $slug;
+    public $image;
     public function generateSlug()
     {
         $this->slug= Str::slug($this->name);
@@ -17,21 +21,24 @@ class AdminCategoryAddComponent extends Component
     {
         $this->validateOnly($fields, [
             'name' => 'required|unique:categories',
-            'slug' => 'required|unique:categories'
+            'slug' => 'required|unique:categories',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
     }    
     public function storeCategory()
     {
         $this->validate([
             'name' => 'required|unique:categories',
-            'slug' => 'required|unique:categories'
+            'slug' => 'required|unique:categories',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
-
-        Category::create([
-            'name' => $this->name,
-            'slug' => $this->slug
-        ]);
-
+        $category = new Category();
+        $category->name = $this->name;
+        $category->slug = Str::slug($this->slug);
+        $imageName=Carbon::now()->timestamp.'.'.$this->image->extension();
+        $this->image->storeAs('category', $imageName);
+        $category->image = $imageName;
+        $category->save();
         session()->flash('message', 'Đã thêm danh mục thành công!');
     }
     public function render()

@@ -34,6 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Ảnh</th>
                                         <th>Tên</th>
                                         <th>Slug</th>
                                         <th>Hành động</th>
@@ -43,6 +44,7 @@
                                     @foreach($categories as $category)
                                         <tr wire:key="category-{{ $category->id }}">
                                             <td>{{$category->id}}</td>
+                                            <td><img src="{{ asset('img/products/category/') }}/{{$category->image}}" width="180px" height="80px"></td>
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->slug}}</td>
                                             <td>

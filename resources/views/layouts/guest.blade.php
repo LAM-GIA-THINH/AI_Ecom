@@ -51,6 +51,11 @@
 								<i class="align-middle" data-feather="user"></i> <span class="align-middle">Nhân viên</span>
 							</a>
 						</li>
+						<li class="sidebar-item {{ Route::is('admin.home.slider') ? 'active' : '' }}">
+							<a class="sidebar-link" href="{{route('admin.home.slider')}}">
+								<i class="align-middle" data-feather="book"></i> <span class="align-middle">Banner</span>
+							</a>
+						</li>
 					@endif
 
 					<li class="sidebar-header">
@@ -265,9 +270,8 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<div class="btn-group dropdown d-flex align-items-center"> 
-								<div class=" px-1 py-0 d-flex align-items-center"
-									style="background-color: #fff;">
+							<div class="btn-group dropdown d-flex align-items-center">
+								<div class=" px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
 									<a class="nav-link" data-toggle="collapse" href="#navbar-vertical1"
 										style="display: flex;">
 										<div class="rounded-circle img-thumbnail mr-2"
@@ -408,6 +412,12 @@
 		function confirmDeleteU(account_id) {
 			if (confirm('Bạn có chắc muốn khoá ?')) {
 				Livewire.emit('deleteAccount', account_id);
+			}
+
+		}
+		function confirmDeleteS(slider_id) {
+			if (confirm('Bạn có chắc muốn khoá ?')) {
+				Livewire.emit('deleteSlide', slider_id);
 			}
 
 		}

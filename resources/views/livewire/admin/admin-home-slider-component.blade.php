@@ -1,7 +1,7 @@
 <div>
     <main class="main">
     <div class="container" style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
-    <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Quản lý thương hiệu</h2>
+    <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Quản lý banner</h2>
 </div>
             <section class="mt-50 mb-50">
                 <div class="container">
@@ -17,7 +17,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 d-flex justify-content-end">
-                                        <a href="{{ route('admin.brand.add') }}" class="btn btn-success btn-sx">Thêm thương hiệu</a>
+                                        <a href="{{ route('admin.home.slider.add') }}" class="btn btn-success btn-sx">Thêm banner</a>
                                     </div>
                                 </div>
                             </div>
@@ -27,28 +27,28 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Ảnh</th>
-                                                    <th>Tên thương hiệu</th>
-                                                    <th>Slug</th>
+                                                    <th>Tiêu đề</th>
+                                                    <th>Trạng thái</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($brands as $brand)
+                                                @foreach($slides as $slide)
                                                     <tr>
-                                                        <td>{{$brand->id}}</td>
-                                                        <td><img src="{{ asset('img/products/brand/') }}/{{$brand->image}}" width="180px" height="80px"></td>
-                                                        <td>{{$brand->name}}</td>
-                                                        <td>{{$brand->slug}}</td>
+                                                        <td>{{$slide->id}}</td>
+                                                        <td><img src="{{ asset('img/products/slider/') }}/{{$slide->image}}" width="180px" height="80px"></td>
+                                                        <td>{{$slide->title}}</td>
+                                                        <td>{{$slide->status == 1 ? "Đang dùng" : "Không dùng"}}</td>
                                                         <td>
-                                                        <a href="{{route('admin.brand.edit', ['brand_id'=>$brand->id])}}" class="text-info">Chỉnh sửa</a>
-                                                        <a href="#" onclick="confirmDeleteB('{{ $brand->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
+                                                        <a href="{{route('admin.home.slider.edit', ['slide_id'=>$slide->id])}}" class="text-info">Chỉnh sửa</a>
+                                                        <a href="#" onclick="confirmDeleteS('{{ $slide->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 
                                             </tbody>
                                         </table>
-                                        {{$brands->links('pagination::bootstrap-4')}}
+                                        
                                 </div>
 
                             </div>
