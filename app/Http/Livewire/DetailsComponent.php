@@ -25,6 +25,7 @@ class DetailsComponent extends Component
     public $responseReview;
     public $quantity;
     public $product;
+    public $review;
 
     public function mount($slug)
     {

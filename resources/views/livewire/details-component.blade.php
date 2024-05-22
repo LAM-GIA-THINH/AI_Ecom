@@ -15,14 +15,14 @@
     @else
         <div class="container-fluid py-5">
             <div class="row px-xl-5">
-                <div class="col-lg-5 pb-5">
-                    <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner border">
+                <div class="col-lg-5 pb-5" style="min-width: 600px;">
+                    <div id="product-carousel" class="carousel slide" data-ride="carousel" >
+                        <div class="carousel-inner border ">
                             @php
                                 $images = explode(',', $product->image);
                             @endphp
                             @foreach($images as $index => $image)
-                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore>
+                                <div class="carousel-item  {{ $index === 0 ? 'active' : '' }}" wire:ignore >
                                     <img  src="{{ asset('img/products/products/' . $image) }}" alt="Image" style=" height: 500px;">
                                 </div>
                             @endforeach
@@ -77,10 +77,10 @@
                     </div>
 
                         <p style="font-size:17px">Thương hiệu: <span class="text-brand"
-                                style="color:#0721e6; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span>
+                                style="color:#D19C97 ; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span>
                         </p>
 
-                    <p style="font-size:17px">Danh mục: <span class="text-brand">{{ $product->category->name }}</span></p>
+                    <p style="font-size:17px;">Danh mục: <span class="text-brand" style="color:#D19C97 ; font-weight: bold;text-decoration: underline;">{{ $product->category->name }}</span></p>
                     <p style="font-size:17px">Đã bán: <span class="text-brand">{{ $product->quantity_sold }}</span></p>
                     <h3 class="font-weight-semi-bold mb-4" style="color:red;">{{number_format($product->regular_price)}} VND
                     </h3>
@@ -458,7 +458,7 @@
             // Set the average rating stars on page load
             const averageRating = <?php echo $averageRating; ?>;
             setStarRating('.star', averageRating);
-
+            @if($reviews->count() > 0)
             // Set the review rating stars on page load
             const reviewRating = <?php echo $review->rating; ?>;
             setStarRating('.star1', reviewRating);
@@ -466,6 +466,7 @@
             // Star click event to set user rating
 
             // Bind star click events
+
             const starLabels = document.querySelectorAll('#stars label');
             starLabels.forEach((label, index) => {
                 label.addEventListener('click', function (event) {
@@ -475,6 +476,7 @@
                     return false; // Ensure no further event handling
                 });
             });
+            @endif
 
             // Reinitialize CKEditor when Livewire updates the DOM
             document.addEventListener("livewire:load", function () {
