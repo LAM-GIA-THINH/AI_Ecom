@@ -15,7 +15,7 @@ class HomeComponent extends Component
     public function render()
     {
         $sellerInfo = User::where('id', $this->sellerId)->first();
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::where('status',1)->withCount('products')->orderBy('created_at','ASC')->get();
         $brands = Brand::orderBy('name','ASC')->get();
         $this->slides = HomeSlider::where('status',1)->get();
 

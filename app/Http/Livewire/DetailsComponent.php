@@ -25,6 +25,7 @@ class DetailsComponent extends Component
     public $responseReview;
     public $quantity;
     public $product;
+    
     public $review;
 
     public function mount($slug)
@@ -192,7 +193,6 @@ class DetailsComponent extends Component
             $publisher = Brand::where('id', $this->product->brand_id)->first();
             $reviews = Review::where('product_id', $this->product->id)->orderBy('updated_at', 'desc')->paginate(5);
             $wishCount = Wish::where('product_id' , $this->product->id)->count();
-
             return view('livewire.details-component', [
                 'product' => $this->product,
                 'rproducts' => $rproducts,

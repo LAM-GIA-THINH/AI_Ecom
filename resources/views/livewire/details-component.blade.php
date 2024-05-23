@@ -16,14 +16,14 @@
         <div class="container-fluid py-5">
             <div class="row px-xl-5">
                 <div class="col-lg-5 pb-5" style="min-width: 600px;">
-                    <div id="product-carousel" class="carousel slide" data-ride="carousel" >
-                        <div class="carousel-inner border ">
+                    <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner border">
                             @php
                                 $images = explode(',', $product->image);
                             @endphp
                             @foreach($images as $index => $image)
-                                <div class="carousel-item  {{ $index === 0 ? 'active' : '' }}" wire:ignore >
-                                    <img  src="{{ asset('img/products/products/' . $image) }}" alt="Image" style=" height: 500px;">
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore>
+                                    <img src="{{ asset('img/products/products/' . $image) }}" alt="Image" class="d-block mx-auto" style="height: 500px;">
                                 </div>
                             @endforeach
                         </div>
@@ -35,6 +35,7 @@
                         </a>
                     </div>
                 </div>
+
 
                 <div class="col-lg-7 pb-5">
                     <h3 class="font-weight-semi-bold">{{$product->name}}</h3>
@@ -228,12 +229,10 @@
                                                     </div>
                                                 @endif
 
-
                                                 @if(Session::has('success_message'))
                                                     <div class="alert alert-success" role="alert">
                                                         {{Session::get('success_message')}}</div>
                                                 @endif
-
 
                                                 <div class="comment-form pt-0 border-0">
                                                     <div class="row">
@@ -316,109 +315,60 @@
         <!-- Products Start -->
         <div class="container-fluid py-5">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">Sản phẩm liên quan</span></h2>
             </div>
             <div class="row px-xl-5">
                 <div class="col">
                     <div class="owl-carousel related-carousel">
+                        @foreach($rproducts as $rproduct)
                         <div class="card product-item border-0">
-                            <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="" alt="">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <a href="{{ route('product.details', ['slug' => $rproduct->slug]) }}">
+                                    @php
+                                        $images = explode(',', $rproduct->image);
+                                        $firstImage = $images[0];
+                                    @endphp
+                                    <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}" alt="">
+                                </a>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
+                                <h6 class="text-truncate mb-3">
+                                    <a style="font-weight: bold; color: black; font-size: 1.2em;"
+                                        href="{{ route('product.details', ['slug' => $rproduct->slug]) }}">{{ $rproduct->name }}</a>
+                                </h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
-                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                    <h6 style="font-weight: bold; color: red; font-size: 1.2em; font-family: Arial, sans-serif;">
+                                        {{ number_format($rproduct->regular_price) }} ₫
+                                    </h6>
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                                    Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                            @if(Auth::check())
+                                                        @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
+                                                            <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
+                                                                class="action-btn hover-up" href="#"
+                                                                wire:click.prevent="removeFromWishlist({{$product->id}})"><i
+                                                                    class="fas fa-heart text-primary"></i> &nbsp;Đã thích</a>
+                                                        @else
+                                                            <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up"
+                                                                href="#"
+                                                                wire:click.prevent="addToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i
+                                                                    class="far fa-heart text-primary"></i> Yêu thích</a>
+                                                        @endif
+                                                    @else
+                                                        <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up"
+                                                            href="{{route('login')}}"><i class="far fa-heart text-primary"></i> Yêu thích</a>
+                                                    @endif
+                                <a href="#" class="btn btn-sm text-dark p-0" wire:click.prevent="store({{ $rproduct->id }},'{{ $rproduct->name }}',{{ $rproduct->regular_price }})">
+                                    <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ
+                                </a>
                             </div>
                         </div>
-                        <div class="card product-item border-0">
-                            <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="" alt="">
-                            </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
-                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                                    Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                            </div>
-                        </div>
-                        <div class="card product-item border-0">
-                            <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="" alt="">
-                            </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
-                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                                    Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                            </div>
-                        </div>
-                        <div class="card product-item border-0">
-                            <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="" alt="">
-                            </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
-                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                                    Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                            </div>
-                        </div>
-                        <div class="card product-item border-0">
-                            <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="" alt="">
-                            </div>
-                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                <div class="d-flex justify-content-center">
-                                    <h6>$123.00</h6>
-                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                </div>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                                    Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
+
         </div>
         <!-- Products End -->
 

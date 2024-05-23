@@ -84,7 +84,7 @@ class ShopComponent extends Component
         else {
             $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->paginate($this->pageSize); 
         }
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::withCount('products')->orderBy('name', 'ASC')->get();
             return view('livewire.shop-component', ['products' => $products, 'categories'=>$categories, 'seller' => $sellerInfo]);
 
         }
@@ -102,7 +102,7 @@ class ShopComponent extends Component
         else {
             $products = Product::where('user_id', $this->sellerId)->whereBetween('regular_price', [$this->min_value, $this->max_value])->paginate($this->pageSize); 
         }
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::withCount('products')->orderBy('name', 'ASC')->get();
         
         return view('livewire.shop-component', ['products' => $products, 'categories'=>$categories, 'seller' => $sellerInfo]);
     }

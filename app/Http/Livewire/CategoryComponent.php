@@ -81,7 +81,7 @@ class CategoryComponent extends Component
             $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->where('category_id',$category_id)->paginate($this->pageSize); 
             
         }
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::withCount('products')->orderBy('name', 'ASC')->get();
         
         return view('livewire.category-component', ['products' => $products, 'categories'=>$categories ,'category_name' => $category_name]);
     }

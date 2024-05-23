@@ -44,7 +44,7 @@
                                     @foreach($categories as $category)
                                         <tr wire:key="category-{{ $category->id }}">
                                             <td>{{$category->id}}</td>
-                                            <td><img src="{{ asset('img/products/category/') }}/{{$category->image}}" width="180px" height="80px"></td>
+                                            <td><img src="{{ asset('img/products/category/') }}/{{$category->image}}" width="80px" height="80px"></td>
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->slug}}</td>
                                             <td>

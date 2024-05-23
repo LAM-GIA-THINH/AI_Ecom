@@ -56,65 +56,31 @@
                 <!-- Price End -->
 
                 <!-- Color Start -->
-                <div class="border-bottom mb-4 pb-4">
+                <div class="mb-5">
                     <h5 class="font-weight-semi-bold mb-4">Lọc theo danh mục</h5>
                     <form>
-                        <ul class="categories">
-                            @foreach($categories as $category)
-                                <li>
-                                    <a style="font-size: 1.2em;"
-                                        href="{{route('product.category', ['slug' => $category->slug])}}">
-                                        {{$category->name}}
+                        @foreach($categories as $category)
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" id="category-{{ $category->id }}">
+                                <label class="custom-control-label" for="category-{{ $category->id }}"
+                                    style="font-size: 1.2em;">
+                                    <a href="{{ route('product.category', ['slug' => $category->slug]) }}">
+                                        {{ $category->name }}
                                     </a>
-                                </li>
-                            @endforeach
 
-                        </ul>
+                                </label>
+                                <span class="badge border font-weight-normal">{{ $category->products_count }}</span>
+
+                            </div>
+                        @endforeach
                     </form>
                 </div>
+
                 <!-- Color End -->
 
                 <!-- Size Start -->
-                <div class="mb-5">
-                    <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
-                    <form>
-                        <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="size-all">
-                            <label class="custom-control-label" for="size-all">All Size</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-1">
-                            <label class="custom-control-label" for="size-1">XS</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-2">
-                            <label class="custom-control-label" for="size-2">S</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-3">
-                            <label class="custom-control-label" for="size-3">M</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div
-                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="size-4">
-                            <label class="custom-control-label" for="size-4">L</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="size-5">
-                            <label class="custom-control-label" for="size-5">XL</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
+
                 <!-- Size End -->
             </div>
             <!-- Shop Sidebar End -->
@@ -136,47 +102,49 @@
                                 </div>
                             </form>
                             <div class="ml-auto">
-                                <div class="dropdown d-inline-block mr-3">
+                            <div class="dropdown d-inline-block mr-3">
                                     <button class="btn border dropdown-toggle" type="button" id="pageSizeDropdown"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Hiển thị {{$pageSize}} <i class="fi-rs-angle-small-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" style="height:110px"
                                         aria-labelledby="pageSizeDropdown">
-                                        <ul style="text-align:center">
-                                            <li><a href="" class="{{ $pageSize == 12 ? 'active' : ''}}"
+                                        <ul style="padding-left: 0;">
+                                            <li><a href="" class="dropdown-item {{ $pageSize == 12 ? 'active' : ''}}"
                                                     wire:click.prevent="changePageSize(12)">12</a></li>
-                                            <li><a href="" class="{{ $pageSize == 24 ? 'active' : ''}}"
+                                            <li><a href="" class="dropdown-item {{ $pageSize == 24 ? 'active' : ''}}"
                                                     wire:click.prevent="changePageSize(24)">24</a></li>
-                                            <li><a href="" class="{{ $pageSize == 36 ? 'active' : ''}}"
+                                            <li><a href="" class="dropdown-item {{ $pageSize == 36 ? 'active' : ''}}"
                                                     wire:click.prevent="changePageSize(36)">36</a></li>
-                                            <li><a href="" class="{{ $pageSize == 48 ? 'active' : ''}}"
-                                                    wire:click.prevent="changePageSize(48)">48</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="dropdown d-inline-block">
                                     <button class="btn border dropdown-toggle" type="button" id="filterDropdown"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Lọc theo {{$pageSize}} <i class="fi-rs-angle-small-down"></i>
+                                        Lọc theo {{$orderBy}} <i class="fi-rs-angle-small-down"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="filterDropdown">
-                                        <ul>
-                                            <li><a href="" class="{{ $orderBy == 'Mặc định' ? 'active' : ''}}"
+                                        <ul style=" padding-left:0">
+                                            <li><a href=""
+                                                    class="dropdown-item {{ $orderBy == 'Mặc định' ? 'active' : ''}}"
                                                     wire:click.prevent="changeOrderBy('Mặc định')">Mặc định</a></li>
-                                            <li><a href="" class="{{ $orderBy == 'Giá: thấp đến cao' ? 'active' : ''}}"
+                                            <li><a href=""
+                                                    class="dropdown-item {{ $orderBy == 'Giá: thấp đến cao' ? 'active' : ''}}"
                                                     wire:click.prevent="changeOrderBy('Giá: thấp đến cao')">Giá: thấp
                                                     đến cao</a></li>
-                                            <li><a href="" class="{{ $orderBy == 'Giá: cao đến thấp' ? 'active' : ''}}"
+                                            <li><a href=""
+                                                    class="dropdown-item {{ $orderBy == 'Giá: cao đến thấp' ? 'active' : ''}}"
                                                     wire:click.prevent="changeOrderBy('Giá: cao đến thấp')">Giá: cao đến
                                                     thấp</a></li>
-                                            <li><a href="" class="{{ $orderBy == 'Sản phẩm mới' ? 'active' : ''}}"
+                                            <li><a href=""
+                                                    class="dropdown-item {{ $orderBy == 'Sản phẩm mới' ? 'active' : ''}}"
                                                     wire:click.prevent="changeOrderBy('Sản phẩm mới')">Sản phẩm mới</a>
                                             </li>
-
                                         </ul>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -202,7 +170,8 @@
                                                     <div class="d-flex justify-content-center">
                                                         <h6
                                                             style="font-weight: bold; color: red; font-size: 1.2em;font-family: Arial, sans-serif;">
-                                                            {{number_format($product->regular_price)}} ₫ </h6>
+                                                            {{number_format($product->regular_price)}} ₫
+                                                        </h6>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-between bg-light border">
@@ -212,7 +181,7 @@
                                                             <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
                                                                 class="action-btn hover-up" href="#"
                                                                 wire:click.prevent="removeFromWishlist({{$product->id}})"><i
-                                                                    class="fas fa-heart text-primary"></i>  &nbsp;Đã thích</a>
+                                                                    class="fas fa-heart text-primary"></i> &nbsp;Đã thích</a>
                                                         @else
                                                             <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up"
                                                                 href="#"
@@ -232,16 +201,15 @@
                                             </div>
                                         </div>
                     @endforeach
-
                     <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
-                            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                                @livewireStyles
-                                {{$products->links()}}
-                                @livewireScripts
-                            </div>
+                            <ul class="pagination justify-content-center mb-3">
+                                {{$products->links('pagination::bootstrap-4')}}
+                            </ul>
                         </nav>
                     </div>
+
+
                 </div>
             </div>
             <!-- Shop Product End -->
