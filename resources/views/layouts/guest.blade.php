@@ -270,47 +270,49 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<div class="btn-group dropdown d-flex align-items-center">
-								<div class=" px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
-									<a class="nav-link" data-toggle="collapse" href="#navbar-vertical1"
-										style="display: flex;">
-										<div class="rounded-circle img-thumbnail mr-2"
-											style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png')}}')">
-										</div>
-										<div style="margin-top:3px;">
-											{{ Auth::user()->name }}
-											@if(Auth::user()->utype === "SHIP")
-												<span class="badge bg-warning text-dark">Shipper</span>
-											@elseif(Auth::user()->utype === "ADM")
-												<span class="badge bg-danger text-white">Admin</span>
-											@endif
-										</div>
-										<i class="fi-rs-angle-down ml-1"></i>
-									</a>
-									<nav class="collapse navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 position-absolute"
-										style="top: 100%; left: 0; z-index: 100;" id="navbar-vertical1">
-										<div class="navbar-nav w-100 overflow-hidden"
-											style="max-height: 410px;;background-color:white">
-											<a class="dropdown-item" href="{{route('profile.edit')}}">Trang cá nhân</a>
-											@if(Auth::user()->utype === "USR")
-												<a class="dropdown-item" href="{{route('user.orders')}}">Đơn hàng</a>
-											@elseif(Auth::user()->utype === "ADM")
-												<a class="dropdown-item" href="{{route('admin.dashboard')}}">Trang quản
-													lý</a>
-											@endif
-											<div>
-												<form method="POST" action="{{ route('logout') }}">
-													@csrf
-													<button class="dropdown-item text-danger text-align-center"
-														onClick="event.preventDefault(); this.closest('form').submit();">Đăng
-														xuất</button>
-												</form>
-											</div>
-										</div>
-									</nav>
-								</div>
-							</div>
-						</li>
+    <div class="btn-group dropdown d-flex align-items-center">
+        <div class="px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="display: flex;">
+                <div class="mr-2" 
+                     style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{ Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png') }}')">
+                </div>
+                <div style="margin-top: 3px;">
+                    {{ Auth::user()->name }}
+                    @if(Auth::user()->utype === "SHIP")
+                        <span class="badge bg-warning text-dark">Shipper</span>
+                    @elseif(Auth::user()->utype === "ADM")
+                        <span class="badge bg-danger text-white">Admin</span>
+                    @elseif(Auth::user()->utype === "GAR")
+                        <span class="badge text-white" style="background-color: blue;">QL Kho</span>
+                    @endif
+                </div>
+                <i class="fi-rs-angle-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                    <i class="align-middle me-1" data-feather="user"></i> Trang cá nhân
+                </a>
+                @if(Auth::user()->utype === "USR")
+                    <a class="dropdown-item" href="{{ route('user.orders') }}">
+                        <i class="align-middle me-1" data-feather="shopping-cart"></i> Đơn hàng
+                    </a>
+                @elseif(Auth::user()->utype === "ADM")
+                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                        <i class="align-middle me-1" data-feather="bar-chart-2"></i> Trang quản lý
+                    </a>
+                @endif
+                <div class="dropdown-divider"></div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="dropdown-item text-danger" onClick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="align-middle me-1" data-feather="log-out"></i> Đăng xuất
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</li>
+
 					</ul>
 				</div>
 			</nav>

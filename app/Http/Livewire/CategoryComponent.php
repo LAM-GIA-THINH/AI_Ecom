@@ -13,6 +13,8 @@ use Livewire\WithPagination;
 class CategoryComponent extends Component
 {   
     use WithPagination;
+    
+    public $search = '';
     public $pageSize = 12;
     public $orderBy ="Mặc định";
     public $slug ;
@@ -62,27 +64,44 @@ class CategoryComponent extends Component
     }
 
     public function render()
-    {   
+    {
         $category = Category::where('slug', $this->slug)->first();
         $category_id = $category->id;
         $category_name = $category->name;
-        if($this->orderBy == "Giá: thấp đến cao"){
-            $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->where('category_id',$category_id)->orderBy('regular_price', 'ASC')->paginate($this->pageSize); 
+        
+        $query = Product::query();
+        
+        // Apply category filter
+        $query->where('category_id', $category_id);
+        
+        // Apply price range filter
+        $query->whereBetween('regular_price', [$this->min_value, $this->max_value]);
+        
+        // Apply search filter
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%');
         }
-        else if($this->orderBy == "Giá: cao đến thấp")
-        {
-            $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->where('category_id',$category_id)->orderBy('regular_price', 'DESC')->paginate($this->pageSize); 
+        
+        // Apply sorting
+        if ($this->orderBy == "Giá: thấp đến cao") {
+            $query->orderBy('regular_price', 'ASC');
+        } else if ($this->orderBy == "Giá: cao đến thấp") {
+            $query->orderBy('regular_price', 'DESC');
+        } else if ($this->orderBy == 'Sản phẩm mới') {
+            $query->orderBy('created_at', 'DESC');
         }
-        else if($this->orderBy == 'Sản phẩm mới')
-        {
-            $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->where('category_id',$category_id)->orderBy('created_at', 'DESC')->paginate($this->pageSize); 
-        }
-        else {
-            $products = Product::whereBetween('regular_price', [$this->min_value, $this->max_value])->where('category_id',$category_id)->paginate($this->pageSize); 
-            
-        }
+        
+        // Paginate results
+        $products = $query->paginate($this->pageSize);
+        
+        // Fetch categories
         $categories = Category::withCount('products')->orderBy('name', 'ASC')->get();
         
-        return view('livewire.category-component', ['products' => $products, 'categories'=>$categories ,'category_name' => $category_name]);
+        return view('livewire.category-component', [
+            'products' => $products,
+            'categories' => $categories,
+            'category_name' => $category_name,
+        ]);
     }
+    
 }

@@ -17,9 +17,9 @@ class AdminProductComponent extends Component
 
     public function render()
     {
-        $user = Auth::user();
+
         $products = $this->filterStockStatus()
-            ->where('user_id', $user->id)
+            ->where('user_id', 1)
             ->orderBy('id', 'ASC')
             ->paginate(5);
 

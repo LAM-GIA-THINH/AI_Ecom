@@ -22,6 +22,10 @@ class AdminOrdersComponent extends Component
             $orders = $this->filterOrders()
                 ->orderBy('created_at', 'DESC')
                 ->paginate(5);
+        } elseif ($user->utype === 'ADM') {
+            $orders = $this->filterOrders()
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
         } else {
             $orders = $this->filterOrders()
                 ->where(function ($query) use ($user) {
