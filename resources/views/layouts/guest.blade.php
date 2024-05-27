@@ -418,7 +418,7 @@
 
 		}
 		function confirmDeleteS(slider_id) {
-			if (confirm('Bạn có chắc muốn khoá ?')) {
+			if (confirm('Bạn có chắc muốn xoá ?')) {
 				Livewire.emit('deleteSlide', slider_id);
 			}
 

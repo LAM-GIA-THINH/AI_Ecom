@@ -27,6 +27,7 @@ class AdminProductAddComponent extends Component
     public $images;
     public $category_id;
     public $brand_id;
+    public $weight =100;
     protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged'];
 
     public function increaseQuantity()
@@ -89,14 +90,15 @@ class AdminProductAddComponent extends Component
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'category_id' => 'required',
             'brand_id' => 'required',
+            'weight'=> 'required'
             ]);
             $user = auth()->user();
             $product = new Product();
-            $product->user_id = $user->id;
+            $product->user_id = 1;
             $product->name = $this->name;
             $product->slug = $this->slug;
             $product->description = $this->description;
-
+            $product->weight = $this->weight;
             $product->regular_price = $this->regular_price;
             $product->quantity = $this->quantity;
 
