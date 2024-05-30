@@ -17,7 +17,7 @@ class AdminOrderEditComponent extends Component
 {
     public $order_id;
     public $user_id;
-    public $ship_id;
+    public $shipper_id;
     public $address;
     public $name;
     public $phone;
@@ -39,7 +39,7 @@ class AdminOrderEditComponent extends Component
         $this->order_id = $order->id;
         $this->name = $order->name;
         $this->user_id = $order->user_id;
-        $this->ship_id = $order->ship_id;
+        $this->shipper_id = $order->shipper_id;
         $this->address = $order->address;
         $this->phone = $order->phone;
         $this->email = $order->email;
@@ -62,7 +62,7 @@ class AdminOrderEditComponent extends Component
         $previousStatus = $order->order_status;
         $order->order_status = $this->order_status;
         $order->tracking = $this->tracking;
-        $order->ship_id =$this->ship_id;
+        $order->shipper_id =$this->shipper_id;
 
         if ($order->payment_method == 'vnp'  && $order->order_status === '4' && $order->payment_status !== '3') {
             $vnp = vnpay_payments::where('vnp_TxnRef', $order->id)->first();
@@ -142,6 +142,6 @@ class AdminOrderEditComponent extends Component
     }
     public function selectedUserChanged($value)
     {
-        $this->ship_id = $value;
+        $this->shipper_id = $value;
     }
 }

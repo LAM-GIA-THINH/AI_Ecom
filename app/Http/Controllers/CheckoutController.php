@@ -331,11 +331,8 @@ class CheckoutController extends Controller
 
                             $payment->save();
                             $message = 'Thanh toán thành công';
-                            if(Auth::check()) {
-                                Auth::user()->carts->where('seller_id', $order->orderItems[0]->product->user_id)->each(function ($cart) {
-                                    $cart->delete();
-                                });
-                            }
+                            $userId = Auth::user()->id;
+                            Cart::where('user_id', $userId)->delete();
                             return redirect()->route('user.payment_result')->with(['message' => $message, 'messageType' => 'success', 'order_id' => $orderId]);
                         } else {
                             $message = 'Đơn hàng đã được thanh toán';

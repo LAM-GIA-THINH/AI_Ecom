@@ -1,5 +1,29 @@
 <div>
 <div>
+<style>
+    .description-container {
+        position: relative;
+    }
+
+    .toggle-button {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        cursor: pointer;
+        color: red;
+        font-size: 2rem;
+        background-image: linear-gradient(transparent, white);
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .description-content.expanded {
+        height: auto;
+    }
+</style>
     @livewireStyles
     @if($product == null)
         <div class="container-fluid bg-secondary mb-5">
@@ -142,10 +166,14 @@
                         <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh giá ({{$totalRatings}})</a>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active " id="tab-pane-1" wire:ignore>
-                            <textarea class="form-control" style="height: 400px;" name="description" id="description" 
-                                disabled>{{$product->description}}</textarea>
+                    <div class="tab-pane fade show active" id="tab-pane-1" wire:ignore>
+                        <div class="description-container" style="position: relative; height: 400px; width: 800px;overflow: hidden;">
+                            <div class="description-content" id="description-content">
+                                {!! $product->description !!}
+                            </div>
+                            <span id="toggle-button" class="toggle-button">Đọc thêm</span>
                         </div>
+                    </div>
                         <div class="tab-pane fade" id="tab-pane-2" wire:ignore>
                             <h4 class="mb-3">Additional Information</h4>
                             <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
@@ -319,7 +347,7 @@
             </div>
             <div class="row px-xl-5">
                 <div class="col">
-                    <div class="owl-carousel related-carousel">
+                    <div class="owl-carousel related-carousel" wire:ignore>
                         @foreach($rproducts as $rproduct)
                         <div class="card product-item border-0">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -343,25 +371,8 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                            @if(Auth::check())
-                                                        @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
-                                                            <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
-                                                                class="action-btn hover-up" href="#"
-                                                                wire:click.prevent="removeFromWishlist({{$product->id}})"><i
-                                                                    class="fas fa-heart text-primary"></i> &nbsp;Đã thích</a>
-                                                        @else
-                                                            <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up"
-                                                                href="#"
-                                                                wire:click.prevent="addToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i
-                                                                    class="far fa-heart text-primary"></i> Yêu thích</a>
-                                                        @endif
-                                                    @else
-                                                        <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up"
-                                                            href="{{route('login')}}"><i class="far fa-heart text-primary"></i> Yêu thích</a>
-                                                    @endif
-                                <a href="#" class="btn btn-sm text-dark p-0" wire:click.prevent="store({{ $rproduct->id }},'{{ $rproduct->name }}',{{ $rproduct->regular_price }})">
-                                    <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ
-                                </a>
+
+
                             </div>
                         </div>
                         @endforeach
@@ -376,22 +387,29 @@
 </div>
 @livewireScripts
 @push('scripts')
-    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script>
-        
-       document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             // Initialize CKEditor
-            if (document.getElementById('description')) {
-                CKEDITOR.replace("description",{
-                    toolbarCanCollapse: true,
-                    toolbarStartupExpanded: false,
-                    height: '600px',
-                    width: '1200px'
-                });
-                
-            }
+            const content = document.getElementById('description-content');
+        const container = document.querySelector('.description-container');
+        const button = document.getElementById('toggle-button');
+        let isExpanded = false;
 
-            // Function to set star ratings
+        button.addEventListener('click', function() {
+            if (isExpanded) {
+                content.classList.remove('expanded');
+                container.style.height = '400px';
+                button.textContent = 'Đọc thêm';
+            } else {
+                content.classList.add('expanded');
+                container.style.height = content.scrollHeight + 'px';
+                button.textContent = 'Thu gọn';
+            }
+            isExpanded = !isExpanded;
+        });
+
+            // Set star ratings function
             function setStarRating(starClass, rating) {
                 const stars = document.querySelectorAll(starClass);
                 stars.forEach((star, index) => {
@@ -408,15 +426,14 @@
             // Set the average rating stars on page load
             const averageRating = <?php echo $averageRating; ?>;
             setStarRating('.star', averageRating);
-            @if($reviews->count() > 0)
+
             // Set the review rating stars on page load
-            const reviewRating = <?php echo $review->rating; ?>;
-            setStarRating('.star1', reviewRating);
+            <?php if (isset($review->rating)) { ?>
+    const reviewRating = <?php echo $review->rating; ?>;
+    setStarRating('.star1', reviewRating);
+<?php } ?>
 
             // Star click event to set user rating
-
-            // Bind star click events
-
             const starLabels = document.querySelectorAll('#stars label');
             starLabels.forEach((label, index) => {
                 label.addEventListener('click', function (event) {
@@ -426,19 +443,9 @@
                     return false; // Ensure no further event handling
                 });
             });
-            @endif
 
             // Reinitialize CKEditor when Livewire updates the DOM
-            document.addEventListener("livewire:load", function () {
-                Livewire.hook('message.processed', (message, component) => {
-                    if (document.getElementById('description')) {
-                        if (CKEDITOR.instances['description']) {
-                            CKEDITOR.instances['description'].destroy();
-                        }
-                        CKEDITOR.replace("description");
-                    }
-                });
-            });
+           
 
             // Keep the active tab after form submission or interaction
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -450,17 +457,17 @@
                 $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
             }
         });
-    </script>
-    <script>
-                   function setRating(rating) {
-                for (let i = 1; i <= 5; i++) {
-                    document.getElementById('label' + i).style.color = '#ccc';
-                }
 
-                for (let i = 1; i <= rating; i++) {
-                    document.getElementById('label' + i).style.color = 'gold';
-                }
+        // Set rating function
+        function setRating(rating) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('label' + i).style.color = '#ccc';
             }
+
+            for (let i = 1; i <= rating; i++) {
+                document.getElementById('label' + i).style.color = 'gold';
+            }
+        }
     </script>
 @endpush
 </div>

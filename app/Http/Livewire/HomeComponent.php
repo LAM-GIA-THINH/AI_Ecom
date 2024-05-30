@@ -39,6 +39,7 @@ class HomeComponent extends Component
                 'product_id' => $product_id,
             ]);
         }
+        $this->emit('productWishlisted', $product_id); 
     }
 
     public function removeFromWishlist($product_id)
@@ -60,18 +61,19 @@ class HomeComponent extends Component
         $recommendedProducts = [];
         if (Auth::check()) {
             $favoriteCategoryCart = Auth::user()->carts->map(function ($cart) {
-                return $cart->product ? $cart->product->category_id : null;
+                return $cart->product ? $cart->product->category : null; // Use category instead of category_id
             })->filter()->unique();
-
+            
             $favoriteCategoryOrders = Auth::user()->orders->map(function ($orderItem) {
-                return $orderItem->product ? $orderItem->product->category_id : null;
+                return $orderItem->product ? $orderItem->product->category : null; // Use category instead of category_id
             })->filter()->unique();
-
+            
             $favoriteCategoryWishes = Auth::user()->wishes->map(function ($wish) {
-                return $wish->product ? $wish->product->category_id : null;
+                return $wish->product ? $wish->product->category : null; // Use category instead of category_id
             })->filter()->unique();
-            $favoriteCategory = $favoriteCategoryCart->merge($favoriteCategoryOrders)->merge($favoriteCategoryWishes)->unique();
-            $recommendedProducts = Product::whereIn('category_id', $favoriteCategory)->inRandomOrder()->get()->take(8);
+            
+            $favoriteCategories = $favoriteCategoryCart->merge($favoriteCategoryOrders)->merge($favoriteCategoryWishes)->unique();
+            
         }
         $recommendedProducts = collect($recommendedProducts)->merge(
             Product::inRandomOrder()->get()->take(8)

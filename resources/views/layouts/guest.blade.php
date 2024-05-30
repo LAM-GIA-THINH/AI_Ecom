@@ -270,48 +270,50 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-    <div class="btn-group dropdown d-flex align-items-center">
-        <div class="px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" style="display: flex;">
-                <div class="mr-2" 
-                     style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{ Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png') }}')">
-                </div>
-                <div style="margin-top: 3px;">
-                    {{ Auth::user()->name }}
-                    @if(Auth::user()->utype === "SHIP")
-                        <span class="badge bg-warning text-dark">Shipper</span>
-                    @elseif(Auth::user()->utype === "ADM")
-                        <span class="badge bg-danger text-white">Admin</span>
-                    @elseif(Auth::user()->utype === "GAR")
-                        <span class="badge text-white" style="background-color: blue;">QL Kho</span>
-                    @endif
-                </div>
-                <i class="fi-rs-angle-down ml-1"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                    <i class="align-middle me-1" data-feather="user"></i> Trang cá nhân
-                </a>
-                @if(Auth::user()->utype === "USR")
-                    <a class="dropdown-item" href="{{ route('user.orders') }}">
-                        <i class="align-middle me-1" data-feather="shopping-cart"></i> Đơn hàng
-                    </a>
-                @elseif(Auth::user()->utype === "ADM")
-                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                        <i class="align-middle me-1" data-feather="bar-chart-2"></i> Trang quản lý
-                    </a>
-                @endif
-                <div class="dropdown-divider"></div>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="dropdown-item text-danger" onClick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="align-middle me-1" data-feather="log-out"></i> Đăng xuất
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</li>
+							<div class="btn-group dropdown d-flex align-items-center">
+								<div class="px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
+									<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+										style="display: flex;">
+										<div class="mr-2"
+											style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{ Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png') }}')">
+										</div>
+										<div style="margin-top: 3px;">
+											{{ Auth::user()->name }}
+											@if(Auth::user()->utype === "SHIP")
+												<span class="badge bg-warning text-dark">Shipper</span>
+											@elseif(Auth::user()->utype === "ADM")
+												<span class="badge bg-danger text-white">Admin</span>
+											@elseif(Auth::user()->utype === "GAR")
+												<span class="badge text-white" style="background-color: blue;">QL Kho</span>
+											@endif
+										</div>
+										<i class="fi-rs-angle-down ml-1"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-end">
+										<a class="dropdown-item" href="{{ route('profile.edit') }}">
+											<i class="align-middle me-1" data-feather="user"></i> Trang cá nhân
+										</a>
+										@if(Auth::user()->utype === "USR")
+											<a class="dropdown-item" href="{{ route('user.orders') }}">
+												<i class="align-middle me-1" data-feather="shopping-cart"></i> Đơn hàng
+											</a>
+										@elseif(Auth::user()->utype === "ADM")
+											<a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+												<i class="align-middle me-1" data-feather="bar-chart-2"></i> Trang quản lý
+											</a>
+										@endif
+										<div class="dropdown-divider"></div>
+										<form method="POST" action="{{ route('logout') }}">
+											@csrf
+											<button class="dropdown-item text-danger"
+												onClick="event.preventDefault(); this.closest('form').submit();">
+												<i class="align-middle me-1" data-feather="log-out"></i> Đăng xuất
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</li>
 
 					</ul>
 				</div>
@@ -354,7 +356,7 @@
 	@livewireScripts
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-	<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 	<script src="{{ asset('js/app2.js') }}"></script>
 	<script>
@@ -388,9 +390,16 @@
 		}
 
 		document.addEventListener('livewire:load', function () {
-			const editor = CKEDITOR.replace('description');
-			editor.on('change', function () {
-				window.livewire.emit('inputContentChanged', editor.getData());
+			const editor = ClassicEditor
+				.create(document.querySelector('#description'))
+				.catch(error => {
+					console.error(error);
+				});
+
+			editor.model.document.on('change:data', () => {
+				editor.getData().then((data) => {
+					window.livewire.emit('inputContentChanged', data);
+				});
 			});
 		});
 		function confirmDeleteC(category_id) {

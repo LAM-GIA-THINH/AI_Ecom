@@ -23,7 +23,11 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
+    <style>
+        .fda3723591e0b38e7e52 {
+            top: 650px;
+        }
+    </style>
     <style>
         body, h2, h3, h4, h5, h6, p, a, span {
             font-family: Arial, sans-serif !important;
@@ -220,7 +224,8 @@
               bot_id: '7346487317957263361',
             },
             componentProps: {
-              title: 'Coze',
+              title: 'E Shopper',
+              icon:'https://files.catbox.moe/fuwjvx.png',
             },
           });
       </script>
@@ -233,6 +238,7 @@
     <!-- Custom Scripts -->
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- Additional Scripts -->
+    
     @stack('scripts')
 </body>
 

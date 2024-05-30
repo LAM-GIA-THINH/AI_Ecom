@@ -26,141 +26,151 @@
                                 @endif
                                 <form wire:submit.prevent="addProduct">
                                     <div class="row">
-                                        <div class="mb-3 mt-3   col-md-6">
-                                            <label for="name" class="form-label">Tên sản phẩm</label>
-                                            <input wire:ignore type="text" name="name" class="form-control"
-                                                style="background-color:white" placeholder="Nhập tên sản phẩm"
-                                                wire:model.lazy="name" wire:keyup="generateSlug" />
-                                            @error('name')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
+                                        <!-- Image and Description Column -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3 mt-3">
+                                                <label for="image" class="form-label">Ảnh</label>
+                                                <input type="file" name="image" class="form-control"
+                                                    style="background-color:white" wire:model.lazy="image" />
+                                                @if($image)
+                                                    <img src="{{$image->temporaryUrl()}}" width="120" />
+                                                @endif
+                                                @error('image')
+                                                    <p class="text-danger">{{$message}}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3 mt-3" wire:ignore>
+                                                <label for="description" class="form-label">Mô tả sản phẩm</label>
+                                                <textarea wire:model.lazy="description" class="form-control"
+                                                    style="background-color:white;" name="description"
+                                                    id="description"></textarea>
+                                                @error('description')
+                                                    <p class="text-danger">{{$message}}</p>
+                                                @enderror
+                                            </div>
                                         </div>
-                                        <div class="mb-3 mt-3   col-md-6">
-                                            <label for="slug" class="form-label">Đường dẫn</label>
-                                            <input type="text" name="slug" class="form-control"
-                                                style="background-color:light-grey" placeholder="Đường dẫn"
-                                                wire:model="slug" disabled />
-                                            @error('slug')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
+
+                                        <!-- Other Fields Column -->
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="mb-3 mt-3 col-md-6">
+                                                    <label for="name" class="form-label">Tên sản phẩm</label>
+                                                    <input wire:ignore type="text" name="name" class="form-control"
+                                                        style="background-color:white" placeholder="Nhập tên sản phẩm"
+                                                        wire:model.lazy="name" wire:keyup="generateSlug" />
+                                                    @error('name')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 mt-3 col-md-6">
+                                                    <label for="slug" class="form-label">Đường dẫn</label>
+                                                    <input type="text" name="slug" class="form-control"
+                                                        style="background-color:light-grey" placeholder="Đường dẫn"
+                                                        wire:model="slug" disabled />
+                                                    @error('slug')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3 mt-3 col-md-6">
+                                                    <label for="category_id" class="form-label">Danh mục</label>
+                                                    <select class="form-control" style="background-color:white"
+                                                        name="category_id" wire:model.lazy="category_id"
+                                                        id="categorySelect">
+                                                        <option value="">Chọn danh mục</option>
+                                                        @foreach($categories as $category)
+                                                            <option wire:ignore value="{{$category->id}}">
+                                                                {{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('category_id')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 mt-3 col-md-6">
+                                                    <label for="brand_id" class="form-label">Thương hiệu</label>
+                                                    <select class="form-control" style="background-color:white"
+                                                        name="brand_id" wire:model.lazy="brand_id" id="brandSelect">
+                                                        <option value="">Chọn thương hiệu</option>
+                                                        @foreach($brands as $brand)
+                                                            <option wire:ignore value="{{$brand->id}}">{{$brand->name}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('brand_id')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3 mt-3 col-md-4">
+                                                    <label for="regular_price" class="form-label">Giá bán</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="decreaseRegularprice">-</button>
+                                                        </span>
+                                                        <input type="text" name="regular_price" class="form-control"
+                                                            style="background-color:white" placeholder="Nhập giá bán"
+                                                            wire:model.lazy="regular_price" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="increaseRegularprice">+</button>
+                                                        </span>
+                                                    </div>
+                                                    @error('regular_price')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 mt-3 col-md-4">
+                                                    <label for="quantity" class="form-label">Số lượng sản phẩm</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="decreaseQuantity">-</button>
+                                                        </span>
+                                                        <input type="text" name="quantity" class="form-control"
+                                                            style="background-color:white" placeholder="Nhập số lượng"
+                                                            wire:model.lazy="quantity" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="increaseQuantity">+</button>
+                                                        </span>
+                                                    </div>
+                                                    @error('quantity')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 mt-3 col-md-4">
+                                                    <label for="weight" class="form-label">Trọng lượng (gram)</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="decreaseWeight">-</button>
+                                                        </span>
+                                                        <input type="text" name="weight" class="form-control"
+                                                            style="background-color:white"
+                                                            placeholder="Nhập khối lượng (g)" wire:model="weight" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button"
+                                                                wire:click="increaseWeight">+</button>
+                                                        </span>
+                                                    </div>
+                                                    @error('weight')
+                                                        <p class="text-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="mb-3 mt-3 col-md-3">
-                                            <label for="category_id " class="form-label">Danh mục</label>
-                                            <select class="form-control " style="background-color:white"
-                                                name="category_id" wire:model.lazy="category_id" id="categorySelect">
-                                                <option value="">Chọn danh mục</option>
-                                                @foreach($categories as $category)
-                                                    <option wire:ignore value="{{$category->id}}">{{$category->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('category_id')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3 mt-3  col-md-3">
-                                            <label for="brand_id" class="form-label">Thương hiệu</label>
-                                            <select class="form-control" style="background-color:white" name="brand_id"
-                                                wire:model.lazy="brand_id" id="brandSelect">
-                                                <option value="">Chọn thương hiệu</option>>
-                                                @foreach($brands as $brand)
-                                                    <option wire:ignore value="{{$brand->id}}">{{$brand->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('brand_id')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3 mt-3  col-md-2">
-                                            <label for="regular_price" class="form-label">Giá bán</label>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        wire:click="decreaseRegularprice">-</button>
-                                                </span>
-                                                <input type="text" name="regular_price" class="form-control"
-                                                    style="background-color:white" placeholder="Nhập giá bán"
-                                                    wire:model.lazy="regular_price" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        wire:click="increaseRegularprice">+</button>
-                                                </span>
-                                            </div>
-                                            @error('regular_price')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-
-
-                                        <div class="mb-3 mt-3  col-md-2">
-                                            <label for="quantity" class="form-label">Số lượng sản phẩm</label>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        wire:click="decreaseQuantity">-</button>
-                                                </span>
-                                                <input type="text" name="quantity" class="form-control"
-                                                    style="background-color:white" placeholder="Nhập số lượng"
-                                                    wire:model.lazy="quantity" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        wire:click="increaseQuantity">+</button>
-                                                </span>
-                                            </div>
-                                            @error('quantity')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                        @error('description')
-                                            <p class="text-danger">{{$message}}</p>
-                                        @enderror
-                                        <div class="mb-3 mt-3  col-md-2">
-                                        <label for="weight" class="form-label">Trọng lượng (gram)</label>
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-secondary" type="button" wire:click="decreaseWeight">-</button>
-                                            </span>
-                                            <input type="text" name="weight" class="form-control"  style="background-color:white" placeholder="Nhập khối lượng (g)" wire:model="weight"/>
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-secondary" type="button" wire:click="increaseWeight">+</button>
-                                            </span>
-                                        </div>
-                                        @error('weight')
-                                        <p class="text-danger">{{$message}}</p>
-                                        @enderror
-                                    </div>  
-                                        <div class="mb-3 mt-3" wire:ignore>
-                                            <label for="description" class="form-label">Mô tả sản phẩm</label>
-                                            <textarea wire:model.lazy="description" class="form-control"
-                                                style="background-color:white; height: 150px;" name="description"
-                                                placeholder="Nhập tóm tắt" id="description">{!! $content !!}</textarea>
-                                            @error('description')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3 mt-3">
-                                            <label for="image" class="form-label">Ảnh</label>
-                                            <input type="file" name="image" class="form-control"
-                                                style="background-color:white" wire:model.lazy="image" />
-                                            @if($image)
-                                                <img src="{{$image->temporaryUrl()}}" width="120" />
-                                            @endif
-                                            @error('image')
-                                                <p class="text-danger">{{$message}}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-
                                     <button type="submit" class="btn btn-primary float-end">Thêm</button>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+</div>
