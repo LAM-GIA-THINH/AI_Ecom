@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.0",
         "elasticsearch/elasticsearch": "^8.13",
-        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "*",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",

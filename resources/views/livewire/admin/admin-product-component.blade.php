@@ -13,24 +13,29 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <input wire:model="search" type="text" class="form-control" style="background-color:white" placeholder="Tìm kiếm bằng tên..." style="border: 1px solid #ccc; border-radius: 4px;">
-                                            <div class="input-group-text" style="height: 48px;">
-                                                <select wire:model="filterStockStatus" class="form-control" style="width: 120px;border: none;">
-                                                    <option value="">Trạng thái ▼</option>
+
+                                                <select wire:model="filterStockStatus" class="form-select " style="width: 1px; border: 2px solid #ccc; border-radius: 4px;">
+                                                    <option value="">Trạng thái</option>
                                                     <option value="in_stock">Còn hàng</option>
                                                     <option value="out_of_stock">Hết hàng</option>
                                                 </select>
-                                            </div>
+
                                             <button wire:click="clearSearch" class="btn btn-secondary btn-sm">Xoá</button>
 
                                         </div>
                                     </div>
-                                    <div class="col-md-6 d-flex justify-content-end">
+                                    <div class="col-md-6 mt-3 mt-md-0">
+                                        <!-- Added mt-3 mt-md-0 class for spacing on small screens -->
+                                        <div class="d-flex justify-content-md-end justify-content-start">
+                                            <!-- Adjusted justification -->
                                         <a href="{{ route('admin.product.add') }}" class="btn btn-success btn-sx">Thêm sản phẩm</a>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                                 <div class="card-body">
-                                        <table class="table table-striped" style="border: 2px solid #ccc;">
+                                <div class="table-responsive"> <!-- Added class for responsiveness -->
+                                    <table class="table table-striped" style="border: 2px solid #ccc;">
                                             <thead>
                                                 <tr class="text-center">
                                                 <th>#</th>
@@ -55,25 +60,31 @@
                                                             <img src="{{ asset('img/products/products/' . $firstImage) }}" alt="{{ $product->name }}" width="60" />
                                                         </td>
                                                         <td>{{$product->name}}</td>
-                                                        <td> @if( $product->quantity >0)
+                                                        <td> 
+                                                            @if( $product->quantity >0)
                                                                 Còn hàng
                                                             @else
                                                                 Hết hàng
-                                                                @endif
+                                                            @endif
                                                         </td>
                                                         <td>{{ number_format($product->regular_price, 0, ',', ',') }} VND</td>
                                                         <td>{{$product->category->name}}</td>
                                                         <td>{{$product->created_at->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s')}}</td>
                                                         <td>
-                                                            <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="text-info">Cập nhật</a>
-                                                            <a href="#" onclick="confirmDeleteP('{{ $product->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
+                                                            <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="btn btn-info btn-sm">Cập nhật</a>
+                                                            <a href="#" onclick="confirmDeleteP('{{ $product->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        {{$products->links('pagination::bootstrap-4')}}
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                               
+                            </div>
+                            {{ $products->links('pagination::bootstrap-4') }}        
                                 </div>
+
                               
                             </div>
                         </div>

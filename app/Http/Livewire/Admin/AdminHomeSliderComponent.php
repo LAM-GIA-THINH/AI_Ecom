@@ -11,9 +11,9 @@ class AdminHomeSliderComponent extends Component
     protected $listeners = ['deleteSlide'];
     public function render()
     {
-        $slides= HomeSlider::orderBy("created_at","desc")->get();
+        $slides= HomeSlider::orderBy("created_at","desc")->paginate(5);
         return view('livewire.admin.admin-home-slider-component',['slides'=>$slides])->layout('layouts.guest');
-    }
+    } 
     public function deleteSlide($sliderId)
     {
         $slider = HomeSlider::find($sliderId);

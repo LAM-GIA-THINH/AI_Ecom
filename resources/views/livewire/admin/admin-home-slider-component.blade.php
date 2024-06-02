@@ -12,23 +12,26 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <input wire:model="search" type="text" placeholder="Tìm kiếm bằng tên..." style="border: 1px solid #ccc; border-radius: 4px;">
+                                            <input wire:model="search" class="form-control" type="text" placeholder="Tìm kiếm bằng tên..." style="border: 1px solid #ccc; border-radius: 4px;">
                                             <button wire:click="clearSearch" class="btn btn-secondary btn-sm">Xoá</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 d-flex justify-content-end">
+                                    <div class="col-md-6 mt-3 mt-md-0">
+                                    <div class="d-flex justify-content-md-end justify-content-start">
                                         <a href="{{ route('admin.home.slider.add') }}" class="btn btn-success btn-sx">Thêm banner</a>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                                 <div class="card-body">
-                                        <table class="table table-striped" style="border: 2px solid #ccc;">
+                                <div class="table-responsive"> <!-- Added class for responsiveness -->
+                                    <table class="table table-striped" style="border: 2px solid #ccc;">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Ảnh</th>
                                                     <th>Tiêu đề</th>
-                                                    <th>Trạng thái</th>
+                                                    <th>Loại</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
@@ -38,17 +41,18 @@
                                                         <td>{{$slide->id}}</td>
                                                         <td><img src="{{ asset('img/products/slider/') }}/{{$slide->image}}" width="180px" height="80px"></td>
                                                         <td>{{$slide->title}}</td>
-                                                        <td>{{$slide->status == 1 ? "Đang dùng" : "Không dùng"}}</td>
+                                                        <td>{{$slide->status == 1 ? "Banner lớn" : "Banner nhỏ"}}</td>
                                                         <td>
-                                                        <a href="{{route('admin.home.slider.edit', ['slide_id'=>$slide->id])}}" class="text-info">Chỉnh sửa</a>
-                                                        <a href="#" onclick="confirmDeleteS('{{ $slide->id }}')" class="text-danger" style="margin-left:20px;">Xoá</a>   
+                                                        <a href="{{route('admin.home.slider.edit', ['slide_id'=>$slide->id])}}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                                        <a href="#" onclick="confirmDeleteS('{{ $slide->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 
                                             </tbody>
                                         </table>
-                                        
+                                        </div>        
+                                        {{$slides->links('pagination::bootstrap-4')}}
                                 </div>
 
                             </div>

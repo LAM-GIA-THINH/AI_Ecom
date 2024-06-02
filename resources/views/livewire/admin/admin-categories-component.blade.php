@@ -1,4 +1,3 @@
-
 <main class="main">
 
     <div>
@@ -23,41 +22,50 @@
                                         <button wire:click="clearSearch" class="btn btn-secondary btn-sm">Xoá</button>
                                     </div>
                                 </div>
-                                <div class="col-md-6 d-flex justify-content-end">
+                                <div class="col-md-6 mt-3 mt-md-0">
+                                        <!-- Added mt-3 mt-md-0 class for spacing on small screens -->
+                                        <div class="d-flex justify-content-md-end justify-content-start">
+                                            <!-- Adjusted justification -->
                                     <a href="{{ route('admin.category.add') }}" class="btn btn-success float-end">Thêm
                                         danh mục</a>
+                                </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped" style="border: 2px solid #ccc;">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Ảnh</th>
-                                        <th>Tên</th>
-                                        <th>Slug</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($categories as $category)
-                                        <tr wire:key="category-{{ $category->id }}">
-                                            <td>{{$category->id}}</td>
-                                            <td><img src="{{ asset('img/products/category/') }}/{{$category->image}}" width="80px" height="80px"></td>
-                                            <td>{{$category->name}}</td>
-                                            <td>{{$category->slug}}</td>
-                                            <td>
-                                                <a href="{{route('admin.category.edit', ['category_id' => $category->id])}}"
-                                                    class="text-info">Chỉnh sửa</a>
-                                                <a href="#" class="text-danger" onclick="confirmDeleteC('{{ $category->id }}')"
-                                                    style="margin-left:20px;">Xoá</a>
-                                            </td>
+                            <div class="table-responsive"> <!-- Added class for responsiveness -->
+                                <table class="table table-striped" style="border: 2px solid #ccc;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên</th>
+                                            <th>Slug</th>
+                                            <th>Hành động</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            {{$categories->links('pagination::bootstrap-4')}}
+                                    </thead>
+                                    <tbody>
+                                        @foreach($categories as $category)
+                                            <tr wire:key="category-{{ $category->id }}">
+                                                <td>{{$category->id}}</td>
+                                                <td><img src="{{ asset('img/products/category/') }}/{{$category->image}}"
+                                                        width="80px" height="80px"></td>
+                                                <td>{{$category->name}}</td>
+                                                <td>{{$category->slug}}</td>
+                                                <td>
+                                                    <a href="{{route('admin.category.edit', ['category_id' => $category->id])}}"
+                                                        class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                                    <a href="#" class="btn btn-danger btn-sm ml-2"
+                                                        onclick="confirmDeleteC('{{ $category->id }}')"
+                                                        style="margin-left:20px;">Xoá</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                {{$categories->links('pagination::bootstrap-4')}}
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,4 +73,3 @@
         </div>
     </section>
 </main>
-

@@ -17,11 +17,13 @@
 
 	<title>Trang Quản lý - AI Ecom</title>
 
-	<link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/app3.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/bootstrap.min2.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+	
 	@stack('styles')
 	@livewireStyles
 </head>
@@ -210,7 +212,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg"
+												<img src=""
 													class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
@@ -224,7 +226,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg"
+												<img src=""
 													class="avatar img-fluid rounded-circle" alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
@@ -238,7 +240,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg"
+												<img src=""
 													class="avatar img-fluid rounded-circle" alt="Christina Mason">
 											</div>
 											<div class="col-10 ps-2">
@@ -252,7 +254,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg"
+												<img src=""
 													class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
 											</div>
 											<div class="col-10 ps-2">
@@ -358,7 +360,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
-	<script src="{{ asset('js/app2.js') }}"></script>
+	<script src="{{ asset('js/app3.js') }}"></script>
 	<script>
 		document.addEventListener('livewire:load', function () {
 			initializeSelect2();
@@ -371,13 +373,17 @@
 		});
 
 		function initializeSelect2() {
-			$('#categorySelect').select2();
+			$('#categorySelect').select2({
+				width: '100%',
+			});
 			$('#categorySelect').on('change', function (e) {
 				var selectedValue = $(this).val();
 				Livewire.emit('selectedCategoryChanged', selectedValue);
 			});
 
-			$('#brandSelect').select2();
+			$('#brandSelect').select2({
+				width: '100%',
+			});
 			$('#brandSelect').on('change', function (e) {
 				var selectedValue = $(this).val();
 				Livewire.emit('selectedBrandChanged', selectedValue);
@@ -390,18 +396,18 @@
 		}
 
 		document.addEventListener('livewire:load', function () {
-			const editor = ClassicEditor
-				.create(document.querySelector('#description'))
-				.catch(error => {
-					console.error(error);
-				});
-
-			editor.model.document.on('change:data', () => {
-				editor.getData().then((data) => {
-					window.livewire.emit('inputContentChanged', data);
-				});
-			});
-		});
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .then(editor => {
+            editor.model.document.on('change:data', () => {
+                const data = editor.getData();
+                window.livewire.emit('inputContentChanged', data);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
 		function confirmDeleteC(category_id) {
 			if (confirm('Bạn có chắc muốn xoá ?')) {
 				Livewire.emit('deleteCategory', category_id);
@@ -432,6 +438,7 @@
 			}
 
 		}
+		
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	@stack('scripts')

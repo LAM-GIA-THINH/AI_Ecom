@@ -1,0 +1,35 @@
+/* Override Bootstrap 4 pagination styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.pagination .page-item {
+    margin: 0 2px; /* Adjust margin to make pagination items closer */
+}
+
+.pagination .page-link {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6; /* Bootstrap 4 default border color */
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #007bff; /* Primary color for pagination links */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff; /* Active link background color */
+    color: #fff; /* Active link text color */
+    border-color: #007bff; /* Active link border color */
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef; /* Change background color on hover */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Disabled link color */
+}
+
