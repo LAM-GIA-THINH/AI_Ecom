@@ -23,7 +23,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
-	
+
 	@stack('styles')
 	@livewireStyles
 </head>
@@ -212,8 +212,8 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src=""
-													class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+												<img src="" class="avatar img-fluid rounded-circle"
+													alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Vanessa Tucker</div>
@@ -226,8 +226,8 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src=""
-													class="avatar img-fluid rounded-circle" alt="William Harris">
+												<img src="" class="avatar img-fluid rounded-circle"
+													alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">William Harris</div>
@@ -240,8 +240,8 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src=""
-													class="avatar img-fluid rounded-circle" alt="Christina Mason">
+												<img src="" class="avatar img-fluid rounded-circle"
+													alt="Christina Mason">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Christina Mason</div>
@@ -254,8 +254,8 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src=""
-													class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+												<img src="" class="avatar img-fluid rounded-circle"
+													alt="Sharon Lessman">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Sharon Lessman</div>
@@ -357,8 +357,48 @@
 
 	@livewireScripts
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+	<script>
+		document.addEventListener('livewire:load', function () {
+			window.confirmRestoreAccount = function (accountId) {
+				Swal.fire({
+					title: 'Mở tài khoản nhân viên?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Mở!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('restoreAccount', accountId);
+					}
+				});
+			}
+			window.confirmDeleteAccount = function (accountId) {
+				Swal.fire({
+					title: 'Khoá tài khoản nhân viên?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Khoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteAccount', accountId);
+					}
+				});
+			}
+
+
+		});
+	</script>
 
 	<script src="{{ asset('js/app3.js') }}"></script>
 	<script>
@@ -396,18 +436,18 @@
 		}
 
 		document.addEventListener('livewire:load', function () {
-    ClassicEditor
-        .create(document.querySelector('#description'))
-        .then(editor => {
-            editor.model.document.on('change:data', () => {
-                const data = editor.getData();
-                window.livewire.emit('inputContentChanged', data);
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-});
+			ClassicEditor
+				.create(document.querySelector('#description'))
+				.then(editor => {
+					editor.model.document.on('change:data', () => {
+						const data = editor.getData();
+						window.livewire.emit('inputContentChanged', data);
+					});
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		});
 		function confirmDeleteC(category_id) {
 			if (confirm('Bạn có chắc muốn xoá ?')) {
 				Livewire.emit('deleteCategory', category_id);
@@ -426,19 +466,14 @@
 			}
 
 		}
-		function confirmDeleteU(account_id) {
-			if (confirm('Bạn có chắc muốn khoá ?')) {
-				Livewire.emit('deleteAccount', account_id);
-			}
 
-		}
 		function confirmDeleteS(slider_id) {
 			if (confirm('Bạn có chắc muốn xoá ?')) {
 				Livewire.emit('deleteSlide', slider_id);
 			}
 
 		}
-		
+
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	@stack('scripts')

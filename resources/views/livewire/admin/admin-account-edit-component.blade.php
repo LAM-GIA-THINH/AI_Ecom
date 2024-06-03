@@ -53,7 +53,7 @@
                                     </div> 
                                     <div class="mb-3 mt-3">
                                         <label for="utype" class="form-label">Nhân viên</label>
-                                        <select  class="form-control " style="background-color:white" name="utype" wire:model="utype"  >
+                                        <select  class="form-select mb-3" style="background-color:white" name="utype" wire:model="utype"  >
                                             <option value="">Chọn danh mục</option>
                                             <option value="SHIP">Giao hàng</option>
                                             <option value="GAR">Kho</option>
@@ -72,3 +72,16 @@
                 </div>
             </section>
     </main>
+    @push('scripts')
+<script>
+    			Livewire.on('showSuccessMessage', () => {
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Đã cập nhật thành công',
+					showConfirmButton: false,
+					timer: 1500
+				});
+			});
+</script>
+    @endpush

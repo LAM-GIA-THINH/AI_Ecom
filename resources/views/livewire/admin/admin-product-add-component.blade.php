@@ -55,9 +55,9 @@
                                             <div class="row">
                                                 <div class="mb-3 mt-3 col-md-6">
                                                     <label for="name" class="form-label">Tên sản phẩm</label>
-                                                    <input wire:ignore type="text" name="name" class="form-control"
+                                                    <input type="text" name="name" class="form-control"
                                                         style="background-color:white" placeholder="Nhập tên sản phẩm"
-                                                        wire:model.lazy="name" wire:keyup="generateSlug" />
+                                                        wire:model="name" wire:keyup="generateSlug" />
                                                     @error('name')
                                                         <p class="text-danger">{{$message}}</p>
                                                     @enderror
@@ -107,17 +107,11 @@
                                                 <div class="mb-3 mt-3 col-md-4">
                                                     <label for="regular_price" class="form-label">Giá bán</label>
                                                     <div class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-secondary" type="button"
-                                                                wire:click="decreaseRegularprice">-</button>
-                                                        </span>
+   
                                                         <input type="text" name="regular_price" class="form-control"
                                                             style="background-color:white" placeholder="Nhập giá bán"
-                                                            wire:model.lazy="regular_price" />
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-secondary" type="button"
-                                                                wire:click="increaseRegularprice">+</button>
-                                                        </span>
+                                                            wire:model.lazy="regular_price" /><span class="input-group-text">VND</span>
+ 
                                                     </div>
                                                     @error('regular_price')
                                                         <p class="text-danger">{{$message}}</p>

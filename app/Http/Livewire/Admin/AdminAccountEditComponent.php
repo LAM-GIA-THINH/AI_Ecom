@@ -52,6 +52,8 @@ class AdminAccountEditComponent extends Component
         $account->password= bcrypt($this->password);
         $account->utype= $this->utype;
         $account->save();
+        $this->emit('showSuccessMessage');
+
         session()->flash('message', 'Đã cập nhật tài khoản hành thành công!');
     }
     public function render()
