@@ -72,16 +72,4 @@
                 </div>
             </section>
     </main>
-    @push('scripts')
-<script>
-    			Livewire.on('showSuccessMessage', () => {
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'Đã cập nhật thành công',
-					showConfirmButton: false,
-					timer: 1500
-				});
-			});
-</script>
-    @endpush
+
