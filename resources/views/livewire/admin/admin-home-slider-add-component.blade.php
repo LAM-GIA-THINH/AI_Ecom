@@ -66,11 +66,11 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <label class="form-label">Trạng thái</label>
-                                        <select style="padding: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;"  wire:model="status">
-                                        <option value="">Chọn trạng thái</option>
-                                            <option value="1">Đang dùng</option>
-                                            <option value="0">Không dùng</option>
+                                        <label class="form-label">Loại</label>
+                                        <select class="form-select"  wire:model="status">
+                                        <option value="">Chọn loại</option>
+                                            <option value="1">Banner lớn</option>
+                                            <option value="0">Banner nhỏ</option>
                                         </select>
                                         @error('status')
                                             <p class="text-danger">{{$message}}</p>
@@ -90,6 +90,17 @@
                                 </form>
                             </div>
                             @livewireScripts
+                                <script>
+                                    Livewire.on('showSuccessMessage', () => {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Đã thêm thành công!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

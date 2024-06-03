@@ -32,12 +32,12 @@
                                                 <input type="text" name="order_id" class="form-control"  wire:model="order_id" disabled/>
                                             </div>
                                             <div class="mb-3 mt-3 col-md-3">
-                                                <label for="user_id" class="form-label">Mã khách hàng</label>
-                                                <input type="text" name="user_id" class="form-control"  wire:model="user_id" disabled/>
-                                            </div>
-                                            <div class="mb-3 mt-3 col-md-3">
                                                 <label for="name" class="form-label">Tên khách hàng</label>
                                                 <input type="text" name="name" class="form-control"  wire:model="name" disabled/>
+                                            </div>
+                                            <div class="mb-3 mt-3 col-md-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="text" name="email" class="form-control"  wire:model="email" disabled/>
                                             </div>
                                             <div class="mb-3 mt-3 col-md-3">
                                                 <label for="phone" class="form-label">Số điện thoại</label>
@@ -45,17 +45,14 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="mb-3 mt-3 col-md-4">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="text" name="email" class="form-control"  wire:model="email" disabled/>
-                                            </div>
-                                            <div class="mb-3 mt-3 col-md-4">
+
+                                            <div class="mb-3 mt-3 col-md-6">
                                                 <label for="address" class="form-label">Địa chỉ</label>
-                                                <input type="text" name="address" class="form-control"  wire:model="address" disabled/>
+                                                <textarea type="text" name="address" class="form-control"  wire:model="address" disabled></textarea>
                                             </div>
-                                            <div class="mb-3 mt-3 col-md-4">
+                                            <div class="mb-3 mt-3 col-md-6">
                                                 <label for="note" class="form-label">Ghi chú</label>
-                                                <input type="text" name="note" class="form-control"  wire:model="note" disabled/>
+                                                <textarea type="text" name="note" class="form-control"  wire:model="note" disabled></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -79,7 +76,7 @@
                                         <div class="row">
                                             <div class="mb-3 mt-3 col-md-6">
                                                 <label for="order_status" class="form-label" wire:model="order_status" >Trạng thái đơn hàng</label>
-                                                <select class="form-control" style="background-color:white" name="order_status" wire:model="order_status" @if($order_status == '4' || $order_status == '3') readonly @endif>
+                                                <select class="form-select" style="background-color:white" name="order_status" wire:model="order_status" @if($order_status == '4' || $order_status == '3') readonly @endif>
                                                     <option value="0">Chờ duyệt</option>
                                                     <option value="1">Duyệt</option>
                                                     <option value="2">Đang giao hàng</option>
@@ -89,7 +86,7 @@
                                             </div>
                                             <div class="mb-3 mt-3 col-md-6" wire:ignore>
                                                 <label for="ship_id" class="form-label" >Nhân viên giao hàng</label>
-                                                <select class="form-control"  style="background-color:white" name="ship_id" wire:model="shipper_id" id="userSelect">
+                                                <select class="form-control" style="background-color:white" name="ship_id" wire:model="shipper_id" id="userSelect">
                                                     <option value="">Chọn nhân viên</option>
                                                     @foreach($users as $user)
                                                     <option value="{{$user->id}}">{{$user->name}}</option>

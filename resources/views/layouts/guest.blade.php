@@ -274,12 +274,17 @@
 						<li class="nav-item dropdown">
 							<div class="btn-group dropdown d-flex align-items-center">
 								<div class="px-1 py-0 d-flex align-items-center" style="background-color: #fff;">
-									<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-										style="display: flex;">
-										<div class="mr-2"
-											style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{ Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png') }}')">
-										</div>
-										<div style="margin-top: 3px;">
+									<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+										data-bs-toggle="dropdown">
+										<i class="align-middle" data-feather="settings"></i>
+									</a>
+
+									<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+										data-bs-toggle="dropdown">
+										<img src="{{ Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('img/user.png') }}"
+											class="avatar img-fluid rounded me-1" alt="{{ Auth::user()->name }}"
+											style="width: 30px; height: 30px; object-fit: cover;" />
+										<span class="text-dark">
 											{{ Auth::user()->name }}
 											@if(Auth::user()->utype === "SHIP")
 												<span class="badge bg-warning text-dark">Shipper</span>
@@ -288,9 +293,9 @@
 											@elseif(Auth::user()->utype === "GAR")
 												<span class="badge text-white" style="background-color: blue;">QL Kho</span>
 											@endif
-										</div>
-										<i class="fi-rs-angle-down ml-1"></i>
+										</span>
 									</a>
+
 									<div class="dropdown-menu dropdown-menu-end">
 										<a class="dropdown-item" href="{{ route('profile.edit') }}">
 											<i class="align-middle me-1" data-feather="user"></i> Trang cá nhân
@@ -395,7 +400,70 @@
 					}
 				});
 			}
-
+			window.confirmDeleteSlide = function (sliderId) {
+				Swal.fire({
+					title: 'Xoá banner?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Xoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteSlide', sliderId);
+					}
+				});
+			}
+			window.confirmDeleteCategory = function (categoryId) {
+				Swal.fire({
+					title: 'Xoá danh mục?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Xoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteCategory', categoryId);
+					}
+				});
+			}
+			window.confirmDeleteBrand = function (brandId) {
+				Swal.fire({
+					title: 'Xoá thương hiệu?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Xoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteBrand', brandId);
+					}
+				});
+			}
+			window.confirmDeleteProduct = function (productId) {
+				Swal.fire({
+					title: 'Xoá sản phẩm?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Xoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteProduct', productId);
+					}
+				});
+			}
 
 		});
 	</script>
@@ -448,32 +516,24 @@
 					console.error(error);
 				});
 		});
-		function confirmDeleteC(category_id) {
-			if (confirm('Bạn có chắc muốn xoá ?')) {
-				Livewire.emit('deleteCategory', category_id);
-			}
-
-		}
-		function confirmDeleteB(brand_id) {
-			if (confirm('Bạn có chắc muốn xoá ?')) {
-				Livewire.emit('deleteBrand', brand_id);
-			}
-
-		}
-		function confirmDeleteP(product_id) {
-			if (confirm('Bạn có chắc muốn xoá ?')) {
-				Livewire.emit('deleteProduct', product_id);
-			}
-
-		}
-
-		function confirmDeleteS(slider_id) {
-			if (confirm('Bạn có chắc muốn xoá ?')) {
-				Livewire.emit('deleteSlide', slider_id);
-			}
-
-		}
-
+		Livewire.on('showupSuccessMessage', () => {
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Đã cập nhật thành công!',
+				showConfirmButton: false,
+				timer: 1500
+			});
+		});
+		Livewire.on('showaddSuccessMessage', () => {
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Đã thêm thành công!',
+				showConfirmButton: false,
+				timer: 1500
+			});
+		});
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	@stack('scripts')

@@ -53,9 +53,9 @@
                                         <!-- Other Fields Column -->
                                         <div class="col-md-6">
                                             <div class="row">
-                                                <div class="mb-3 mt-3 col-md-6">
+                                            <div class="mb-3 mt-3 col-md-6">
                                                     <label for="name" class="form-label">Tên sản phẩm</label>
-                                                    <input type="text" name="name" class="form-control"
+                                                    <input wire:ignore type="text" name="name" class="form-control"
                                                         style="background-color:white" placeholder="Nhập tên sản phẩm"
                                                         wire:model="name" wire:keyup="generateSlug" />
                                                     @error('name')
@@ -64,7 +64,7 @@
                                                 </div>
                                                 <div class="mb-3 mt-3 col-md-6">
                                                     <label for="slug" class="form-label">Đường dẫn</label>
-                                                    <input type="text" name="slug" class="form-control"
+                                                    <input wire:ignore type="text" name="slug" class="form-control"
                                                         style="background-color:light-grey" placeholder="Đường dẫn"
                                                         wire:model="slug" disabled />
                                                     @error('slug')
@@ -160,7 +160,9 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary float-end">Thêm</button>
                                 </form>
+
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ class AdminProductComponent extends Component
         $products = $this->filterStockStatus()
             ->where('user_id', 1)
             ->orderBy('id', 'ASC')
+            ->withTrashed()
             ->paginate(5);
 
         return view('livewire.admin.admin-product-component', ['products' => $products])->layout('layouts.guest');

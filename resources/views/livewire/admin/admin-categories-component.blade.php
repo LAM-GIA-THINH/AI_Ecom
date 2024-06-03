@@ -56,7 +56,7 @@
                                                     <a href="{{route('admin.category.edit', ['category_id' => $category->id])}}"
                                                         class="btn btn-info btn-sm">Chỉnh sửa</a>
                                                     <a href="#" class="btn btn-danger btn-sm ml-2"
-                                                        onclick="confirmDeleteC('{{ $category->id }}')"
+                                                        onclick="confirmDeleteCategory('{{ $category->id }}')"
                                                         style="margin-left:20px;">Xoá</a>
                                                 </td>
                                             </tr>

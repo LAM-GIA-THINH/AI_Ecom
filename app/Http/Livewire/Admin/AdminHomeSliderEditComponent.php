@@ -64,8 +64,7 @@ class AdminHomeSliderEditComponent extends Component
         }
     
         $slide->save();
-    
-        session()->flash('message', 'Đã cập nhật banner!');
+        $this->emit('showSuccessMessage');
     }
     
     public function render()

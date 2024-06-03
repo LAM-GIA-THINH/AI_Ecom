@@ -130,7 +130,7 @@ class AdminOrderEditComponent extends Component
             }
         }
         session()->flash('message', 'Đã cập nhật đơn hàng thành công!');
-        return redirect()->route('admin.order.edit', ['order_id' => $this->order_id]);
+        $this->emit('showupSuccessMessage');
     }
 
     public function render()

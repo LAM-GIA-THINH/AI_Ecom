@@ -54,7 +54,18 @@
                                 </form>
                                 </div>
                                 @livewireScripts
-                            </div>
+                            <script>
+                                    Livewire.on('showSuccessMessage', () => {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Đã cập nhật thành công!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                });
+                            </script>
+                        </div>
                         </div>
                     </div>
                 </div>

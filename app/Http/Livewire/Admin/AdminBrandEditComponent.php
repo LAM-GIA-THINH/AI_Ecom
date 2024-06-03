@@ -61,7 +61,7 @@ class AdminBrandEditComponent extends Component
         }
     
         $brand->save();
-        session()->flash('message', 'Đã cập nhật nhà phát hành thành công!');
+        $this->emit('showSuccessMessage');
     }
     public function render()
     {

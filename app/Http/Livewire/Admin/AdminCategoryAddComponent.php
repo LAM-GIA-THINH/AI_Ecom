@@ -39,7 +39,8 @@ class AdminCategoryAddComponent extends Component
         $this->image->storeAs('category', $imageName);
         $category->image = $imageName;
         $category->save();
-        session()->flash('message', 'Đã thêm danh mục thành công!');
+        $this->emit('showSuccessMessage');
+
     }
     public function render()
     {

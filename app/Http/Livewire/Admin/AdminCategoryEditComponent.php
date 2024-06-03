@@ -59,7 +59,7 @@ class AdminCategoryEditComponent extends Component
             $category->image = $imageName;
         }
         $category->save();
-        session()->flash('message', 'Đã cập nhật danh mục thành công!');
+        $this->emit('showSuccessMessage');
     }
     public function render()
     {

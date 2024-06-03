@@ -110,9 +110,8 @@ class AdminProductAddComponent extends Component
 
             $product->save();
 
-            session()->flash('message', 'Thêm sản phẩm thành công!');
-            return redirect()->route('admin.product.add');
-    }
+            $this->emit('showaddSuccessMessage');
+        }
     public function render()
     { 
         $categories = Category::orderBy('name', 'ASC')->get();

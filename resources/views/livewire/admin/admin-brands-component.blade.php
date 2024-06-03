@@ -43,7 +43,7 @@
                                                         <td>{{$brand->slug}}</td>
                                                         <td>
                                                         <a href="{{route('admin.brand.edit', ['brand_id'=>$brand->id])}}" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                                                        <a href="#" onclick="confirmDeleteB('{{ $brand->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
+                                                        <a href="#" onclick="confirmDeleteBrand('{{ $brand->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
                                                         </td>
                                                     </tr>
                                                 @endforeach

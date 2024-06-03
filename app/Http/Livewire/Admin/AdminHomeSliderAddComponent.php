@@ -39,7 +39,7 @@ class AdminHomeSliderAddComponent extends Component
         $this->image->storeAs('slider', $imageName);
         $slide->image = $imageName;
         $slide->save();
-        session()->flash('message', 'Đã thêm banner thành công!');
+        $this->emit('showSuccessMessage');
     }
     public function render()
     {

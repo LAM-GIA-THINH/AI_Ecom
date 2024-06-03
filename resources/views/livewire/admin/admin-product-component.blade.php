@@ -71,8 +71,12 @@
                                                         <td>{{$product->category->name}}</td>
                                                         <td>{{$product->created_at->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s')}}</td>
                                                         <td>
+                                                        @if($product->deleted_at == '')
                                                             <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="btn btn-info btn-sm">Cập nhật</a>
-                                                            <a href="#" onclick="confirmDeleteP('{{ $product->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
+                                                            <a href="#" onclick="confirmDeleteProduct('{{ $product->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>
+                                                        @else   
+                                                        <a href="#" onclick="" class="btn btn-sm ml-2" style="background-color:gray; color:white">Đã xoá</a>
+                                                        @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

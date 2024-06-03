@@ -129,9 +129,7 @@ class AdminProductEditComponent extends Component
             }
             $product->category_id = $this->category_id;
             $product->save();
-    
-            session()->flash('message', 'Đã cập nhật sản phẩm thành công!');
-            return redirect()->route('admin.product.edit', ['product_id' => $this->product_id]);
+            $this->emit('showupSuccessMessage');
     }
 
     public function render()

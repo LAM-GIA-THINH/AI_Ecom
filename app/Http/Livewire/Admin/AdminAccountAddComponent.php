@@ -43,7 +43,7 @@ class AdminAccountAddComponent extends Component
             'utype' => $this->utype
         ]);
 
-        session()->flash('message', 'Đã thêm tài khoản thành công!');
+        $this->emit('showSuccessMessage');
     }
     public function render()
     {

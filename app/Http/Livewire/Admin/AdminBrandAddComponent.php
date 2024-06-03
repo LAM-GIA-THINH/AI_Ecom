@@ -38,7 +38,7 @@ class AdminBrandAddComponent extends Component
         $this->image->storeAs('brand', $imageName);
         $brand->image = $imageName;
         $brand->save();
-        session()->flash('message', 'Đã thêm thương hiệu thành công!');
+        $this->emit('showSuccessMessage');
     }
     public function render()
     {
