@@ -8,7 +8,7 @@
         color: #fff !important;
     }
 </style>
-    @livewireStyles
+    
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Yêu thích</h1>
@@ -55,4 +55,4 @@
                             Bạn không có sản phẩm yêu thích!
                         </div>
                     @endif
-                    @livewireScripts
+</div>

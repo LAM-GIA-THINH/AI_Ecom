@@ -55,7 +55,12 @@
 						</li>
 						<li class="sidebar-item {{ Route::is('admin.home.slider') ? 'active' : '' }}">
 							<a class="sidebar-link" href="{{route('admin.home.slider')}}">
-								<i class="align-middle" data-feather="book"></i> <span class="align-middle">Banner</span>
+								<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Banner</span>
+							</a>
+						</li>
+						<li class="sidebar-item {{ Route::is('admin.reviews') ? 'active' : '' }}">
+							<a class="sidebar-link" href="{{route('admin.reviews')}}">
+								<i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Đánh giá</span>
 							</a>
 						</li>
 					@endif
@@ -66,13 +71,13 @@
 					@if(Auth::user()->utype === "ADM" || Auth::user()->utype === "GAR")
 						<li class="sidebar-item {{ Route::is('admin.brands') ? 'active' : '' }}">
 							<a class="sidebar-link" href="{{route('admin.brands')}}">
-								<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Thương
+								<i class="align-middle" data-feather="award"></i> <span class="align-middle">Thương
 									hiệu</span>
 							</a>
 						</li>
 						<li class="sidebar-item {{ Route::is('admin.categories') ? 'active' : '' }}">
 							<a class="sidebar-link" href="{{route('admin.categories')}}">
-								<i class="align-middle" data-feather="square"></i> <span class="align-middle">Danh
+								<i class="align-middle" data-feather="at-sign"></i> <span class="align-middle">Danh
 									mục</span>
 							</a>
 						</li>
@@ -86,7 +91,7 @@
 					@endif
 					<li class="sidebar-item {{ Route::is('admin.orders') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{route('admin.orders')}}">
-							<i class="align-middle" data-feather="grid"></i> <span class="align-middle">Đơn hàng</span>
+							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Đơn hàng</span>
 						</a>
 					</li>
 
@@ -98,7 +103,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/">
-							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Trang
+							<i class="align-middle" data-feather="home"></i> <span class="align-middle">Trang
 								chủ</span>
 						</a>
 					</li>
@@ -461,6 +466,54 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 						window.livewire.emit('deleteProduct', productId);
+					}
+				});
+			}
+			window.confirmRestoreProduct = function (productId) {
+				Swal.fire({
+					title: 'Khôi phục sản phẩm?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Khôi phục!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('restoreProduct', productId);
+					}
+				});
+			}
+			window.confirmDeleteReview = function (reviewId) {
+				Swal.fire({
+					title: 'Xoá đánh giá?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Xoá!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('deleteReview', reviewId);
+					}
+				});
+			}
+			window.confirmRestoreReview = function (reviewId) {
+				Swal.fire({
+					title: 'Khôi phục đánh giá?',
+					text: "",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Khôi phục!',
+					cancelButtonText: 'Huỷ'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.livewire.emit('restoreReview', reviewId);
 					}
 				});
 			}

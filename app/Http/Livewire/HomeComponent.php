@@ -39,7 +39,6 @@ class HomeComponent extends Component
                 'product_id' => $product_id,
             ]);
         }
-        $this->emit('productWishlisted', $product_id); 
     }
 
     public function removeFromWishlist($product_id)
@@ -61,15 +60,15 @@ class HomeComponent extends Component
         $recommendedProducts = [];
         if (Auth::check()) {
             $favoriteCategoryCart = Auth::user()->carts->map(function ($cart) {
-                return $cart->product ? $cart->product->category : null; // Use category instead of category_id
+                return $cart->product ? $cart->product->category : null;
             })->filter()->unique();
             
             $favoriteCategoryOrders = Auth::user()->orders->map(function ($orderItem) {
-                return $orderItem->product ? $orderItem->product->category : null; // Use category instead of category_id
+                return $orderItem->product ? $orderItem->product->category : null;
             })->filter()->unique();
             
             $favoriteCategoryWishes = Auth::user()->wishes->map(function ($wish) {
-                return $wish->product ? $wish->product->category : null; // Use category instead of category_id
+                return $wish->product ? $wish->product->category : null;
             })->filter()->unique();
             
             $favoriteCategories = $favoriteCategoryCart->merge($favoriteCategoryOrders)->merge($favoriteCategoryWishes)->unique();
@@ -84,8 +83,8 @@ class HomeComponent extends Component
             'brands' => $brands,
             'seller' => $sellerInfo,
             'slides' => $this->slides,
-            'new_products' => $newProducts, 
-            'best_sell_products' => $bestSellProducts
+            'newProducts' => $newProducts, 
+            'bestSellProducts' => $bestSellProducts
         ]);
     }
 }

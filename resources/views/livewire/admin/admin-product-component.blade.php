@@ -25,12 +25,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-3 mt-md-0">
-                                        <!-- Added mt-3 mt-md-0 class for spacing on small screens -->
-                                        <div class="d-flex justify-content-md-end justify-content-start">
-                                            <!-- Adjusted justification -->
-                                        <a href="{{ route('admin.product.add') }}" class="btn btn-success btn-sx">Thêm sản phẩm</a>
-                                    </div>
-                                    </div>
+    <div class="d-flex justify-content-md-end justify-content-start">
+        <a href="{{ route('export-pdf') }}" class="btn btn-success btn-sx me-2">Xuất pdf</a>
+        <a href="{{ route('admin.product.add') }}" class="btn btn-success btn-sx">Thêm sản phẩm</a>
+    </div>
+</div>
                                 </div>
                             </div>
                                 <div class="card-body">
@@ -75,7 +74,7 @@
                                                             <a href="{{route('admin.product.edit', ['product_id'=>$product->id])}}" class="btn btn-info btn-sm">Cập nhật</a>
                                                             <a href="#" onclick="confirmDeleteProduct('{{ $product->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>
                                                         @else   
-                                                        <a href="#" onclick="" class="btn btn-sm ml-2" style="background-color:gray; color:white">Đã xoá</a>
+                                                        <a href="#" onclick="confirmRestoreProduct('{{ $product->id }}')" class="btn btn-sm ml-2" style="background-color:gray; color:white">Đã xoá</a>
                                                         @endif
                                                         </td>
                                                     </tr>

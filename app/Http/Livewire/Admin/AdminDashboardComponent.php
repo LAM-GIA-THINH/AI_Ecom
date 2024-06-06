@@ -37,7 +37,7 @@ class AdminDashboardComponent extends Component
             'popularProducts' => $this->getPopularProducts(),
             'number_of_products' => Product::count(),
             'number_of_customers' => User::count(),
-            'total_revenue' => substr(Order::sum('amount'), 0, -4),
+            'total_revenue' => (Order::sum('amount')),
             'orders_last_week' => Order::where('created_at', '>=', now()->subWeek())->count(),
         ])->layout('layouts.guest');
     }

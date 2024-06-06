@@ -51,7 +51,7 @@ Route::group(['middleware' => ['userLogin']], function () {
         Route::get('products', \App\Http\Livewire\Admin\AdminProductComponent::class)->name('admin.products');
         Route::get('product/add', \App\Http\Livewire\Admin\AdminProductAddComponent::class)->name('admin.product.add');
         Route::get('product/edit/{product_id}', \App\Http\Livewire\Admin\AdminProductEditComponent::class)->name('admin.product.edit');
-        Route::get('orders', \App\Http\Livewire\Admin\AdminOrdersComponent::class)->name('admin.orders');
+        Route::get('admin/orders', \App\Http\Livewire\Admin\AdminOrdersComponent::class)->name('admin.orders');
         Route::get('order/edit/{order_id}', \App\Http\Livewire\Admin\AdminOrderEditComponent::class)->name('admin.order.edit');
         Route::get('accounts', \App\Http\Livewire\Admin\AdminAccountsComponent::class)->name('admin.accounts');
         Route::get('accounts/add', \App\Http\Livewire\Admin\AdminAccountAddComponent::class)->name('admin.account.add');
@@ -59,6 +59,9 @@ Route::group(['middleware' => ['userLogin']], function () {
         Route::get('slider', \App\Http\Livewire\Admin\AdminHomeSliderComponent::class)->name('admin.home.slider');
         Route::get('slider/add', \App\Http\Livewire\Admin\AdminHomeSliderAddComponent::class)->name('admin.home.slider.add');
         Route::get('slider/edit/{slide_id}', \App\Http\Livewire\Admin\AdminHomeSliderEditComponent::class)->name('admin.home.slider.edit');
+        Route::get('reviews', \App\Http\Livewire\Admin\AdminReviewsComponent::class)->name('admin.reviews');
+        Route::get('export-pdf', [App\Http\Controllers\ExportController::class, 'exportPdf'])->name('export-pdf');
+
     });
 
 

@@ -13,7 +13,7 @@ class AdminProductComponent extends Component
     public $product_id;
     public $search = '';
     public $filterStockStatus = '';
-    protected $listeners = ['deleteProduct'];
+    protected $listeners = ['deleteProduct','restoreProduct'];
 
     public function render()
     {
@@ -48,6 +48,14 @@ class AdminProductComponent extends Component
         $product = Product::find($productId);
         if ($product) {
             $product->delete();
+        }
+    }
+    public function restoreProduct($productId)
+    {
+        $product = Product::withTrashed()->find($productId);
+
+        if ($product && $product->trashed()) {
+            $product->restore();
         }
     }
 }

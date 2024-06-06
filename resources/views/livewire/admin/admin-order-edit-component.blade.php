@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="mb-3 mt-3 col-md-6" wire:ignore>
                                                 <label for="ship_id" class="form-label" >Nhân viên giao hàng</label>
-                                                <select class="form-control" style="background-color:white" name="ship_id" wire:model="shipper_id" id="userSelect">
+                                                <select class="form-select" style="background-color:white" name="ship_id" wire:model="shipper_id" id="userSelect">
                                                     <option value="">Chọn nhân viên</option>
                                                     @foreach($users as $user)
                                                     <option value="{{$user->id}}">{{$user->name}}</option>
@@ -122,9 +122,9 @@
                                                             <h5>
                                                                 <a href="{{ route('product.details', ['slug' => $orderItem->product->slug]) }}">
                                                                     {{ $orderItem->product->name }}
-                                                                </a>
+                                                                </a>  x {{ $orderItem->quantity }}
                                                             </h5>
-                                                            <span class="product-qty">{{ number_format($orderItem->unit_price) }} VND x {{ $orderItem->quantity }}</span>
+                                                            <span class="product-qty">{{ number_format($orderItem->unit_price) }} VND</span>
                                                         </td>
                                                         <td>{{ number_format($orderItem->unit_price * $orderItem->quantity) }} VND</td>
                                                     </tr>

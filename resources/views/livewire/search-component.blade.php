@@ -13,7 +13,7 @@
             list-style: none;
         }
     </style>
-    @livewireStyles
+    
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -173,7 +173,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                                    @livewireStyles
+                                                    
                                                     @if(Auth::check())
                                                         @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
                                                             <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
@@ -194,7 +194,7 @@
                                                     <a href="#" class="btn btn-sm text-dark p-0 "
                                                         wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})">
                                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                                    @livewireScripts
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -213,9 +213,6 @@
             <!-- Shop Product End -->
         </div>
     </div>
-    @livewireScripts
-</div>
-@push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -239,4 +236,4 @@
             });
         }); 
     </script>
-@endpush
+</div>

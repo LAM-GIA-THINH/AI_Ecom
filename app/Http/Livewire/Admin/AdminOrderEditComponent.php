@@ -54,6 +54,8 @@ class AdminOrderEditComponent extends Component
         $this->orderItemsWithProducts = $order->orderItems()->with(['product' => function ($query) {
             $query->withTrashed(); 
         }])->get();
+
+
     }
 
     public function updateOrder()

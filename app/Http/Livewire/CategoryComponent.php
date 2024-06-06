@@ -70,19 +70,17 @@ class CategoryComponent extends Component
         $category_name = $category->name;
         
         $query = Product::query();
-        
-        // Apply category filter
+ 
         $query->where('category_id', $category_id);
         
-        // Apply price range filter
+
         $query->whereBetween('regular_price', [$this->min_value, $this->max_value]);
         
-        // Apply search filter
+
         if ($this->search) {
             $query->where('name', 'like', '%' . $this->search . '%');
         }
-        
-        // Apply sorting
+
         if ($this->orderBy == "Giá: thấp đến cao") {
             $query->orderBy('regular_price', 'ASC');
         } else if ($this->orderBy == "Giá: cao đến thấp") {
@@ -90,11 +88,9 @@ class CategoryComponent extends Component
         } else if ($this->orderBy == 'Sản phẩm mới') {
             $query->orderBy('created_at', 'DESC');
         }
-        
-        // Paginate results
+
         $products = $query->paginate($this->pageSize);
-        
-        // Fetch categories
+
         $categories = Category::withCount('products')->orderBy('name', 'ASC')->get();
         
         return view('livewire.category-component', [

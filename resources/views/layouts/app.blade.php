@@ -33,6 +33,21 @@
             font-family: Arial, sans-serif !important;
         }
     </style>
+        <style>
+        .wishlisted {
+            background-color: #F15412 !important;
+            border: 1px solid transparent !important;
+        }
+
+        .wishlisted i {
+            color: #fff !important;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+    
     @livewireStyles
 </head>
 
@@ -238,6 +253,7 @@
     <!-- Custom Scripts -->
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- Additional Scripts -->
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
     
     @stack('scripts')
 </body>

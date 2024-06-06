@@ -1,4 +1,4 @@
-<!-- Navbar Start -->
+<div>
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
@@ -165,13 +165,13 @@
             <h2 class="section-title px-5"><span class="px-2">Sản phẩm nổi bật</span></h2>
         </div>
         <div class="row px-xl-5 pb-3">
-            @foreach($best_sell_products as $product)
+            @foreach($bestSellProducts as $bproduct)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <a href="{{route('product.details', ['slug' => $product->slug])}}">
+                                    <a href="{{route('product.details', ['slug' => $bproduct->slug])}}">
                                         @php
-                                            $images = explode(',', $product->image);
+                                            $images = explode(',', $bproduct->image);
                                             $firstImage = $images[0];
                                         @endphp
                                         <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}"
@@ -181,28 +181,28 @@
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                     <h6 class="text-truncate mb-3">
                                         <a style="font-weight: bold; color: black; font-size: 1.2em;"
-                                            href="{{route('product.details', ['slug' => $product->slug])}}">{{$product->name}}
+                                            href="{{route('product.details', ['slug' => $bproduct->slug])}}">{{$bproduct->name}}
                                         </a>
                                     </h6>
                                     <div class="d-flex justify-content-center">
                                         <h6 style="font-weight: bold; color: red; font-size: 1.2em;font-family: Arial, sans-serif;">
-                                            {{number_format($product->regular_price)}} ₫
+                                            {{number_format($bproduct->regular_price)}} ₫
                                         </h6>
-                                        <h6 class="text-muted ml-2"><del>{{number_format($product->regular_price * 1.1)}} ₫</del>
+                                        <h6 class="text-muted ml-2"><del>{{number_format($bproduct->regular_price * 1.1)}} ₫</del>
                                         </h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    @livewireStyles
+                                    
                                     @if(Auth::check())
-                                        @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
+                                        @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($bproduct->id))
                                             <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
                                                 class="action-btn hover-up" href="#"
-                                                wire:click.prevent="removeFromWishlist({{$product->id}})"><i
+                                                wire:click.prevent="removeFromWishlist({{$bproduct->id}})"><i
                                                     class="fas fa-heart text-primary"></i> &nbsp;Đã thích</a>
                                         @else
                                             <a class="btn btn-sm text-dark p-0 " aria-label="Yêu thích" class="action-btn hover-up" href="#"
-                                                wire:click.prevent="addToWishlist({{$product->id}},'{{$product->name}}',{{$product->regular_price}})"><i
+                                                wire:click.prevent="addToWishlist({{$bproduct->id}},'{{$bproduct->name}}',{{$bproduct->regular_price}})"><i
                                                     class="far fa-heart text-primary"></i> Yêu thích</a>
                                         @endif
                                     @else
@@ -211,9 +211,9 @@
                                     @endif
                                     <a href="" class="btn btn-sm text-dark p-0 "></a>
                                     <a href="#" class="btn btn-sm text-dark p-0 "
-                                        wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})">
+                                        wire:click.prevent="store({{$bproduct->id}},'{{$bproduct->name}}',{{$bproduct->regular_price}})">
                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                    @livewireScripts
+                                    
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
             <h2 class="section-title px-5"><span class="px-2">Sản phẩm mới</span></h2>
         </div>
         <div class="row px-xl-5 pb-3">
-            @foreach($new_products as $product)
+            @foreach($newProducts as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
                                 <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -280,7 +280,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    @livewireStyles
+                                    
                                     @if(Auth::check())
                                         @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
                                             <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
@@ -300,7 +300,7 @@
                                     <a href="#" class="btn btn-sm text-dark p-0 "
                                         wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})">
                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                    @livewireScripts
+                                    
                                 </div>
                             </div>
                         </div>
@@ -343,4 +343,5 @@
     <!-- Vendor End -->
 
 
+</div>
 </div>

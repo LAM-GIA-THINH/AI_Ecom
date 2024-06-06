@@ -25,8 +25,22 @@
     }
 </style>
     @livewireStyles
-    @if($product == null)
-        <div class="container-fluid bg-secondary mb-5">
+    @php
+        $averageRating = 0;
+        $totalRatings = 0;
+        if ($product) {
+            $totalRatings = count($product->reviews);
+            $sumRatings = 0;
+
+            foreach ($product->reviews as $review) {
+                $sumRatings += $review->rating;
+            }
+
+            $averageRating = $totalRatings > 0 ? $sumRatings / $totalRatings : 0;
+        }
+    @endphp
+    @if(!$product)
+            <div class="container-fluid bg-secondary mb-5">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
                 <h1 class="font-weight-semi-bold text-uppercase mb-3">Sản Phẩm Không tại Hoặc đã xóa</h1>
                 <div class="d-inline-flex">
@@ -223,6 +237,7 @@
                                 <div class="col-md-6">
                                     <h4 class="mb-4">{{$totalRatings}} review Sản phẩm "{{$product->name}}"</h4>
                                     @foreach($reviews as $review)
+                                    @if($review->status == 0)
                                     <div class="media rounded border px-1 py-2 mb-4" style="background-color: #fff; border-width: 3px;">
                                         <img src="{{$review->user->profile_photo_path ? asset($review->user->profile_photo_path) : asset('img/user.png')}}" alt="Image" class="img-fluid mr-3 mt-1"
                                             style="width: 45px;">
@@ -242,6 +257,7 @@
                                             {{$review->review_likes && $review->review_likes->count() > 0 ? (Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? 'Đã thích' : '') .  ' (' . $review->review_likes->count() . ')' : 'Hữu ích?'}}
                                         </a>
                                     </div>
+                                    @endif
                                     @endforeach
                                 </div>
                                 <div class="col-md-6">
@@ -385,12 +401,26 @@
 
     @endif
 </div>
-@livewireScripts
+
 @push('scripts')
+<script>
+    Livewire.on('showSuccessMessage', () => {
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Đã gửi đánh giá!',
+        showConfirmButton: false,
+        timer: 1500
+        });
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500); 
+    });
+</script>
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Initialize CKEditor
+
             const content = document.getElementById('description-content');
         const container = document.querySelector('.description-container');
         const button = document.getElementById('toggle-button');
@@ -409,45 +439,42 @@
             isExpanded = !isExpanded;
         });
 
-            // Set star ratings function
+
             function setStarRating(starClass, rating) {
                 const stars = document.querySelectorAll(starClass);
                 stars.forEach((star, index) => {
                     if (index < rating) {
-                        star.classList.remove('far'); // Remove hollow star class
-                        star.classList.add('fas'); // Add filled star class
+                        star.classList.remove('far'); 
+                        star.classList.add('fas'); 
                     } else {
-                        star.classList.remove('fas'); // Remove filled star class
-                        star.classList.add('far'); // Add hollow star class
+                        star.classList.remove('fas'); 
+                        star.classList.add('far'); 
                     }
                 });
             }
 
-            // Set the average rating stars on page load
+
             const averageRating = <?php echo $averageRating; ?>;
             setStarRating('.star', averageRating);
 
-            // Set the review rating stars on page load
+
             <?php if (isset($review->rating)) { ?>
     const reviewRating = <?php echo $review->rating; ?>;
     setStarRating('.star1', reviewRating);
 <?php } ?>
 
-            // Star click event to set user rating
+
             const starLabels = document.querySelectorAll('#stars label');
             starLabels.forEach((label, index) => {
                 label.addEventListener('click', function (event) {
-                    event.preventDefault(); // Prevent default form submission
-                    event.stopPropagation(); // Stop event propagation
+                    event.preventDefault(); 
+                    event.stopPropagation();
                     setRating(index + 1);
-                    return false; // Ensure no further event handling
+                    return false; 
                 });
             });
 
-            // Reinitialize CKEditor when Livewire updates the DOM
-           
-
-            // Keep the active tab after form submission or interaction
+ 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 localStorage.setItem('activeTab', $(e.target).attr('href'));
             });
@@ -458,7 +485,7 @@
             }
         });
 
-        // Set rating function
+
         function setRating(rating) {
             for (let i = 1; i <= 5; i++) {
                 document.getElementById('label' + i).style.color = '#ccc';

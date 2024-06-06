@@ -14,7 +14,8 @@ use App\Models\Category;
 use App\Models\Review; 
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
-
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 class DetailsComponent extends Component
 {
     use WithPagination;
@@ -132,7 +133,7 @@ class DetailsComponent extends Component
             'rating' => 'required|numeric|min:1|max:5',
             'comment' => 'required',
         ]);
-
+    
         if (Auth::id() === null) {
             session()->flash('error_message', 'Bạn phải đăng nhập để đánh giá.');
             return;
@@ -141,26 +142,50 @@ class DetailsComponent extends Component
             session()->flash('error_message', 'Bạn chỉ có thể đánh giá sau khi mua sản phẩm.');
             return;
         }
+    
+ 
+        $client = new Client();
+    
 
+        $response = $client->post('https://api.edenai.run/v2/text/moderation', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('EDEN_API_KEY'),
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'providers' => 'openai',
+                'text' => $this->comment,
+            ],
+        ]);
+    
+        $moderationResult = json_decode($response->getBody(), true);
+        $isNSFW = $moderationResult['openai']['nsfw_likelihood'] > 1;
+    
+        $status = $isNSFW ? 1 : 0;
+    
         if ($this->userHasReviewedProduct($this->product->id)) {
-            $review = Review::where('user_id', Auth::user()->id)->where('product_id', $this->product->id)->first();
+            $review = Review::where('user_id', Auth::user()->id)
+                            ->where('product_id', $this->product->id)
+                            ->first();
             $review->rating = $this->rating;
             $review->comment = $this->comment;
+            $review->status = $status;
             $review->save();
             $this->reset(['comment']);
             session()->flash('success_message', 'Đã cập nhật đánh giá.');
             return;
         }
-
+    
         Review::create([
             'user_id' => Auth::id(),
             'product_id' => $this->product->id,
             'rating' => $this->rating,
             'comment' => $this->comment,
+            'status' => $status,
         ]);
-    
+        $this->emit('showSuccessMessage');
         $this->reset(['comment']);
-        session()->flash('success_message', 'Đã gửi đánh giá của bạn.');
+        
         return;
     }
     

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    protected $fillable = ['user_id', 'product_id', 'rating', 'comment'];
+    protected $fillable = ['user_id', 'product_id', 'rating', 'comment','status'];
 
     
 
@@ -18,6 +18,10 @@ class Review extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 
     public function response_review()
