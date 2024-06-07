@@ -23,7 +23,11 @@
     .description-content.expanded {
         height: auto;
     }
+
 </style>
+<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.css" rel="stylesheet">
     @livewireStyles
     @php
         $averageRating = 0;
@@ -54,24 +58,24 @@
         <div class="container-fluid py-5">
             <div class="row px-xl-5">
                 <div class="col-lg-5 pb-5" style="min-width: 600px;">
-                    <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div id="lightgallery" class="carousel slide" data-ride="carousel"> 
                         <div class="carousel-inner border">
                             @php
                                 $images = explode(',', $product->image);
                             @endphp
                             @foreach($images as $index => $image)
                                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore>
-                                    <img src="{{ asset('img/products/products/' . $image) }}" alt="Image" class="d-block mx-auto" style="height: 500px;">
+                                    <a href="{{ asset('img/products/products/' . $image) }}" data-lg-size="1600-1068"> <img src="{{ asset('img/products/products/' . $image) }}" alt="Image" class="d-block mx-auto" style="height: 500px;"> </a>
                                 </div>
                             @endforeach
                         </div>
-                        <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <a class="carousel-control-prev" href="#lightgallery" data-slide="prev">
                             <i class="fa fa-2x fa-angle-left text-dark"></i>
                         </a>
-                        <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <a class="carousel-control-next" href="#lightgallery" data-slide="next">
                             <i class="fa fa-2x fa-angle-right text-dark"></i>
                         </a>
-                    </div>
+                    </div> 
                 </div>
 
 
@@ -181,7 +185,7 @@
                     </div>
                     <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1" wire:ignore>
-                        <div class="description-container" style="position: relative; height: 400px; width: 800px;overflow: hidden;">
+                        <div class="form-control" style="position: relative; height: 400px; width: 100%;overflow: hidden;">
                             <div class="description-content" id="description-content">
                                 {!! $product->description !!}
                             </div>
@@ -403,6 +407,13 @@
 </div>
 
 @push('scripts')
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+
+
+
 <script>
     Livewire.on('showSuccessMessage', () => {
         Swal.fire({
@@ -485,7 +496,6 @@
             }
         });
 
-
         function setRating(rating) {
             for (let i = 1; i <= 5; i++) {
                 document.getElementById('label' + i).style.color = '#ccc';
@@ -495,6 +505,19 @@
                 document.getElementById('label' + i).style.color = 'gold';
             }
         }
+        lightGallery(document.getElementById('lightgallery'), {
+                thumbnail: true,
+                animateThumb: true,
+                showThumbByDefault: true,
+                zoom: true,
+                scale: 1,
+                download: true,
+                selector: '.carousel-item a', 
+                exThumbImage: 'data-exThumbImage' 
+            });
     </script>
+
+
+</script>
 @endpush
 </div>

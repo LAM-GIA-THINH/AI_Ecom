@@ -38,7 +38,7 @@
                                                 @foreach($brands as $brand)
                                                     <tr>
                                                         <td>{{$brand->id}}</td>
-                                                        <td><img src="{{ asset('img/products/brand/') }}/{{$brand->image}}" width="180px" height="80px"></td>
+                                                        <td><img src="{{ asset('img/products/brand/') }}/{{$brand->image}}" width="80px" ></td>
                                                         <td>{{$brand->name}}</td>
                                                         <td>{{$brand->slug}}</td>
                                                         <td>

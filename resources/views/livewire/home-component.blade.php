@@ -38,7 +38,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
+                        <a href="/" class="nav-item nav-link active">Trang chủ</a>
                         <a href="shop/all" class="nav-item nav-link">Mua sắm</a>
                         <a href="detail.html" class="nav-item nav-link">Chi tiết</a>
                         <div class="nav-item dropdown">

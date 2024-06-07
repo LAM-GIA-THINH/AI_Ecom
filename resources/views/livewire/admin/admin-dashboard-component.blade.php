@@ -12,11 +12,11 @@
             </h2>
         </div>
 
-        <div class="chart-container">
-            <div class="row">
+        <div class="container-fluid p-0" style="margin-left:10px;">
+            <div class="row" style="margin-right:10px">
                 <div class="col-xl-6 col-xxl-5 d-flex">
                     <div class="w-100">
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
@@ -64,7 +64,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col mt-0">
-                                                <h5 class="card-title">Tổng doanh thu</h5>
+                                                <h5 class="card-title">Tổng doanh thu (đồng)</h5>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="stat text-primary">
@@ -72,7 +72,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">{{ number_format($total_revenue) }} ₫</h1>
+                                        <h1 class="mt-1 mb-3">{{ number_format($total_revenue) }}</h1>
                                         <div class="mb-0">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65%
                                             </span>
@@ -105,12 +105,12 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-xxl-7">
+                <div class="col-xl-6 col-xxl-7" >
                     <div class="card flex-fill w-100">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Doanh thu</h5>
                         </div>
-                        <div class="card-body py-3">
+                        <div class="card-body">
                             <div class="chart chart-sm">
                                 <canvas id="revenueChart" class="chartjs-render-monitor"></canvas>
                             </div>
@@ -119,33 +119,33 @@
                 </div>
             </div>
 
-            <div class="row">
-    <div class="col-12 col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Khách hàng</h5>
-            </div>
-            <div class="card-body">
-                <div class="chart chart-sm">
-                    <canvas id="userChart"></canvas>
+            <div class="row" style="margin-right:10px">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Khách hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart chart-sm">
+                                <canvas id="userChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-12 col-lg-6">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Sản phẩm bán chạy</h5>
-            </div>
-            <div class="card-body">
-                <div class="chart chart-sm">
-                    <canvas id="productChart"></canvas>
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Sản phẩm bán chạy</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart chart-sm">
+                                <canvas id="productChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 
 
