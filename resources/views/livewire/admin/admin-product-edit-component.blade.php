@@ -1,4 +1,17 @@
 <div>
+        <style>
+        .sortable-image {
+            cursor: grab;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .draggable-item {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
     <main class="main">
         <div class="container"
             style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
@@ -40,10 +53,13 @@
                                                 @php
                                                     $existingImages = explode(',', $image);
                                                 @endphp
-                                                @foreach($existingImages as $existingImage)
-                                                    <img src="{{ asset('img/products/products/' . $existingImage) }}"
-                                                        width="120" />
-                                                @endforeach
+                                                <ul id="imageList" class="list-unstyled">
+                                                    @foreach($imageOrder as $existingImage)
+                                                        <li class="draggable-item" wire:key="image-{{ $existingImage }}">
+                                                            <img src="/img/products/products/{{ $existingImage }}" width="120" class="sortable-image" data-image-name="{{ $existingImage }}" />
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                                 @endif
                                                 @error('newimages')
                                                     <p class="text-danger">{{ $message }}</p>

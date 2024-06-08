@@ -20,7 +20,7 @@ class AdminProductComponent extends Component
 
         $products = $this->filterStockStatus()
             ->where('user_id', 1)
-            ->orderBy('id', 'ASC')
+            ->orderBy('id', 'DESC')
             ->withTrashed()
             ->paginate(5);
 

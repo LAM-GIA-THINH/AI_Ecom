@@ -1,4 +1,17 @@
 <div>
+    <style>
+        .sortable-image {
+            cursor: grab;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .draggable-item {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
     <main class="main">
         <div class="container"
             style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
@@ -29,16 +42,26 @@
                                         <!-- Image and Description Column -->
                                         <div class="col-md-6">
                                             <div class="mb-3 mt-3">
-                                                <label for="image" class="form-label">Ảnh</label>
-                                                <input type="file" name="image" class="form-control"
-                                                    style="background-color:white" wire:model.lazy="image" />
-                                                @if($image)
-                                                    <img src="{{$image->temporaryUrl()}}" width="120" />
+                                            <label for="image" class="form-label">Ảnh</label>
+                                                <input type="file" name="images" class="form-control" multiple
+                                                    wire:model.lazy="images" />
+                                                @error('images')
+                                                <p class="text-danger">{{ $message }}</p> @enderror
+
+                                                @if ($images)
+                                                    <ul id="imageList" class="list-unstyled" wire:ignore>
+                                                        @foreach ($images as $key => $image)
+                                                            @if ($image->isValid())
+                                                                <li class="draggable-item" wire:key="image-{{ $key }}">
+                                                                    <img src="{{ $image->temporaryUrl() }}" width="120"
+                                                                        class="sortable-image" data-image-name="{{ $key }}" />
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
                                                 @endif
-                                                @error('image')
-                                                    <p class="text-danger">{{$message}}</p>
-                                                @enderror
                                             </div>
+
                                             <div class="mb-3 mt-3" wire:ignore>
                                                 <label for="description" class="form-label">Mô tả sản phẩm</label>
                                                 <textarea wire:model.lazy="description" class="form-control"
@@ -53,7 +76,7 @@
                                         <!-- Other Fields Column -->
                                         <div class="col-md-6">
                                             <div class="row">
-                                            <div class="mb-3 mt-3 col-md-6">
+                                                <div class="mb-3 mt-3 col-md-6">
                                                     <label for="name" class="form-label">Tên sản phẩm</label>
                                                     <input wire:ignore type="text" name="name" class="form-control"
                                                         style="background-color:white" placeholder="Nhập tên sản phẩm"
@@ -81,7 +104,8 @@
                                                         <option value="">Chọn danh mục</option>
                                                         @foreach($categories as $category)
                                                             <option wire:ignore value="{{$category->id}}">
-                                                                {{$category->name}}</option>
+                                                                {{$category->name}}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                     @error('category_id')
@@ -107,11 +131,12 @@
                                                 <div class="mb-3 mt-3 col-md-4">
                                                     <label for="regular_price" class="form-label">Giá bán</label>
                                                     <div class="input-group">
-   
+
                                                         <input type="text" name="regular_price" class="form-control"
                                                             style="background-color:white" placeholder="Nhập giá bán"
-                                                            wire:model.lazy="regular_price" /><span class="input-group-text">VND</span>
- 
+                                                            wire:model.lazy="regular_price" /><span
+                                                            class="input-group-text">VND</span>
+
                                                     </div>
                                                     @error('regular_price')
                                                         <p class="text-danger">{{$message}}</p>
@@ -169,4 +194,5 @@
             </div>
         </section>
     </main>
+
 </div>

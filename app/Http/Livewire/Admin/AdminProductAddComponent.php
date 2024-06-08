@@ -24,12 +24,17 @@ class AdminProductAddComponent extends Component
     public $sale_price = 10000;
     public $quantity = 100;
     public $image;
-    public $images;
+    public $images= [];
     public $category_id;
     public $brand_id;
     public $weight =100;
-    protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged'];
-
+    public $imageOrder = [];
+    protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged',
+    'updateImageOrder' => 'updateImageOrder'];
+    public function updateImageOrder($order)
+    {
+        $this->imageOrder = $order;
+    }
     public function increaseQuantity()
     {
         $this->quantity += 100;
@@ -87,7 +92,8 @@ class AdminProductAddComponent extends Component
             'description' => 'required',
             'regular_price' => 'required',
             'quantity' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+'images' => 'required', 
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'category_id' => 'required',
             'brand_id' => 'required',
             'weight'=> 'required'
@@ -101,10 +107,21 @@ class AdminProductAddComponent extends Component
             $product->weight = $this->weight;
             $product->regular_price = $this->regular_price;
             $product->quantity = $this->quantity;
-
-            $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
-            $this->image->storeAs('products', $imageName);
-            $product->image = $imageName;
+            $imageNames = [];
+            foreach ($this->images as $image) {
+                $imageName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $image->extension();
+                $image->storeAs('products', $imageName);
+                $imageNames[] = $imageName;
+            }
+            if (!empty($this->imageOrder)) {
+                $reorderedImageNames = [];
+                foreach ($this->imageOrder as $index) {
+                    $reorderedImageNames[] = $imageNames[$index];
+                }
+                $imageNames = $reorderedImageNames;
+            }
+    
+            $product->image = implode(',', $imageNames);
             $product->category_id = $this->category_id;
             $product->brand_id = $this->brand_id;
 

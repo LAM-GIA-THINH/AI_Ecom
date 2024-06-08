@@ -29,8 +29,12 @@ class AdminProductEditComponent extends Component
     public $brand_id;
     public $newimage;
     public $newimages = []; 
-    protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged'];
-
+    public $imageOrder = [];
+    protected $listeners = ['selectedCategoryChanged', 'selectedBrandChanged','inputContentChanged' => 'inputContentChanged', 'updateImageOrder' => 'updateImageOrder'];
+    public function updateImageOrder($order)
+    {
+        $this->imageOrder = $order; // Update the image order
+    }
     public function mount($product_id){
         
         $product = Product::find($product_id);
@@ -44,7 +48,7 @@ class AdminProductEditComponent extends Component
         $this->weight = $product->weight;
         $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
-
+        $this->imageOrder = explode(',', $product->image);
     }
     public function increasePage()
     {
@@ -123,13 +127,20 @@ class AdminProductEditComponent extends Component
                     $imagePaths[] = $imageName;
                 }
     
-                // If you want to replace existing images, uncomment the line below
-                unlink('img/products/products/' . $product->image);
-                $product->image = implode(',', $imagePaths); // Store multiple images as a comma-separated string
+                foreach (explode(',', $product->image) as $existingImage) {
+                    if (file_exists('img/products/products/' . $existingImage)) {
+                        unlink('img/products/products/' . $existingImage);
+                    }
+                }
+    
+                $product->image = implode(',', $imagePaths);
+            } else {
+                $product->image = implode(',', $this->imageOrder);
             }
             $product->category_id = $this->category_id;
             $product->save();
             $this->emit('showupSuccessMessage');
+
     }
 
     public function render()

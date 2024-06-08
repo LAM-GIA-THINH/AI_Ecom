@@ -55,12 +55,14 @@
 						</li>
 						<li class="sidebar-item {{ Route::is('admin.home.slider') ? 'active' : '' }}">
 							<a class="sidebar-link" href="{{route('admin.home.slider')}}">
-								<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Banner</span>
+								<i class="align-middle" data-feather="credit-card"></i> <span
+									class="align-middle">Banner</span>
 							</a>
 						</li>
 						<li class="sidebar-item {{ Route::is('admin.reviews') ? 'active' : '' }}">
 							<a class="sidebar-link" href="{{route('admin.reviews')}}">
-								<i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Đánh giá</span>
+								<i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Đánh
+									giá</span>
 							</a>
 						</li>
 					@endif
@@ -91,7 +93,8 @@
 					@endif
 					<li class="sidebar-item {{ Route::is('admin.orders') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{route('admin.orders')}}">
-							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Đơn hàng</span>
+							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Đơn
+								hàng</span>
 						</a>
 					</li>
 
@@ -589,6 +592,33 @@
 		});
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeSortable();
+    });
+
+    Livewire.hook('message.processed', (message, component) => {
+        initializeSortable();
+    });
+
+    function initializeSortable() {
+        var el = document.getElementById('imageList');
+        if (el && !el.sortableInitialized) {
+            new Sortable(el, {
+                animation: 150,
+                onEnd: function (evt) {
+                    let imageOrder = [];
+                    document.querySelectorAll('#imageList .sortable-image').forEach((img) => {
+                        imageOrder.push(img.getAttribute('data-image-name'));
+                    });
+                    Livewire.emit('updateImageOrder', imageOrder);
+                }
+            });
+            el.sortableInitialized = true;
+        }
+    }
+</script>
 	@stack('scripts')
 </body>
 
