@@ -211,8 +211,8 @@
                                                             name="password_confirmation" type="password">
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-fill-out submit"
-                                                            name="submit" value="Submit">Lưu</button>
+                                                        <button type="submit" class="btn btn-primary px-3"
+                                                            name="submit" value="Submit" style="color:white;">Lưu</button>
                                                     </div>
                                                 </div>
                                             </form>

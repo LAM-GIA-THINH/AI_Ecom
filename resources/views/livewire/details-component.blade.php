@@ -125,10 +125,36 @@
 
                     <p style="font-size:17px;">Danh mục: <span class="text-brand" style="color:#D19C97 ; font-weight: bold;text-decoration: underline;">{{ $product->category->name }}</span></p>
                     <p style="font-size:17px">Đã bán: <span class="text-brand">{{ $product->quantity_sold }}</span></p>
+                    <div class="d-flex mb-4">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Mẫu khác:</p>
+                    <form>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="currentProduct" name="productRadio" value="{{$product->id}}" checked>
+                            <label class="custom-control-label" for="currentProduct">Hiện tại</label>
+                        </div>
+                        @foreach($rproducts as $similarProduct)
+                            @php
+                                $currentProductLine = implode(' ', array_slice(explode(' ', $product->name), 0, -1)); 
+                                $similarProductLine = implode(' ', array_slice(explode(' ', $similarProduct->name), 0, -1));
+                            @endphp
+
+                            @if ($currentProductLine === $similarProductLine && $similarProduct->id != $product->id)
+                                <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" 
+                                class="custom-control-input" 
+                                id="similarProduct{{$similarProduct->id}}" 
+                                name="productRadio" 
+                                value="{{$similarProduct->id}}"
+                                data-slug="{{ route('product.details', ['slug' => $similarProduct->slug]) }}">
+                                <label class="custom-control-label" for="similarProduct{{$similarProduct->id}}">{{substr($similarProduct->name, -5)}}</label> 
+                                </div>
+                            @endif
+                        @endforeach
+                    </form>
+                </div>
                     <h3 class="font-weight-semi-bold mb-4" style="color:red;">{{number_format($product->regular_price)}} VND
                     </h3>
                     <p class="mb-4"></p>
-
                     <div class="d-flex align-items-center mb-4 pt-2">
 
                         <div class="input-group quantity mr-3" style="width: 130px;" >
@@ -412,6 +438,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
 
+<script>
+    const radioButtons = document.querySelectorAll('input[name="productRadio"]');
+
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('click', function () {
+            window.location.href = this.dataset.slug; 
+        });
+    });
+</script>
 
 
 <script>
