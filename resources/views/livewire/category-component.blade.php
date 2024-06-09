@@ -13,7 +13,7 @@
             list-style: none;
         }
     </style>
-    
+
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -65,7 +65,9 @@
                         @foreach($categories as $category)
                             <div
                                 class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="category-{{ $category->id }}">
+                                <input type="checkbox" class="custom-control-input" id="category-{{ $category->id }}" {{ $category_name == $category->name ? 'checked' : '' }} name="checkboxCategory"
+                                    value="{{$category->id}}"
+                                    data-slug="{{ route('product.category', ['slug' => $category->slug]) }}">
                                 <label class="custom-control-label" for="category-{{ $category->id }}"
                                     style="font-size: 1.2em;">
                                     <a href="{{ route('product.category', ['slug' => $category->slug]) }}">
@@ -95,7 +97,8 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <form action="">
                                 <div class="input-group">
-                                    <input wire:model="search" type="text" class="form-control" placeholder="Nhập tên sản phẩm">
+                                    <input wire:model="search" type="text" class="form-control"
+                                        placeholder="Nhập tên sản phẩm">
                                     <div class="input-group-append">
                                         <span class="input-group-text bg-transparent text-primary">
                                             <i class="fa fa-search"></i>
@@ -172,11 +175,12 @@
                                                     <div class="d-flex justify-content-center">
                                                         <h6
                                                             style="font-weight: bold; color: red; font-size: 1.2em;font-family: Arial, sans-serif;">
-                                                            {{number_format($product->regular_price)}} ₫ </h6>
+                                                            {{number_format($product->regular_price)}} ₫
+                                                        </h6>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                                
+
                                                     @if(Auth::check())
                                                         @if(Auth::user()->wishes && Auth::user()->wishes->pluck('product_id')->contains($product->id))
                                                             <a style="color: red;" class="btn btn-sm text-dark p-0 " aria-label="Bỏ yêu thích"
@@ -197,7 +201,7 @@
                                                     <a href="#" class="btn btn-sm text-dark p-0 "
                                                         wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})">
                                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -206,9 +210,9 @@
                     <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
                             <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                                
+
                                 {{$products->links('pagination::bootstrap-4')}}
-                                
+
                             </div>
                         </nav>
                     </div>
@@ -221,7 +225,16 @@
     <!-- Include jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        const checkBoxes = document.querySelectorAll('input[name="checkboxCategory"]');
 
+        checkBoxes.forEach(checkBox => {
+            checkBox.addEventListener('click', function () {
+                window.location.href = this.dataset.slug;
+                this.checked = false;
+            });
+        });
+    </script>
     <script>
         var sliderrange = $('#slider-range');
         console.log(sliderrange.slider);

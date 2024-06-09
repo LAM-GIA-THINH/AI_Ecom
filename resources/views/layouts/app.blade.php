@@ -126,6 +126,8 @@
                                         <span class="badge bg-warning text-dark">Shipper</span>
                                     @elseif(Auth::user()->utype === "ADM")
                                         <span class="badge bg-danger text-light">Admin</span>
+                                    @elseif(Auth::user()->utype === "GAR")
+                                        <span class="badge text-white" style="background-color: blue;">QL Kho</span>
                                     @endif
                                 </div>
                                 <i class="fi-rs-angle-down ml-1"></i>
