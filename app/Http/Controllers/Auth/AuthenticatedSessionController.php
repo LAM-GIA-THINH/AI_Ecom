@@ -28,10 +28,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
     
-        if (Auth::user()->utype === 'ADM') {
+        if (Auth::user()->utype === 'ADM' || Auth::user()->utype === 'SHIP' || Auth::user()->utype === 'GAR') {
             return redirect()->route('admin.dashboard');
-        } elseif (Auth::user()->utype === 'SELLER') {
-            return redirect()->route('seller.dashboard');
         } else {
             return redirect()->intended(RouteServiceProvider::HOME);
         }

@@ -53,7 +53,7 @@
                                                         @if($account->utype == 'SHIP')
                                                             Giao hàng
                                                         @elseif($account->utype == 'GAR')
-                                                            Nhân viên kho
+                                                            Quản lý kho
                                                         @endif
                                                     </td>
                                                     <td>

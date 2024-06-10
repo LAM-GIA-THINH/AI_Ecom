@@ -32,7 +32,7 @@ class AdminOrdersComponent extends Component
                     $query->whereHas('orderItems.product', function ($q) use ($user) {
                         $q->where('user_id', $user->id);
                     })
-                    ->orWhere('ship_id', $user->id);
+                    ->orWhere('shipper_id', $user->id);
                 })
                 ->orderBy('created_at', 'DESC')
                 ->paginate(5);

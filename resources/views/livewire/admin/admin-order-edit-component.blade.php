@@ -84,6 +84,7 @@
                                                     <option value="4">Huỷ</option>
                                                 </select>
                                             </div>
+                                            @if(Auth::user()->utype !== "SHIP")
                                             <div class="mb-3 mt-3 col-md-6" wire:ignore>
                                                 <label for="ship_id" class="form-label" >Nhân viên giao hàng</label>
                                                 <select class="form-select" style="background-color:white" name="ship_id" wire:model="shipper_id" id="userSelect">
@@ -96,6 +97,7 @@
                                                 <p class="text-danger">{{$message}}</p>
                                                 @enderror
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="row">
 

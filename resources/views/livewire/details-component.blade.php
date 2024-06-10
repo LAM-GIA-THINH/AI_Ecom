@@ -1,5 +1,4 @@
 <div>
-<div>
 <style>
     .description-container {
         position: relative;
@@ -129,7 +128,7 @@
                     <p class="text-dark font-weight-medium mb-0 mr-3">Mẫu khác:</p>
                     <form>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="currentProduct" name="productRadio" value="{{$product->id}}" checked>
+                            <input type="radio" class="custom-control-input" id="currentProduct" name="productRadio" value="{{$product->slug}}" checked>
                             <label class="custom-control-label" for="currentProduct">Hiện tại</label>
                         </div>
                         @foreach($rproducts as $similarProduct)
@@ -211,7 +210,7 @@
                     </div>
                     <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1" wire:ignore>
-                        <div class="form-control" style="position: relative; height: 400px; width: 100%;overflow: hidden;">
+                    <div class="description-container" style="position: relative; height: 400px; overflow: hidden;">
                             <div class="description-content" id="description-content">
                                 {!! $product->description !!}
                             </div>
@@ -267,28 +266,31 @@
                                 <div class="col-md-6">
                                     <h4 class="mb-4">{{$totalRatings}} review Sản phẩm "{{$product->name}}"</h4>
                                     @foreach($reviews as $review)
-                                    @if($review->status == 0)
-                                    <div class="media rounded border px-1 py-2 mb-4" style="background-color: #fff; border-width: 3px;">
-                                        <img src="{{$review->user->profile_photo_path ? asset($review->user->profile_photo_path) : asset('img/user.png')}}" alt="Image" class="img-fluid mr-3 mt-1"
-                                            style="width: 45px;">
-                                        <div class="media-body">
-                                            <h6>{{$review->user->name}}<small> - <i>{{ $review->updated_at->timezone('Asia/Ho_Chi_Minh')->format('H:i d-m-Y')}}</i></small></h6>
-                                            <div class="text-primary mr-2" wire:ignore>
-                                                <small class="star1 far fa-star"></small>
-                                                <small class="star1 far fa-star"></small>
-                                                <small class="star1 far fa-star"></small>
-                                                <small class="star1 far fa-star"></small>
-                                                <small class="star1 far fa-star"></small>
+                                        @if($review->status == 0)
+                                            <div id="review-{{ $review->user->id }}-{{ $review->id }}" class="media rounded border px-1 py-2 mb-4" style="background-color: #fff; border-width: 3px;" data-rating="{{ $review->rating }}">
+                                                <img src="{{ $review->user->profile_photo_path ? asset($review->user->profile_photo_path) : asset('img/user.png') }}" alt="User Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <div class="media-body">
+                                                    <h6>{{ $review->user->name }}<small> - <i>{{ $review->updated_at->timezone('Asia/Ho_Chi_Minh')->format('H:i d-m-Y') }}</i></small></h6>
+                                                    <div class="text-primary mr-2" wire:ignore>
+                                                        <small class="star1 far fa-star"></small>
+                                                        <small class="star1 far fa-star"></small>
+                                                        <small class="star1 far fa-star"></small>
+                                                        <small class="star1 far fa-star"></small>
+                                                        <small class="star1 far fa-star"></small>
+                                                    </div>
+                                                    <p>{{ $review->comment }}</p>
+                                                </div>
+                                                <a aria-label="" class="action-btn hover-up d-flex gap-1 align-items-center" href="#" style="color: {{ Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999' }};" wire:click.prevent="likeReview({{ $review->id }})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="18" height="18" fill="{{ Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999' }}">
+                                                        <path d="M6,8H3a3,3,0,0,0-3,3v8a3,3,0,0,0,3,3H6Z"/>
+                                                        <path d="M14,8l.555-3.328a2.269,2.269,0,0,0-1.264-2.486,2.247,2.247,0,0,0-2.9,1.037L8,8V22H22l2-11V8Z"/>
+                                                    </svg>
+                                                    {{ $review->review_likes && $review->review_likes->count() > 0 ? (Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? 'Đã thích' : '') . ' (' . $review->review_likes->count() . ')' : 'Hữu ích?' }}
+                                                </a>
                                             </div>
-                                            <p>{{$review->comment}}</p>
-                                        </div>
-                                        <a aria-label="" class="action-btn hover-up d-flex gap-1 align-items-center" href="#" style=" color: {{Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999'}};" wire:click.prevent="likeReview({{$review->id}})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="18" height="18" fill="{{Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? '#07b55b' : '#999'}}"><path d="M6,8H3a3,3,0,0,0-3,3v8a3,3,0,0,0,3,3H6Z"/><path d="M14,8l.555-3.328a2.269,2.269,0,0,0-1.264-2.486,2.247,2.247,0,0,0-2.9,1.037L8,8V22H22l2-11V8Z"/></svg>
-                                            {{$review->review_likes && $review->review_likes->count() > 0 ? (Auth::check() && $review->review_likes->where('user_id', Auth::user()->id)->first() ? 'Đã thích' : '') .  ' (' . $review->review_likes->count() . ')' : 'Hữu ích?'}}
-                                        </a>
-                                    </div>
-                                    @endif
+                                        @endif
                                     @endforeach
+
                                 </div>
                                 <div class="col-md-6">
                                 @if(Auth::check())
@@ -430,7 +432,7 @@
         <!-- Products End -->
 
     @endif
-</div>
+
 
 @push('scripts')
 
@@ -485,30 +487,35 @@
             isExpanded = !isExpanded;
         });
 
+        function setStarRating(element, rating) {
+            const stars = element.querySelectorAll('.star, .star1');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                }
+            });
+        }
 
-            function setStarRating(starClass, rating) {
-                const stars = document.querySelectorAll(starClass);
-                stars.forEach((star, index) => {
-                    if (index < rating) {
-                        star.classList.remove('far'); 
-                        star.classList.add('fas'); 
-                    } else {
-                        star.classList.remove('fas'); 
-                        star.classList.add('far'); 
-                    }
-                });
-            }
+        const averageRating = <?php echo $averageRating; ?>;
+        setStarRating(document, averageRating);
 
+        document.querySelectorAll('.media[data-rating]').forEach(review => {
+            const reviewRating = review.getAttribute('data-rating');
+            setStarRating(review, reviewRating);
+        });
+        function setRating(rating) {
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('label' + i).style.color = '#ccc';
+        }
 
-            const averageRating = <?php echo $averageRating; ?>;
-            setStarRating('.star', averageRating);
-
-
-            <?php if (isset($review->rating)) { ?>
-    const reviewRating = <?php echo $review->rating; ?>;
-    setStarRating('.star1', reviewRating);
-<?php } ?>
-
+        for (let i = 1; i <= rating; i++) {
+            document.getElementById('label' + i).style.color = 'gold';
+        }
+    }
 
             const starLabels = document.querySelectorAll('#stars label');
             starLabels.forEach((label, index) => {
@@ -531,15 +538,6 @@
             }
         });
 
-        function setRating(rating) {
-            for (let i = 1; i <= 5; i++) {
-                document.getElementById('label' + i).style.color = '#ccc';
-            }
-
-            for (let i = 1; i <= rating; i++) {
-                document.getElementById('label' + i).style.color = 'gold';
-            }
-        }
         lightGallery(document.getElementById('lightgallery'), {
                 thumbnail: true,
                 animateThumb: true,
@@ -550,9 +548,6 @@
                 selector: '.carousel-item a', 
                 exThumbImage: 'data-exThumbImage' 
             });
-    </script>
-
-
 </script>
 @endpush
 </div>

@@ -63,6 +63,7 @@ class UserCheckoutComponent extends Component
             'Content-Type: application/json',
             'token: ' . env('TOKEN_API_GHTK'),
         ];
+ 
         // Tạo yêu cầu HTTP
         $ch = curl_init('https://services.giaohangtietkiem.vn/services/shipment/fee');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');

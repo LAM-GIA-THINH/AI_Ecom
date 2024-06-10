@@ -259,19 +259,18 @@
     </div>
 
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-    <script
-        src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.2/libs/oversea/index.js"></script>
-    <script>
-        new CozeWebSDK.WebChatClient({
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.3/libs/oversea/index.js"></script>
+      <script>
+          new CozeWebSDK.WebChatClient({
             config: {
-                bot_id: '7346487317957263361',
+              bot_id: '7346487317957263361',
             },
             componentProps: {
                 title: 'E Shopper',
                 icon: 'https://files.catbox.moe/fuwjvx.png',
             },
-        });
-    </script>
+          });
+      </script>
     <script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
