@@ -1,4 +1,9 @@
 <div>
+<style>
+th, td {
+    white-space: nowrap;
+}
+    </style>
     <main class="main">
         <div class="container"
             style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
@@ -26,7 +31,7 @@
 
                             </div>
                             <div class="card-body">
-                            <div class="row ">
+                            <div class="row d-flex">
                                             <div class="col-md-4">
                                                 <div style="height: 50px;">
                                                     <select wire:model="filterPaymentStatus" class="form-select mb-3"
@@ -120,7 +125,7 @@
                                 </div>
                                 {{$orders->links('pagination::bootstrap-4')}}
                             </div>
-                            @livewireScripts
+
 
                         </div>
                     </div>

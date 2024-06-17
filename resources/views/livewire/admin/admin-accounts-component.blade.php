@@ -1,4 +1,9 @@
 <div>
+<style>
+th, td {
+    white-space: nowrap;
+}
+    </style>
     <main class="main">
         <div class="container"
             style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">

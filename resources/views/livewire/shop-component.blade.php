@@ -6,7 +6,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Mua sắm</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Trang chủ</a></p>
+                <p class="m-0"><a href="/">Trang chủ</a></p>
                 <p class="m-0 px-2">/</p>
                 <p class="m-0">Mua sắm</p>
             </div>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="ml-auto">
+                            <div class="ml-auto d-flex flex-wrap justify-content-end">
                                 <div class="dropdown d-inline-block mr-3">
                                     <button class="btn border dropdown-toggle" type="button" id="pageSizeDropdown"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -141,7 +141,7 @@
                     @foreach($products as $product)
                                         <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                                             <div class="card product-item border-0 mb-4">
-                                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0"
+                                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 d-flex justify-content-center "
                                                     style="height: 350px;">
                                                     <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
                                                         @php

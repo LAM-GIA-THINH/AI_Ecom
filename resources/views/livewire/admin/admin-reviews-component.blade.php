@@ -1,4 +1,9 @@
 <div>
+    <style>
+th, td {
+    white-space: nowrap;
+}
+    </style>
 <div>
     <main class="main">
     <div class="container" style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
@@ -43,10 +48,10 @@
                                             <tbody>
                                                 @foreach($reviews as $review)
                                                     <tr>
-                                                        <td>{{$review->product->name}}</td>
-                                                        <td>{{$review->user->name}}</td>
-                                                        <td>{{$review->user->phone}}</td>
-                                                        <td>{{$review->user->email}}</td>
+                                                        <td >{{$review->product->name}}</td>
+                                                        <td >{{$review->user->name}}</td>
+                                                        <td >{{$review->user->phone}}</td>
+                                                        <td >{{$review->user->email}}</td>
                                                         <td>{{$review->rating}}</td>                                        
                                                         <td>{{ Str::limit($review->comment, 15) }}</td>
                                                         <td>

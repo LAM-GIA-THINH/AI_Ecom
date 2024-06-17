@@ -62,26 +62,22 @@
 
                                         <div class="card-body">
                                         <div class="row">
-                                            <form id="form" wire:submit.prevent="handleSaveAvatar" wire:ignore>
-                                                <div class="form-group col-md-12">
-                                                    <div class="d-inline-flex flex-column gap-1 justify-content-center">
+                                            <form id="form" wire:submit.prevent="handleSaveAvatar" wire:ignore class="w-100">
+                                                <div class="form-group col-12">
+                                                    <div class="d-flex flex-column align-items-center gap-2">
                                                         <label for="labelAvatar">
                                                             <div id="avatar" class="rounded-circle img-thumbnail m-2"
                                                                 style="width: 150px; height: 150px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('assets/imgs/user.png')}}')">
                                                             </div>
                                                         </label>
-                                                        
-                                                        <input id="labelAvatar" onchange="displayImage(this)" wire:model="avatar" type="file"
-                                                            class="form-control d-none" name="profile_photo" accept="image/jpeg, image/png, image/gif">
-                                                            <div class="d-flex justify-content-center">
-                                                            <button type="submit" class="btn btn-primary px-3 " style="color:white; width: 100px;"
-                                                            name="submit" value="Submit">Lưu ảnh</button>
-                                                            </div>
-
+                                                        <input id="labelAvatar" onchange="displayImage(this)" wire:model="avatar" type="file" class="form-control d-none" name="profile_photo" accept="image/jpeg, image/png, image/gif">
+                                                        <div class="d-flex justify-content-center">
+                                                            <button type="submit" class="btn btn-primary px-3" style="color:white; width: 100px;" name="submit" value="Submit">Lưu ảnh</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </form>
-                                            <form method="post" action="{{route('profile.update')}}">
+                                            <form method="post" action="{{route('profile.update')}}" class="w-100">
                                                 @csrf
                                                 @method('patch')
                                                 <?php
@@ -90,99 +86,59 @@
                                                         $length = count($address);
                                                     }
                                                 ?>
-                                                
-                                                    
-                                                
-                                                    <div class="form-group col-md-12">
-                                                        <label>{{Auth::user()->utype === "SELLER" ? 'Tên cửa hàng' : 'Họ tên'}}<span class="required">*</span></label>
-                                                        <input required="" class="form-control square" name="name"
-                                                            type="text" value="{{Auth::user()->name}}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Email<span class="required">*</span></label>
-                                                        <input required="" class="form-control square"
-                                                            name="order_email" type="email"
-                                                            value="{{Auth::user()->email}}" disabled>
-                                                    </div>
-                                                    <div class="form-group col-md-12">
+                                                <div class="form-group col-12">
+                                                    <label>{{Auth::user()->utype === "SELLER" ? 'Tên cửa hàng' : 'Họ tên'}}<span class="required">*</span></label>
+                                                    <input required class="form-control square" name="name" type="text" value="{{Auth::user()->name}}">
+                                                </div>
+                                                <div class="form-group col-12">
+                                                    <label>Email<span class="required">*</span></label>
+                                                    <input required class="form-control square" name="order_email" type="email" value="{{Auth::user()->email}}" disabled>
+                                                </div>
+                                                <div class="form-group col-12">
                                                     <label>Địa chỉ<span class="required">*</span></label>
-                                                    </div>
-                                                    @if(Auth::user()->address)
-                                                    <div class="form-group col-md-12 d-flex gap-3" style="width: 700px;">
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="city" id="city" required aria-label=".form-select-sm">
-                                                            <option value="" selected disabled>Chọn tỉnh thành *
-                                                            </option>
-                                                            <option value="{{
-                                                                $address[$length-1]}}" selected>{{
-                                                                $address[$length-1]}}
-                                                            </option>
-                                                        </select>
-                                                        <div class="w-200"></div>
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="district" id="district" required
-                                                            aria-label=".form-select-sm">
-                                                            <option value="" disabled>Chọn tỉnh thành *</option>
-
-                                                            <option value="{{
-                                                                $address[$length-2]}}" selected>{{
-                                                                    $address[$length-2]}}
-                                                            </option>
-                                                        </select>
-                                                        <div class="w-200"></div>
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="ward" id="ward" required aria-label=".form-select-sm">
-                                                            <option value="" disabled>Chọn tỉnh thành *</option>
-
-                                                            <option value="{{
-                                                                $address[$length-3]}}" selected>{{
-                                                                    $address[$length-3]}}</option>
-                                                        </select>
-                                                    </div>
-                                                    @else
-                                                    <div class="form-group d-flex gap-3">
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="city" id="city" required aria-label=".form-select-sm">
-                                                            <option value="" selected disabled>Chọn tỉnh
-                                                                thành *
-                                                            </option>
-                                                        </select>
-
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="district" id="district" required
-                                                            aria-label=".form-select-sm">
-                                                            <option value="" selected disabled>Chọn quận
-                                                                huyện *
-                                                            </option>
-                                                        </select>
-
-                                                        <select class="form-control form-select form-select-sm"
-                                                            name="ward" id="ward" required aria-label=".form-select-sm">
-                                                            <option value="" selected disabled>Chọn phường xã
-                                                                *</option>
-                                                        </select>
-                                                    </div>
-                                                    @endif
-                                                    <div class="form-group col-md-12">
+                                                </div>
+                                                @if(Auth::user()->address)
+                                                <div class="form-group col-12 d-flex flex-wrap gap-3">
+                                                    <select class="form-control form-select form-select-sm mb-3" name="city" id="city" required aria-label=".form-select-sm">
+                                                        <option value="" selected disabled>Chọn tỉnh thành *</option>
+                                                        <option value="{{ $address[$length-1] }}" selected>{{ $address[$length-1] }}</option>
+                                                    </select>
+                                                    <select class="form-control form-select form-select-sm mb-3" name="district" id="district" required aria-label=".form-select-sm">
+                                                        <option value="" disabled>Chọn quận huyện *</option>
+                                                        <option value="{{ $address[$length-2] }}" selected>{{ $address[$length-2] }}</option>
+                                                    </select>
+                                                    <select class="form-control form-select form-select-sm mb-3" name="ward" id="ward" required aria-label=".form-select-sm">
+                                                        <option value="" disabled>Chọn phường xã *</option>
+                                                        <option value="{{ $address[$length-3] }}" selected>{{ $address[$length-3] }}</option>
+                                                    </select>
+                                                </div>
+                                                @else
+                                                <div class="form-group col-12 d-flex flex-wrap gap-3">
+                                                    <select class="form-control form-select form-select-sm mb-3" name="city" id="city" required aria-label=".form-select-sm">
+                                                        <option value="" selected disabled>Chọn tỉnh thành *</option>
+                                                    </select>
+                                                    <select class="form-control form-select form-select-sm mb-3" name="district" id="district" required aria-label=".form-select-sm">
+                                                        <option value="" selected disabled>Chọn quận huyện *</option>
+                                                    </select>
+                                                    <select class="form-control form-select form-select-sm mb-3" name="ward" id="ward" required aria-label=".form-select-sm">
+                                                        <option value="" selected disabled>Chọn phường xã *</option>
+                                                    </select>
+                                                </div>
+                                                @endif
+                                                <div class="form-group col-12">
                                                     <label>Số nhà <span class="required">*</span></label>
-                                                    <input class="form-control square" type="text" name="address" required
-                                                            placeholder="Số nhà, tên đường *"
-                                                            value="{{implode(',',array_slice(explode(',', Auth::user()->address), 0, -3))}}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Số điện thoại <span class="required">*</span></label>
-
-                                                        <input class="form-control square" required type="tel" name="phone" pattern="[0-9]{10,11}"
-                                                            placeholder="Số điện thoại *"
-                                                            value="{{Auth::user()->phone}}">
-                                                    </div>
-                                                    <div class="col-md-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary px-3" style="color:white;"
-                                                            name="submit" value="Submit">Lưu</button>
-                                                    </div>
+                                                    <input class="form-control square" type="text" name="address" required placeholder="Số nhà, tên đường *" value="{{ implode(',',array_slice(explode(',', Auth::user()->address), 0, -3)) }}">
+                                                </div>
+                                                <div class="form-group col-12">
+                                                    <label>Số điện thoại <span class="required">*</span></label>
+                                                    <input class="form-control square" required type="tel" name="phone" pattern="[0-9]{10,11}" placeholder="Số điện thoại *" value="{{ Auth::user()->phone }}">
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary px-3" style="color:white;" name="submit" value="Submit">Lưu</button>
                                                 </div>
                                             </form>
-                                        </div>
+                                        </div>                      
+
                                     </div>
                                     @if (Auth::user()->provider_id === NULL)
                                     <div class="card">

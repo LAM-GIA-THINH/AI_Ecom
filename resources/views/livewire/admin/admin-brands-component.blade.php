@@ -30,7 +30,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Ảnh</th>
-                                                    <th>Tên thương hiệu</th>
+                                                    <th style="white-space: nowrap;">Tên thương hiệu</th>
                                                     <th>Slug</th>
                                                     <th>Hành động</th>
                                                 </tr>
@@ -43,9 +43,11 @@
                                                         <td>{{$brand->name}}</td>
                                                         <td>{{$brand->slug}}</td>
                                                         <td>
-                                                        <a href="{{route('admin.brand.edit', ['brand_id'=>$brand->id])}}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                                        <div class="d-flex">  
+                                                        <a href="{{route('admin.brand.edit', ['brand_id'=>$brand->id])}}" class="btn btn-info btn-sm" style="white-space: nowrap;">Chỉnh sửa</a>
                                                         <a href="#" onclick="confirmDeleteBrand('{{ $brand->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   
                                                         </td>
+                                                        </div>
                                                     </tr>
                                                 @endforeach
                                                 

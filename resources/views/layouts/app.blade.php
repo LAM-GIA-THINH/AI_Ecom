@@ -118,7 +118,7 @@
                         <div class="rounded border px-1 py-0 d-flex align-items-center " style="background-color: #fff;">
                             <a class="nav-link" data-toggle="collapse" href="#navbar-vertical1" style="display: flex;">
                                 <div class="rounded-circle img-thumbnail mr-2"
-                                    style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset(Auth::user()->profile_photo_path) : asset('img/user.png')}}')">
+                                    style="width: 30px; height: 30px; overflow: hidden; background-size: cover; background-position: center; background-image: url('{{Auth::user()->profile_photo_path ? asset('img/products/avatars/' . Auth::user()->profile_photo_path) : asset('assets/imgs/user.png')}}')">
                                 </div>
                                 <div style="margin-top:3px;">
                                     {{ Auth::user()->name }}

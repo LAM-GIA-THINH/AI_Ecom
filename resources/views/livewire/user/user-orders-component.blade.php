@@ -35,8 +35,8 @@
                                                     <thead>
                                                         <tr class="text-center">
                                                             <th>Mã đơn</th>
-                                                            <th>Phương thức thanh toán</th>
-                                                            <th>Trạng thái đơn hàng</th>
+                                                            <th style="white-space: nowrap;">Phương thức thanh toán</th>
+                                                            <th style="white-space: nowrap;">Trạng thái đơn hàng</th>
                                                             <th>Tổng tiền</th>
                                                             <th>Ngày tạo</th>
                                                             <th></th>
@@ -70,7 +70,7 @@
                                                             <td>{{$order->created_at->timezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s')}}</td>
                                                             <td>
                                                                 <a href="{{route('user.order_detail', ['order_id' => $order->id])}}"
-                                                                    class="btn-small d-block">Xem chi tiết</a>
+                                                                    class="btn btn-primary btn-sm ml-2" style="white-space: nowrap; color:white">Xem chi tiết</a>
                                                             </td>
                                                         </tr>
                                                         @endforeach

@@ -1,4 +1,8 @@
-
+<style>
+th, td {
+    white-space: nowrap;
+}
+    </style>
     <main class="main">
     <div class="container" style="background-color: #f0f0f0; text-align: center; padding: 20px; margin-bottom: 20px">
     <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: black;">Quản lý sản phẩm</h2>

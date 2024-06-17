@@ -53,11 +53,13 @@
                                                 <td>{{$category->name}}</td>
                                                 <td>{{$category->slug}}</td>
                                                 <td>
+                                                <div class="d-flex">  
                                                     <a href="{{route('admin.category.edit', ['category_id' => $category->id])}}"
-                                                        class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                                        class="btn btn-info btn-sm" style="white-space: nowrap;">Chỉnh sửa</a>
                                                     <a href="#" class="btn btn-danger btn-sm ml-2"
                                                         onclick="confirmDeleteCategory('{{ $category->id }}')"
                                                         style="margin-left:20px;">Xoá</a>
+                                                        </div>
                                                 </td>
                                             </tr>
                                         @endforeach
