@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - AI Ecommerce</title>
+    <title>Think Mart - AI</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
-    <link href="{{ asset('img/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('img/theme/favicon.ico') }}" rel="icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -98,23 +98,23 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="/" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                            class="text-primary font-weight-bold border px-3 mr-1">Think</span>Mart</h1>
                 </a>
             </div>
             @livewire('search')
 
-            <div class="row header-action-2 align-items-center " style="margin-top:0px; margin-left:15px;">
+            <div class="row header-action-2 align-items-center " style="margin-top:0px; margin-left:auto; margin-right:15px;">
                 <a href="">
                     @livewire('wishlist-icon-component')
                 </a>
-                <a href="">
+                <a href="" >
                     @livewire('cart-icon-component')
                 </a>
 
 
                 @auth
 
-                    <div class="btn-group dropdown d-flex align-items-center">
+                    <div class="btn-group dropdown d-flex align-items-center" style="margin-left:15px">
                         <div class="rounded border px-1 py-0 d-flex align-items-center " style="background-color: #fff;">
                             <a class="nav-link" data-toggle="collapse" href="#navbar-vertical1" style="display: flex;">
                                 <div class="rounded-circle img-thumbnail mr-2"
@@ -179,10 +179,9 @@
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
                     <h1 class="mb-4 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                            class="text-primary font-weight-bold border border-white px-3 mr-1">Think</span>Mart</h1>
                 </a>
-                <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum
-                    dolore amet erat.</p>
+                <p>Chúng tôi cung cấp các sản phẩm công nghệ hàng đầu - tất cả đều được chọn lọc kỹ càng để phù hợp với mọi nhu cầu và phong cách sống.</p>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>21 Cao Thắng, Đà Nẵng, Việt Nam
                 </p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>2050531200340@sv.ute.udn.vn</p>
@@ -206,31 +205,18 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Trang
-                                chủ</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our
-                                Shop</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
-                                Detail</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping
-                                Cart</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i
-                                    class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact
-                                Us</a>
-                        </div>
+
+
                     </div>
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Nhận mail</h5>
                         <form action="">
                             <div class="form-group">
-                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name"
+                                <input type="text" class="form-control border-0 py-4" placeholder="Tên của bạn"
                                     required="required" />
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                <input type="email" class="form-control border-0 py-4" placeholder="Email"
                                     required="required" />
                             </div>
                             <div>
@@ -245,11 +231,8 @@
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
-                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved.
-                    Designed
-                    by
-                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
-                    Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Think Mart</a>.<br>
+                    Sản phẩm của <a href="" target="_blank">Lâm Gia Thịnh</a>
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
@@ -266,7 +249,7 @@
               bot_id: '7346487317957263361',
             },
             componentProps: {
-                title: 'E Shopper',
+                title: 'Think Mart',
                 icon: 'https://files.catbox.moe/fuwjvx.png',
             },
           });

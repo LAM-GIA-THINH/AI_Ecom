@@ -99,6 +99,12 @@
                                             </div>
                                             @endif
                                         </div>
+                                        <div class="row"> 
+                                            <div class="mb-3 mt-3 col-md-6">
+                                                <label for="shipper_note" class="form-label">Ghi chú của shipper</label>
+                                                <textarea type="text" name="shipper_note" class="form-control"  wire:model="shipper_note"  {{ auth()->user()->utype == 'SHIP' ? '' : 'disabled' }}></textarea>
+                                            </div> 
+                                        </div>   
                                         <div class="row">
 
                                         </div>

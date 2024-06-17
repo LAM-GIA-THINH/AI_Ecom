@@ -15,7 +15,7 @@ class AdminHomeSliderEditComponent extends Component
     public $sub_title;
     public $offer;
     public $link;
-    public $status;
+    public $type;
     public $image;
     public $slide_id;
     public $newimage;
@@ -27,7 +27,7 @@ class AdminHomeSliderEditComponent extends Component
         $this->sub_title = $slide->sub_title;
         $this->offer = $slide->offer;
         $this->link = $slide->link;
-        $this->status = $slide->status;
+        $this->type = $slide->type;
         $this->image = $slide->image;
         $this->slider_id = $slide->id;
     }
@@ -39,7 +39,7 @@ class AdminHomeSliderEditComponent extends Component
             'sub_title' => 'required',
             'offer' => 'required',
             'link' => 'required',
-            'status' => 'required',
+            'type' => 'required',
             'newimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
     
@@ -49,7 +49,7 @@ class AdminHomeSliderEditComponent extends Component
         $slide->sub_title = $this->sub_title;
         $slide->offer = $this->offer;
         $slide->link = $this->link;
-        $slide->status = $this->status;
+        $slide->type = $this->type;
     
         if ($this->newimage) {
             // Delete old image if exists

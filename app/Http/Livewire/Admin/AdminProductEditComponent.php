@@ -139,7 +139,10 @@ class AdminProductEditComponent extends Component
             }
             $product->category_id = $this->category_id;
             $product->save();
+            
             $this->emit('showupSuccessMessage');
+            $this->emit('refreshPage');
+            
 
     }
 

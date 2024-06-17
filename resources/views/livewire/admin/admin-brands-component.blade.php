@@ -25,7 +25,8 @@
                             </div>
                                 <div class="card-body"> 
                                 <div class="table-responsive"> <!-- Added class for responsiveness -->
-                                    <table class="table table-striped" style="border: 2px solid #ccc;">                                            <thead>
+                                    <table class="table table-striped" style="border: 2px solid #ccc;">
+                                            <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Ảnh</th>

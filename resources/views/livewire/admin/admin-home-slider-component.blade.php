@@ -41,7 +41,7 @@
                                                         <td>{{$slide->id}}</td>
                                                         <td><img src="{{ asset('img/products/slider/') }}/{{$slide->image}}" height="80px"></td>
                                                         <td>{{$slide->title}}</td>
-                                                        <td>{{$slide->status == 1 ? "Banner lớn" : "Banner nhỏ"}}</td>
+                                                        <td>{{$slide->type == 1 ? "Banner lớn" : "Banner nhỏ"}}</td>
                                                         <td>
                                                         <a href="{{route('admin.home.slider.edit', ['slide_id'=>$slide->id])}}" class="btn btn-info btn-sm">Chỉnh sửa</a>
                                                         <a href="#" onclick="confirmDeleteSlide('{{ $slide->id }}')" class="btn btn-danger btn-sm ml-2" style="margin-left:20px;">Xoá</a>   

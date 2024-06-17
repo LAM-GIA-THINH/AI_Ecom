@@ -68,12 +68,12 @@
                                     <div class="mb-3 mt-3">
                                         <label class="form-label">Loại</label>
                                         <select class="form-select mb-3"
-                                            wire:model="status">
+                                            wire:model="type">
                                             <option value="">Chọn loại</option>
                                             <option value="1">Banner lớn</option>
                                             <option value="0">Banner nhỏ</option>
                                         </select>
-                                        @error('status')
+                                        @error('type')
                                             <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>

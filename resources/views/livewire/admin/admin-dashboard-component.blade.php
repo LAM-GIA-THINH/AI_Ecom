@@ -255,7 +255,7 @@
                             data: {
                                 labels: data.popularProducts.map(p => p.name),
                                 datasets: [{
-                                    label: 'Quantity Sold',
+                                    label: 'Đã bán',
                                     data: data.popularProducts.map(p => p.total),
                                     backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4CAF50', '#E7E9ED']
                                 }]

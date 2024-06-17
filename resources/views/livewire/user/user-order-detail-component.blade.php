@@ -32,7 +32,7 @@
                             <div class="mb-20">
                                 @php
                                 $badgeClass = [
-                                '0' => 'bg-secondary', // Chờ duyệt
+                                '0' => 'bg-clone', // Chờ duyệt
                                 '1' => 'bg-success', // Đã duyệt
                                 '2' => 'bg-info', // Đang giao hàng
                                 '3' => 'bg-primary', // Hoàn thành
@@ -48,7 +48,7 @@
                                 ];
                                 @endphp
                                 <h4>Thông tin đơn hàng
-                                    <span class="badge {{$badgeClass[$order->order_status] ?? 'bg-secondary'}}" style="color:gold; font-family: Times New Roman;">
+                                    <span class="badge {{$badgeClass[$order->order_status] ?? 'bg-secondary'}}" style="color:white; font-family: Times New Roman;">
                                         {{$orderStatuses[$order->order_status] ?? 'Chờ duyệt'}}
                                     </span>
                                 </h4>
@@ -147,7 +147,7 @@
             </div>
         </section>
     </main>
-</div>
+
 
 <script>
     function confirmCancel() {
@@ -160,3 +160,4 @@
         }
     }
 </script>
+</div>

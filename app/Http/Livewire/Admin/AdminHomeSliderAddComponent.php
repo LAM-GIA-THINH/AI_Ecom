@@ -14,7 +14,7 @@ class AdminHomeSliderAddComponent extends Component
     public $sub_title;
     public $offer;
     public $link;
-    public $status;
+    public $type;
     public $image;
     public function addSlide()
     {
@@ -25,7 +25,7 @@ class AdminHomeSliderAddComponent extends Component
             'offer' => 'required',
             'link' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'status' => 'required'
+            'type' => 'required'
         ]);
 
         $slide = new HomeSlider();
@@ -34,7 +34,7 @@ class AdminHomeSliderAddComponent extends Component
         $slide->sub_title = $this->sub_title;
         $slide->offer = $this->offer;
         $slide->link = $this->link;
-        $slide->status = $this->status;
+        $slide->type = $this->type;
         $imageName=Carbon::now()->timestamp.'.'.$this->image->extension();
         $this->image->storeAs('slider', $imageName);
         $slide->image = $imageName;

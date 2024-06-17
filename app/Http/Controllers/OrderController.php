@@ -48,19 +48,20 @@ class OrderController extends Controller
                 $vnp_TmnCode = env('VNP_TMN_CODE');
                 $vnp_HashSecret = env('VNP_HASH_SECRET');
                 $ipaddr = $_SERVER['REMOTE_ADDR'];
-                $inputData = array(
+                $inputData = [
+                    
                     "vnp_Version" => '2.1.0',
-                    "vnp_TransactionType" => "02", // Hoàn tiền toàn phần
-                    "vnp_Command" => "refund",
-                    "vnp_CreateBy" => $order["email"],
+                    "vnp_Command" => 'refund',
                     "vnp_TmnCode" => $vnp_TmnCode,
                     "vnp_TxnRef" => $vnp["vnp_TxnRef"],
                     "vnp_Amount" => $vnp["vnp_Amount"],
                     "vnp_OrderInfo" => $vnp["vnp_OrderInfo"],
                     "vnp_TransDate" => $vnp["vnp_PayDate"],
+                    "vnp_CreateBy" => $order["email"],
                     "vnp_CreateDate" => date('YmdHis'),
-                    "vnp_IpAddr" => $ipaddr
-                );
+                    "vnp_IpAddr" => $ipaddr,
+                    "vnp_TransactionType" => '02'
+                ];
                 ksort($inputData);
                 $query = "";
                 $i = 0;
@@ -82,6 +83,7 @@ class OrderController extends Controller
                 }
 
                 $response = Http::get($vnp_apiUrl);
+                dd($vnp_apiUrl);
                 if ($response->successful()) {
                     $content = $response->body();
                     parse_str($content, $queryArray);
@@ -89,11 +91,11 @@ class OrderController extends Controller
                         $vnp_message = "Vui lòng chờ từ 1 đến 7 ngày để được xử lý hoàn tiền";
                     } else {
                         $vnp_message = "Đã xảy ra lỗi khi gửi yêu cầu hoàn tiền, vui lòng liên hệ CSKH để được hỗ trợ";
-                        return redirect(route('order.detail.view', ['order_id' => $order_id]))->with('error', $vnp_message);
+                        return redirect(route('user.order_detail', ['order_id' => $order_id]))->with('error', $vnp_message);
                     }
                 } else {
                     // Xử lý trường hợp không thành công khi gọi API
-                    return redirect(route('order.detail.view', ['order_id' => $order_id]))->with('error', 'Đã xảy ra lỗi khi gửi yêu cầu hoàn tiền. Vui lòng thử lại sau');
+                    return redirect(route('user.order_detail', ['order_id' => $order_id]))->with('error', 'Đã xảy ra lỗi khi gửi yêu cầu hoàn tiền. Vui lòng thử lại sau');
                 }
             }
             $orderItems = Order_Item::where('order_id', $order_id)->get();

@@ -12,10 +12,10 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-
+	<link href="{{ asset('img/theme/favicon.ico') }}" rel="icon">
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-	<title>Trang Quản lý - AI Ecom</title>
+	<title>Trang Quản lý - Think Mart</title>
 
 	<link href="{{ asset('css/app3.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/bootstrap.min2.css') }}" rel="stylesheet">
@@ -137,13 +137,13 @@
 							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
 								<div class="position-relative">
 									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
+									<span class="indicator">1</span>
 								</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
 								aria-labelledby="alertsDropdown">
 								<div class="dropdown-menu-header">
-									4 New Notifications
+									4 Thông báo
 								</div>
 								<div class="list-group">
 									<a href="#" class="list-group-item">
@@ -152,53 +152,17 @@
 												<i class="text-danger" data-feather="alert-circle"></i>
 											</div>
 											<div class="col-10">
-												<div class="text-dark">Update completed</div>
-												<div class="text-muted small mt-1">Restart server 12 to complete the
+												<div class="text-dark">Thông báo</div>
+												<div class="text-muted small mt-1">Nội dung
 													update.</div>
-												<div class="text-muted small mt-1">30m ago</div>
+												<div class="text-muted small mt-1">từ -- phút trước</div>
 											</div>
 										</div>
 									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Lorem ipsum</div>
-												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-													hendrerit et.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Login from 192.186.1.8</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">New connection</div>
-												<div class="text-muted small mt-1">Christina accepted your request.
-												</div>
-												<div class="text-muted small mt-1">14h ago</div>
-											</div>
-										</div>
-									</a>
+									
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
+									<a href="#" class="text-muted">Xem tất cả</a>
 								</div>
 							</div>
 						</li>
@@ -213,7 +177,7 @@
 								aria-labelledby="messagesDropdown">
 								<div class="dropdown-menu-header">
 									<div class="position-relative">
-										4 New Messages
+										4 Thông báo
 									</div>
 								</div>
 								<div class="list-group">
@@ -224,58 +188,17 @@
 													alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
-												<div class="text-dark">Vanessa Tucker</div>
-												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
+												<div class="text-dark">Thông báo</div>
+												<div class="text-muted small mt-1">Nội dung
 													tortor.</div>
-												<div class="text-muted small mt-1">15m ago</div>
+												<div class="text-muted small mt-1">Từ -- phút trước</div>
 											</div>
 										</div>
 									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle"
-													alt="William Harris">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">William Harris</div>
-												<div class="text-muted small mt-1">Curabitur ligula sapien euismod
-													vitae.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle"
-													alt="Christina Mason">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Christina Mason</div>
-												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.
-												</div>
-												<div class="text-muted small mt-1">4h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle"
-													alt="Sharon Lessman">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Sharon Lessman</div>
-												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-													posuere ac, mattis non.</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
+									
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
+									<a href="#" class="text-muted">Xem tất cả</a>
 								</div>
 							</div>
 						</li>
@@ -341,8 +264,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AI
-										Ecom</strong></a> &copy;
+								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Think Mart</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">
@@ -578,7 +500,7 @@
 				icon: 'success',
 				title: 'Đã cập nhật thành công!',
 				showConfirmButton: false,
-				timer: 1500
+				timer: 2000
 			});
 		});
 		Livewire.on('showaddSuccessMessage', () => {
@@ -587,9 +509,14 @@
 				icon: 'success',
 				title: 'Đã thêm thành công!',
 				showConfirmButton: false,
-				timer: 1500
+				timer: 2000
 			});
 		});
+		Livewire.on('refreshPage',  ()  => {
+			setTimeout(() => {
+				location.reload();
+			}, 2000);
+            });
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>

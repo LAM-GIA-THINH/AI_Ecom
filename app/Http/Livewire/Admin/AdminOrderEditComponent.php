@@ -30,7 +30,7 @@ class AdminOrderEditComponent extends Component
     public $shipping;
     public $amount;
     public $note;
-    public $tracking;
+    public $shipper_note;
     public $orderItemsWithProducts;
     protected $listeners = ['selectedUserChanged'];
     public function mount($order_id)
@@ -50,7 +50,7 @@ class AdminOrderEditComponent extends Component
         $this->shipping = number_format($order->shipping, 0, ',', ',') . ' VND';
         $this->amount = number_format($order->amount, 0, ',', ',') . ' VND';
         $this->note = $order->note;
-        $this->tracking = $order->tracking;
+        $this->shipper_note = $order->shipper_note;
         $this->orderItemsWithProducts = $order->orderItems()->with(['product' => function ($query) {
             $query->withTrashed(); 
         }])->get();
@@ -63,7 +63,7 @@ class AdminOrderEditComponent extends Component
         $order = Order::find($this->order_id);
         $previousStatus = $order->order_status;
         $order->order_status = $this->order_status;
-        $order->tracking = $this->tracking;
+        $order->shipper_note = $this->shipper_note;
         $order->shipper_id =$this->shipper_id;
 
         if ($order->payment_method == 'vnp'  && $order->order_status === '4' && $order->payment_status !== '3') {
@@ -72,9 +72,11 @@ class AdminOrderEditComponent extends Component
                 $vnp_TmnCode = env('VNP_TMN_CODE');
                 $vnp_HashSecret = env('VNP_HASH_SECRET');
                 $ipaddr = $_SERVER['REMOTE_ADDR'];
+
                 $inputData = array(
+                    
                     "vnp_Version" => '2.1.0',
-                    "vnp_TransactionType" => "02", // Hoàn tiền toàn phần
+                    "vnp_TransactionType" => '02', // Hoàn tiền toàn phần
                     "vnp_Command" => "refund",
                     "vnp_CreateBy" => $order["email"],
                     "vnp_TmnCode" => $vnp_TmnCode,

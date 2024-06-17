@@ -31,7 +31,7 @@
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                            class="text-primary font-weight-bold border px-3 mr-1">Think</span>Mart</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -56,7 +56,7 @@
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($slides as $index => $slide)
-                    @if($slide->status === 1)
+                    @if($slide->type === 1)
                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" style="height: 410px;">
                             <a href="{{ $slide->link }}" class="cat-img position-relative overflow-hidden mb-3">
                                 <img class="img-fluid" src="{{ asset('img/products/slider/' . $slide->image) }}"
@@ -141,8 +141,8 @@
     <div class="container-fluid offer pt-5">
         <div class="row px-xl-5">
         @foreach($slides as $slide)
-        @if($slide->status === 0)
-            <div class="col-md-6 pb-4 {{ $slide->status == 0 ? 'active' : '' }}">
+        @if($slide->type === 0)
+            <div class="col-md-6 pb-4 {{ $slide->type == 0 ? 'active' : '' }}">
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
                     <img src="{{ asset('img/products/slider/' . $slide->image) }}" alt="">
                     <div class="position-relative" style="z-index: 1;">
@@ -168,13 +168,14 @@
             @foreach($bestSellProducts as $bproduct)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
-                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 d-flex justify-content-center " style="height: 350px; ">
                                     <a href="{{route('product.details', ['slug' => $bproduct->slug])}}">
                                         @php
                                             $images = explode(',', $bproduct->image);
                                             $firstImage = $images[0];
                                         @endphp
-                                        <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}"
+                                        <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }} "
+                                        style="height: 100%; object-fit: contain;"
                                             alt="">
                                     </a>
                                 </div>
@@ -230,12 +231,11 @@
                 <div class="text-center mb-2 pb-2">
                     <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Cập nhật thông tin mới</span>
                     </h2>
-                    <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod
-                        duo labore labore.</p>
+                    <p>Đăng ký ngay để nhận thông tin sớm nhất về sản phẩm và các ưu đãi mới.</p>
                 </div>
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <input type="text" class="form-control border-white p-4" placeholder="Nhập Email">
                         <div class="input-group-append">
                             <button class="btn btn-primary px-4">Đăng ký</button>
                         </div>
@@ -256,14 +256,15 @@
             @foreach($newProducts as $product)
                         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="card product-item border-0 mb-4">
-                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 d-flex justify-content-center " style="height: 350px; ">
                                     <a href="{{route('product.details', ['slug' => $product->slug])}}">
                                         @php
                                             $images = explode(',', $product->image);
                                             $firstImage = $images[0];
                                         @endphp
-                                        <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}"
-                                            alt="">
+                                        <img class="img-fluid " src="{{ asset('img/products/products/' . $firstImage) }}"
+                                        style="height: 100%; object-fit: contain;"
+                                            alt="" style="height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -315,27 +316,13 @@
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
-                    <div class="vendor-item border p-4">
-                        <img src="img/apple.png" alt="">
+                    @foreach ($brands as $brand)
+                    <div class="vendor-item border p-4" style="width=100px; height:200px">
+                        <img src="{{ asset('img/products/brand/' . $brand->image) }}" alt="{{$brand->name}}" style="height: 100%; object-fit: contain;">
                     </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/samsung.png" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/xiaomi.png" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/oppo.png" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/lenovo.png" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/dell.png" alt="">
-                    </div>
-                    <div class="vendor-item border p-4">
-                        <img src="img/sony.png" alt="">
-                    </div>
+                    @endforeach
+
+
                 </div>
             </div>
         </div>

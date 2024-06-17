@@ -160,8 +160,9 @@
                                                             $images = explode(',', $product->image);
                                                             $firstImage = $images[0];
                                                         @endphp
-                                                        <img class="img-fluid w-100"
-                                                            src="{{ asset('img/products/products/' . $firstImage) }}" alt="">
+                                                        <img class="img-fluid "
+                                                            src="{{ asset('img/products/products/' . $firstImage) }}" alt=""
+                                                            style="height: 100%; object-fit: contain;">
                                                     </a>
                                                 </div>
                                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">

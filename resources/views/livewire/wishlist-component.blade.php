@@ -20,17 +20,19 @@
         </div>
     </div>
     @if(Auth::user()->wishes->count() > 0)
+    <div class="row">
                     @foreach($wishes as $item )
+                    
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div
-                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 350px; ">
+                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0  d-flex justify-content-center " style="height: 350px; ">
                                 <a href="{{route('product.details',['slug'=>$item->product->slug])}}">
                                 @php
                                     $images = explode(',', $item->product->image);
                                     $firstImage = $images[0];
                                 @endphp 
-                                <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}" alt="" >
+                                <img class="img-fluid " src="{{ asset('img/products/products/' . $firstImage) }}" alt="" style="height: 100%; object-fit: contain;">
                                 </a>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -48,6 +50,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     @endforeach
                     {{$wishes->links('pagination::bootstrap-4')}}
                     @else
@@ -55,4 +58,5 @@
                             Bạn không có sản phẩm yêu thích!
                         </div>
                     @endif
+                    </div>
 </div>

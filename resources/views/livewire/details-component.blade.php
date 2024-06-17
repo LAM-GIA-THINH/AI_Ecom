@@ -27,7 +27,7 @@
 <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.css" rel="stylesheet">
-    @livewireStyles
+
     @php
         $averageRating = 0;
         $totalRatings = 0;
@@ -56,25 +56,28 @@
     @else
         <div class="container-fluid py-5">
             <div class="row px-xl-5">
-                <div class="col-lg-5 pb-5" style="min-width: 600px;">
-                    <div id="lightgallery" class="carousel slide" data-ride="carousel"> 
-                        <div class="carousel-inner border">
-                            @php
-                                $images = explode(',', $product->image);
-                            @endphp
-                            @foreach($images as $index => $image)
-                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore>
-                                    <a href="{{ asset('img/products/products/' . $image) }}" data-lg-size="1600-1068"> <img src="{{ asset('img/products/products/' . $image) }}" alt="Image" class="d-block mx-auto" style="height: 500px;"> </a>
-                                </div>
-                            @endforeach
-                        </div>
-                        <a class="carousel-control-prev" href="#lightgallery" data-slide="prev">
-                            <i class="fa fa-2x fa-angle-left text-dark"></i>
-                        </a>
-                        <a class="carousel-control-next" href="#lightgallery" data-slide="next">
-                            <i class="fa fa-2x fa-angle-right text-dark"></i>
-                        </a>
-                    </div> 
+                <div class="col-lg-5 pb-5" style="min-width: 600px; ">
+                <div id="lightgallery" class="carousel slide" data-ride="carousel" style="width: 600px; height: 500px; overflow: hidden; position: relative;"> 
+    <div class="carousel-inner border" style="width: 100%; height: 100%; position: relative;">
+        @php
+            $images = explode(',', $product->image);
+        @endphp
+        @foreach($images as $index => $image)
+        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" wire:ignore style="width: 100%; height: 100%; position: absolute;">
+            <a href="{{ asset('img/products/products/' . $image) }}" data-lg-size="1600-1068" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"> 
+                <img src="{{ asset('img/products/products/' . $image) }}" alt="Image" style="max-width: 100%; max-height: 100%; object-fit: contain;"> 
+            </a>
+        </div>
+        @endforeach
+    </div>
+    <a class="carousel-control-prev" href="#lightgallery" data-slide="prev">
+        <i class="fa fa-2x fa-angle-left text-dark"></i>
+    </a>
+    <a class="carousel-control-next" href="#lightgallery" data-slide="next">
+        <i class="fa fa-2x fa-angle-right text-dark"></i>
+    </a>
+</div>
+
                 </div>
 
 
@@ -119,10 +122,10 @@
                     </div>
 
                         <p style="font-size:17px">Thương hiệu: <span class="text-brand"
-                                style="color:#D19C97 ; font-weight: bold;text-decoration: underline;">{{ $product->brand->name }}</span>
+                                style="color:#67a0f7 ; font-weight: bold;">{{ $product->brand->name }}</span>
                         </p>
 
-                    <p style="font-size:17px;">Danh mục: <span class="text-brand" style="color:#D19C97 ; font-weight: bold;text-decoration: underline;">{{ $product->category->name }}</span></p>
+                    <p style="font-size:17px;">Danh mục: <span class="text-brand" style="color:#67a0f7 ; font-weight: bold;">{{ $product->category->name }}</span></p>
                     <p style="font-size:17px">Đã bán: <span class="text-brand">{{ $product->quantity_sold }}</span></p>
                     <div class="d-flex mb-4">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Mẫu khác:</p>
@@ -218,44 +221,32 @@
                         </div>
                     </div>
                         <div class="tab-pane fade" id="tab-pane-2" wire:ignore>
-                            <h4 class="mb-3">Additional Information</h4>
-                            <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
-                                invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
-                                consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam.
-                                Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos
-                                dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod
-                                nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt
-                                tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                            <h4 class="mb-3">Thông tin vận chuyển</h4>
+                            <p>Giá thành và thời gian vận chuyển .</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0">
-                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                            Nội thành
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                            Giá vận chuyển: 10-15k.
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                            Thời gian giao: 1-2 ngày.
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item px-0">
-                                            Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                            Ngoại thành
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                            Giá vận chuyển: 20-35k.
                                         </li>
                                         <li class="list-group-item px-0">
-                                            Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                        </li>
-                                        <li class="list-group-item px-0">
-                                            Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                            Thời gian giao: 3-5 ngày.
                                         </li>
                                     </ul>
                                 </div>
@@ -398,13 +389,13 @@
                     <div class="owl-carousel related-carousel" wire:ignore>
                         @foreach($rproducts as $rproduct)
                         <div class="card product-item border-0">
-                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 350px; ">
                                 <a href="{{ route('product.details', ['slug' => $rproduct->slug]) }}">
                                     @php
                                         $images = explode(',', $rproduct->image);
                                         $firstImage = $images[0];
                                     @endphp
-                                    <img class="img-fluid w-100" src="{{ asset('img/products/products/' . $firstImage) }}" alt="">
+                                    <img class="img-fluid " src="{{ asset('img/products/products/' . $firstImage) }}" alt="">
                                 </a>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -434,7 +425,7 @@
     @endif
 
 
-@push('scripts')
+
 
 
 
@@ -549,5 +540,5 @@
                 exThumbImage: 'data-exThumbImage' 
             });
 </script>
-@endpush
+
 </div>

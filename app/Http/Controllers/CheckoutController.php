@@ -189,7 +189,7 @@ class CheckoutController extends Controller
                 $vnp_HashSecret = env('VNP_HASH_SECRET');
 
                 $vnp_TxnRef = $orderId;
-                $vnp_OrderInfo = 'Payment order on Bookstore';
+                $vnp_OrderInfo = 'Thanh toan Think Mart';
                 $vnp_OrderType = 'billpayment';
                 $vnp_Amount = $amount * 100;
                 $vnp_Locale = 'vn';
